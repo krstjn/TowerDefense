@@ -124,6 +124,8 @@ function renderSimulation(ctx) {
     entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
+
+    eatKey(Ship.prototype.KEY_FIRE)
 }
 
 
@@ -156,7 +158,6 @@ function preloadDone() {
     g_sprites.bullet.scale = 0.25;
 
     entityManager.init();
-    createInitialShips();
 
     main.init();
 }
