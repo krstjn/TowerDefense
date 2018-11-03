@@ -17,7 +17,7 @@ with suitable 'data' and 'methods'.
 
 
 // Tell jslint not to complain about my use of underscore prefixes (nomen),
-// my flattening of some indentation (white), or my use of incr/decr ops 
+// my flattening of some indentation (white), or my use of incr/decr ops
 // (plusplus).
 //
 /*jslint nomen: true, white: true, plusplus: true*/
@@ -26,12 +26,13 @@ with suitable 'data' and 'methods'.
 var entityManager = {
 
 // "PRIVATE" DATA
-
 _rocks   : [],
 _bullets : [],
 _ships   : [],
+_enemies : [],
 
-_bShowRocks : true,
+
+_bShowRocks : false,
 
 // "PRIVATE" METHODS
 
@@ -44,6 +45,10 @@ _generateRocks : function() {
     }
 },
 
+_generateEnemies : function() {
+  this.generateEnemy();
+},
+
 _findNearestShip : function(posX, posY) {
     var closestShip = null,
         closestIndex = -1,
@@ -54,7 +59,7 @@ _findNearestShip : function(posX, posY) {
         var thisShip = this._ships[i];
         var shipPos = thisShip.getPos();
         var distSq = util.wrappedDistSq(
-            shipPos.posX, shipPos.posY, 
+            shipPos.posX, shipPos.posY,
             posX, posY,
             g_canvas.width, g_canvas.height);
 
@@ -87,11 +92,12 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._rocks, this._bullets, this._ships];
+    this._categories = [this._rocks, this._bullets, this._ships, this._enemies];
 },
 
 init: function() {
     this._generateRocks();
+    this._generateEnemies();
     //this._generateShip();
 },
 
@@ -108,6 +114,10 @@ fireBullet: function(cx, cy, velX, velY, rotation) {
 
 generateRock : function(descr) {
     this._rocks.push(new Rock(descr));
+},
+
+generateEnemy : function(descr) {
+    this._enemies.push(new Enemy(descr));
 },
 
 generateShip : function(descr) {
@@ -134,7 +144,7 @@ resetShips: function() {
 
 haltShips: function() {
     this._forEachOf(this._ships, Ship.prototype.halt);
-},	
+},
 
 toggleRocks: function() {
     this._bShowRocks = !this._bShowRocks;
@@ -161,7 +171,7 @@ update: function(du) {
             }
         }
     }
-    
+
     if (this._rocks.length === 0) this._generateRocks();
 
 },
@@ -174,7 +184,7 @@ render: function(ctx) {
 
         var aCategory = this._categories[c];
 
-        if (!this._bShowRocks && 
+        if (!this._bShowRocks &&
             aCategory == this._rocks)
             continue;
 
@@ -192,4 +202,3 @@ render: function(ctx) {
 
 // Some deferred setup which needs the object to have been created first
 entityManager.deferredSetup();
-
