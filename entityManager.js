@@ -30,6 +30,7 @@ _rocks   : [],
 _bullets : [],
 _ships   : [],
 _enemies : [],
+_towers :  [],
 
 
 _bShowRocks : false,
@@ -37,12 +38,7 @@ _bShowRocks : false,
 // "PRIVATE" METHODS
 
 _generateRocks : function() {
-    var i,
-        NUM_ROCKS = 4;
-
-    for (i = 0; i < NUM_ROCKS; ++i) {
-        this.generateRock();
-    }
+    
 },
 
 _generateEnemies : function() {
@@ -92,7 +88,7 @@ KILL_ME_NOW : -1,
 // i.e. thing which need `this` to be defined.
 //
 deferredSetup : function () {
-    this._categories = [this._rocks, this._bullets, this._ships, this._enemies];
+    this._categories = [this._rocks, this._bullets, this._ships, this._enemies, this._towers];
 },
 
 init: function() {
@@ -124,17 +120,17 @@ generateShip : function(descr) {
     this._ships.push(new Ship(descr));
 },
 
+createNewTower : function(xPos, yPos) {
+  this._towers.push(new Tower({
+    cx : xPos,
+    cy : yPos
+  }));
+},
+
 killNearestShip : function(xPos, yPos) {
     var theShip = this._findNearestShip(xPos, yPos).theShip;
     if (theShip) {
         theShip.kill();
-    }
-},
-
-yoinkNearestShip : function(xPos, yPos) {
-    var theShip = this._findNearestShip(xPos, yPos).theShip;
-    if (theShip) {
-        theShip.setPos(xPos, yPos);
     }
 },
 

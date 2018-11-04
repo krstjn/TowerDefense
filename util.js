@@ -53,6 +53,13 @@ square: function(x) {
     return x*x;
 },
 
+getRotation: function(origX, origY, x, y) {
+    var m = origY-y;
+    var a = origX-x;
+    var atan = Math.atan(m/a);
+    return atan;
+},
+
 
 // DISTANCES
 // =========
