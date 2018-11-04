@@ -41,9 +41,9 @@ function gatherInputs() {
 // GAME-SPECIFIC UPDATE LOGIC
 
 function updateSimulation(du) {
-    
+
     processDiagnostics();
-    
+
     entityManager.update(du);
 
 }
@@ -90,13 +90,13 @@ function processDiagnostics() {
     if (eatKey(KEY_1)) entityManager.generateShip({
         cx : g_mouseX,
         cy : g_mouseY,
-        
+
         sprite : g_sprites.ship});
 
     if (eatKey(KEY_2)) entityManager.generateShip({
         cx : g_mouseX,
         cy : g_mouseY,
-        
+
         sprite : g_sprites.ship2
         });
 
@@ -121,6 +121,8 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
+    util.renderBackground(ctx);
+    util.renderTown(ctx);
     entityManager.render(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
@@ -140,7 +142,10 @@ function requestPreloads() {
     var requiredImages = {
         ship   : "https://notendur.hi.is/~pk/308G/images/ship.png",
         ship2  : "https://notendur.hi.is/~pk/308G/images/ship_2.png",
-        rock   : "https://notendur.hi.is/~pk/308G/images/rock.png"
+        rock   : "https://notendur.hi.is/~pk/308G/images/rock.png",
+        background : "images/background.png",
+        town : "images/town.png",
+        enemy1 : "images/enemy1.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -153,6 +158,7 @@ function preloadDone() {
     g_sprites.ship  = new Sprite(g_images.ship);
     g_sprites.ship2 = new Sprite(g_images.ship2);
     g_sprites.rock  = new Sprite(g_images.rock);
+    g_sprites.enemy1 = new Sprite(g_images.enemy1);
 
     g_sprites.bullet = new Sprite(g_images.ship);
     g_sprites.bullet.scale = 0.25;

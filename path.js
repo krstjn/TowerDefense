@@ -28,15 +28,13 @@ function Node(x,y) {
 // Búa til path fyrir lvl 1
 function generatePath1() {
   var p = [];
-  p.push(new Node(20, 0));
-  p.push(new Node(20, 50));
-  p.push(new Node(200, 50));
-  p.push(new Node(200, 200));
-  p.push(new Node(50, 200));
-  p.push(new Node(50, 500));
-  p.push(new Node(500, 500));
-  p.push(new Node(500, 250));
-  p.push(new Node(g_canvas.widht, 250));
+  p.push(new Node(120, 0));
+  p.push(new Node(120, 480));
+  p.push(new Node(680, 480));
+  p.push(new Node(680, 120));
+  p.push(new Node(320, 120));
+  p.push(new Node(320, 320));
+  p.push(new Node(480, 320));
   return p;
 }
 

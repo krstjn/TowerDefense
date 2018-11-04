@@ -77,6 +77,16 @@ wrappedDistSq: function(x1, y1, x2, y2, xWrap, yWrap) {
 // CANVAS OPS
 // ==========
 
+// draws the background
+renderBackground : function (ctx) {
+  ctx.drawImage(g_images.background, 0, 0, g_canvas.width, g_canvas.height);
+},
+
+// draws the town
+renderTown : function (ctx) {
+  ctx.drawImage(g_images.town, 435, 230, 140, 140);
+},
+
 clearCanvas: function (ctx) {
     var prevfillStyle = ctx.fillStyle;
     ctx.fillStyle = "black";
