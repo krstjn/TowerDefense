@@ -74,6 +74,13 @@ Entity.prototype.findHitEntity = function () {
     );
 };
 
+Entity.prototype.findHitEnemy = function () {
+    var pos = this.getPos();
+    return spatialManager.findEnemyInRange(
+        pos.posX, pos.posY, this.fireRangeRadius
+    );
+};
+
 // This is just little "convenience wrapper"
 Entity.prototype.isColliding = function () {
     return this.findHitEntity();

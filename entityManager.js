@@ -38,10 +38,15 @@ _bShowRocks : false,
 // "PRIVATE" METHODS
 
 _generateRocks : function() {
-    
+
 },
 
+// Býr til 5 óvini á sama stað í upphafi, lætur hann virðast vera með 5 hp.
 _generateEnemies : function() {
+  this.generateEnemy();
+  this.generateEnemy();
+  this.generateEnemy();
+  this.generateEnemy();
   this.generateEnemy();
 },
 

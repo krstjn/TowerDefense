@@ -41,10 +41,10 @@ register: function(entity) {
     var pos = entity.getPos();
     var rad = entity.getRadius();
     var spatialID = entity.getSpatialID();
-    this._entities[spatialID] = { 
-        entity, 
-        posX: pos.posX, 
-        posY: pos.posY, 
+    this._entities[spatialID] = {
+        entity,
+        posX: pos.posX,
+        posY: pos.posY,
         radius: rad
     };
 
@@ -69,17 +69,33 @@ findEntityInRange: function(posX, posY, radius) {
 
         // Calculate the distance that would make them overlap
         var hitDistSq = util.square(radius + e.radius);
-        
+
         if(wrappedDistSq < hitDistSq){
             return e.entity;
-        } 
+        }
+    }
+},
+
+findEnemyInRange: function(posX, posY, radius) {
+
+    for (var i=0; i<entityManager._enemies.length; i++)  {
+        var e = entityManager._enemies[i];
+        // Calculate the distance between entities and posX and posY
+        var distSq = util.distSq(posX, posY, e.cx, e.cy);
+
+        // Calculate the distance that would make them overlap
+        var hitDistSq = util.square(radius + e.getRadius());
+
+        if(distSq < hitDistSq){
+            return e;
+        }
     }
 },
 
 render: function(ctx) {
     var oldStyle = ctx.strokeStyle;
     ctx.strokeStyle = "red";
-    
+
     for (var ID in this._entities) {
         var e = this._entities[ID];
         util.strokeCircle(ctx, e.posX, e.posY, e.radius);

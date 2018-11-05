@@ -55,8 +55,9 @@ square: function(x) {
 
 getRotation: function(origX, origY, x, y) {
     var m = origY-y;
-    var a = origX-x;
-    var atan = Math.atan(m/a);
+    var a = origX-x+0.001; // 0.001 is so that we don't devide with zero
+    var atan = Math.atan(m/a)-Math.PI/2;
+    if (a<=0) {atan += Math.PI};
     return atan;
 },
 
