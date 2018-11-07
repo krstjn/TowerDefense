@@ -43,11 +43,10 @@ _generateRocks : function() {
 
 // Býr til 5 óvini á sama stað í upphafi, lætur hann virðast vera með 5 hp.
 _generateEnemies : function() {
-  this.generateEnemy();
-  this.generateEnemy();
-  this.generateEnemy();
-  this.generateEnemy();
-  this.generateEnemy();
+  this.generateEnemy({hp: 5, delay: 0   });
+  this.generateEnemy({hp: 5, delay: 80  });
+  this.generateEnemy({hp: 5, delay: 160 });
+  this.generateEnemy({hp: 5, delay: 240 });
 },
 
 _findNearestShip : function(posX, posY) {
@@ -102,14 +101,15 @@ init: function() {
     //this._generateShip();
 },
 
-fireBullet: function(cx, cy, velX, velY, rotation) {
+fireBullet: function(cx, cy, velX, velY, rotation, damage) {
     this._bullets.push(new Bullet({
         cx   : cx,
         cy   : cy,
         velX : velX,
         velY : velY,
 
-        rotation : rotation
+        rotation : rotation,
+        damage: damage
     }));
 },
 
@@ -133,7 +133,7 @@ createNewTower : function(xPos, yPos) {
 },
 
 killNearestShip : function(xPos, yPos) {
-    var theShip = this._findNearestShip(xPos, yPos).theShip;
+    var { theShip } = this._findNearestShip(xPos, yPos);
     if (theShip) {
         theShip.kill();
     }
@@ -160,7 +160,9 @@ update: function(du) {
 
         while (i < aCategory.length) {
 
-            var status = aCategory[i].update(du);
+            if(aCategory[i].delay == 0 || aCategory[i].delay === undefined)
+                var status = aCategory[i].update(du);
+            else aCategory[i].delay = aCategory[i].delay - 1; 
 
             if (status === this.KILL_ME_NOW) {
                 // remove the dead guy, and shuffle the others down to
@@ -190,8 +192,8 @@ render: function(ctx) {
             continue;
 
         for (var i = 0; i < aCategory.length; ++i) {
-
-            aCategory[i].render(ctx);
+            if(aCategory[i].delay == 0 || aCategory[i].delay == undefined)
+                aCategory[i].render(ctx);
             //debug.text(".", debugX + i * 10, debugY);
 
         }

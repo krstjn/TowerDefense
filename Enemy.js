@@ -76,8 +76,9 @@ Enemy.prototype.getRadius = function () {
 Enemy.prototype.evaporateSound = new Audio(
   "sounds/rockEvaporate.ogg");
 
-Enemy.prototype.takeBulletHit = function () {
-    this.kill();
+Enemy.prototype.takeBulletHit = function (damage) {
+    this.hp = this.hp - damage;
+    if(this.hp <= 0) this.kill();
     this.evaporateSound.play();
 };
 

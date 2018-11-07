@@ -24,6 +24,7 @@ function Tower(descr) {
   this.fireRangeRadius = this.fireRangeRadius || 100; // Fire range in pixels
   this.rateOfFire = this.rateOfFire || 1000; // Rate of fire in milliseconds
   this.inRangeFrameTime = null;
+  this.damage = 1;
 };
 
 Tower.prototype = new Entity();
@@ -94,7 +95,7 @@ Tower.prototype.shoot = function() {
   entityManager.fireBullet(
     this.cx + dX * launchDist, this.cy + dY * launchDist,
     relVelX, relVelY,
-    this.rotation);
+    this.rotation, this.damage);
 };
 
 Tower.prototype.render = function(ctx) {
