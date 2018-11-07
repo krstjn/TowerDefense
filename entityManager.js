@@ -127,7 +127,7 @@ generateShip : function(descr) {
 
 createNewTower : function(xPos, yPos) {
     if(xPos >= g_gameWidth) return;
-    
+
   var xGridNum = Math.floor(xPos/40);
   var yGridNum = Math.floor(yPos/40);
   var arrayIndex = 20*yGridNum+xGridNum; 
