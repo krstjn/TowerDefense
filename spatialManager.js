@@ -64,7 +64,7 @@ findEntityInRange: function(posX, posY, radius) {
 
         // Calculate the distance between entities and posX and posY
         var wrappedDistSq = util.wrappedDistSq(
-            posX, posY, e.posX, e.posY, g_canvas.width, g_canvas.height
+            posX, posY, e.posX, e.posY, g_gameWidth, g_canvas.height
         );
 
         // Calculate the distance that would make them overlap

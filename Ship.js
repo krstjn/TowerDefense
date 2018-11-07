@@ -101,7 +101,7 @@ Ship.prototype._moveToASafePlace = function () {
 
     for (var attempts = 0; attempts < 100; ++attempts) {
     
-        var warpDistance = 100 + Math.random() * g_canvas.width /2;
+        var warpDistance = 100 + Math.random() * g_gameWidth /2;
         var warpDirn = Math.random() * consts.FULL_CIRCLE;
         
         this.cx = origX + warpDistance * Math.sin(warpDirn);
@@ -110,7 +110,7 @@ Ship.prototype._moveToASafePlace = function () {
         this.wrapPosition();
         
         // Don't go too near the edges, and don't move into a collision!
-        if (!util.isBetween(this.cx, MARGIN, g_canvas.width - MARGIN)) {
+        if (!util.isBetween(this.cx, MARGIN, g_gameWidth - MARGIN)) {
             isSafePlace = false;
         } else if (!util.isBetween(this.cy, MARGIN, g_canvas.height - MARGIN)) {
             isSafePlace = false;

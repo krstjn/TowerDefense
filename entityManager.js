@@ -61,7 +61,7 @@ _findNearestShip : function(posX, posY) {
         var distSq = util.wrappedDistSq(
             shipPos.posX, shipPos.posY,
             posX, posY,
-            g_canvas.width, g_canvas.height);
+            g_gameWidth, g_canvas.height);
 
         if (distSq < closestSq) {
             closestShip = thisShip;
@@ -167,7 +167,7 @@ update: function(du) {
 
         while (i < aCategory.length) {
 
-            if(aCategory[i].delay == 0 || aCategory[i].delay === undefined)
+            if(aCategory[i].delay <= 0 || aCategory[i].delay === undefined)
                 var status = aCategory[i].update(du);
             else aCategory[i].delay = aCategory[i].delay - 1; 
 
@@ -199,7 +199,7 @@ render: function(ctx) {
             continue;
 
         for (var i = 0; i < aCategory.length; ++i) {
-            if(aCategory[i].delay == 0 || aCategory[i].delay == undefined)
+            if(aCategory[i].delay <= 0 || aCategory[i].delay == undefined)
                 aCategory[i].render(ctx);
             //debug.text(".", debugX + i * 10, debugY);
 

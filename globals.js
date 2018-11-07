@@ -12,6 +12,8 @@ Evil, ugly (but "necessary") globals, which everyone can use.
 /* jshint browser: true, devel: true, globalstrict: true */
 
 var g_canvas = document.getElementById("myCanvas");
+var g_controlWidth = 200;
+var g_gameWidth = g_canvas.width - g_controlWidth;
 var g_ctx = g_canvas.getContext("2d");
 
 // The "nominal interval" is the one that all of our time-based units are

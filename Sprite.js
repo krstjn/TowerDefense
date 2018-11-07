@@ -49,7 +49,7 @@ Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation) {
 Sprite.prototype.drawWrappedCentredAt = function (ctx, cx, cy, rotation) {
     
     // Get "screen width"
-    var sw = g_canvas.width;
+    var sw = g_gameWidth;
     
     // Draw primary instance
     this.drawWrappedVerticalCentredAt(ctx, cx, cy, rotation);

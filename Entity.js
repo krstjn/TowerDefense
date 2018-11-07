@@ -87,6 +87,6 @@ Entity.prototype.isColliding = function () {
 };
 
 Entity.prototype.wrapPosition = function () {
-    this.cx = util.wrapRange(this.cx, 0, g_canvas.width);
+    this.cx = util.wrapRange(this.cx, 0, g_gameWidth);
     this.cy = util.wrapRange(this.cy, 0, g_canvas.height);
 };
