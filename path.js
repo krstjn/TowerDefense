@@ -11,7 +11,7 @@
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
 
-// Fylki með mörgum paths, hægt að geyma path fyrir hvert lvl
+// Array with multiple paths, one for each lvl.
 var g_paths = [generatePath1(), generatePath2()];
 
 // Bætir punkt inn í path-ið
