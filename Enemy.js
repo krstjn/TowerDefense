@@ -44,20 +44,23 @@ Enemy.prototype.update = function (du) {
 
     // Athugar hvar næsti punktur er og færir enemy í átt að honum.
     // Ef enemy er á næsta punkt þá breytum við næsta punkt.
+    if(Math.abs(pathNode.cx - this.cx) < this.vel) this.cx = pathNode.cx;
+    if(Math.abs(pathNode.cy - this.cy) < this.vel) this.cy = pathNode.cy;
+
     if (pathNode.cx > this.cx) {
-      this.cx += 1;
+      this.cx += this.vel;
       this.rotation = Math.PI/2;
     }
     else if (pathNode.cx < this.cx) {
-      this.cx -= 1;
+      this.cx -= this.vel;
       this.rotation = Math.PI*1.5;
     }
     else if (pathNode.cy > this.cy) {
-      this.cy += 1;
+      this.cy += this.vel;
       this.rotation = Math.PI;
     }
     else if (pathNode.cy < this.cy) {
-      this.cy -= 1;
+      this.cy -= this.vel;
       this.rotation = 0;
     }
     else {
