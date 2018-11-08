@@ -32,9 +32,8 @@ _ships   : [],
 _enemies : [],
 _towers :  [],
 
-
 _bShowRocks : false,
-
+_CURRENT_WAVE: 1,
 // "PRIVATE" METHODS
 
 _generateRocks : function() {
@@ -43,10 +42,25 @@ _generateRocks : function() {
 
 // Býr til 5 óvini á sama stað í upphafi, lætur hann virðast vera með 5 hp.
 _generateEnemies : function() {
-  this.generateEnemy({hp: 5, delay: 0   });
-  this.generateEnemy({hp: 5, delay: 80  });
-  this.generateEnemy({hp: 5, delay: 160 });
-  this.generateEnemy({hp: 5, delay: 240 });
+//   this.generateEnemy({hp: 5, delay: 0   });
+//   this.generateEnemy({hp: 5, delay: 80  });
+//   this.generateEnemy({hp: 5, delay: 160 });
+//   this.generateEnemy({hp: 5, delay: 240 });
+    var wave = waves[this._CURRENT_WAVE];
+    this._CURRENT_WAVE = this._CURRENT_WAVE + 1;
+    console.log(wave);
+    for(var i = 0; i < wave.length; i++){
+        var enemy = wave_enemies[wave[i].type-1];
+
+        for(var j = 0; j < wave[i].amount; j++){
+            
+            this.generateEnemy({
+                hp: enemy.hp,
+                delay: (wave[i].initialDelay + enemy.delay * j),
+                vel: enemy.vel
+            });
+        }
+    }
 },
 
 _findNearestShip : function(posX, posY) {
@@ -61,7 +75,7 @@ _findNearestShip : function(posX, posY) {
         var distSq = util.wrappedDistSq(
             shipPos.posX, shipPos.posY,
             posX, posY,
-            g_gameWidth, g_canvas.height);
+            g_gameWidth, g_gameHeight);
 
         if (distSq < closestSq) {
             closestShip = thisShip;
@@ -123,6 +137,10 @@ generateEnemy : function(descr) {
 
 generateShip : function(descr) {
     this._ships.push(new Ship(descr));
+},
+
+sendNextWave: function(){
+    this._generateEnemies();
 },
 
 createNewTower : function(xPos, yPos) {

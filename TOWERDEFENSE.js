@@ -67,6 +67,7 @@ var KEY_0 = keyCode('0');
 
 var KEY_1 = keyCode('1');
 var KEY_2 = keyCode('2');
+var KEY_NEXT_WAVE = keyCode('Y');
 
 var KEY_K = keyCode('K');
 
@@ -102,6 +103,12 @@ function processDiagnostics() {
 
     if (eatKey(KEY_K)) entityManager.killNearestShip(
         g_mouseX, g_mouseY);
+    
+    if (eatKey(KEY_NEXT_WAVE)){
+        entityManager.sendNextWave();
+    }
+
+        
 }
 
 

@@ -62,7 +62,7 @@ Sprite.prototype.drawWrappedCentredAt = function (ctx, cx, cy, rotation) {
 Sprite.prototype.drawWrappedVerticalCentredAt = function (ctx, cx, cy, rotation) {
 
     // Get "screen height"
-    var sh = g_canvas.height;
+    var sh = g_gameHeight;
     
     // Draw primary instance
     this.drawCentredAt(ctx, cx, cy, rotation);
