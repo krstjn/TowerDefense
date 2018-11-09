@@ -153,6 +153,10 @@ function requestPreloads() {
         background  : "images/background.png",
         town        : "images/town.png",
         enemy1      : "images/enemy1.png",
+        enemy2	    : "images/enemy2.png",
+        enemy3	    : "images/enemy3.png",
+        enemy4	    : "images/enemy4.png",
+        enemy5	    : "images/enemy5.png",
         tower1      : "images/tower1.png",
         bullet1     : "images/tower1_bullet.png"
     };
@@ -167,7 +171,13 @@ function preloadDone() {
     g_sprites.ship  = new Sprite(g_images.ship);
     g_sprites.ship2 = new Sprite(g_images.ship2);
     g_sprites.rock  = new Sprite(g_images.rock);
-    g_sprites.enemy1 = new Sprite(g_images.enemy1);
+    g_sprites.enemies = [
+        new Sprite(g_images.enemy1),
+        new Sprite(g_images.enemy2),
+        new Sprite(g_images.enemy3),
+        new Sprite(g_images.enemy4),
+        new Sprite(g_images.enemy5),
+    ];
     g_sprites.tower1 = new Sprite(g_images.tower1);
     g_sprites.bullet = new Sprite(g_images.bullet1);
     g_sprites.bullet.scale = 0.25;

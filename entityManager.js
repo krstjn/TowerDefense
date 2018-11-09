@@ -57,7 +57,8 @@ _generateEnemies : function() {
             this.generateEnemy({
                 hp: enemy.hp,
                 delay: (wave[i].initialDelay + enemy.delay * j),
-                vel: enemy.vel
+                vel: enemy.vel,
+                sprite: g_sprites.enemies[wave[i].type-1]
             });
         }
     }
