@@ -131,6 +131,8 @@ function renderSimulation(ctx) {
     util.renderBackground(ctx);
     util.renderTown(ctx);
     entityManager.render(ctx);
+    util.renderLives(ctx);
+    util.renderMoney(ctx);
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
 

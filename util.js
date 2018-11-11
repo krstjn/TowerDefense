@@ -95,6 +95,18 @@ renderTown : function (ctx) {
   ctx.drawImage(g_images.town, 435, 230, 140, 140);
 },
 
+renderLives : function(ctx){
+    ctx.fillStyle = "red";
+    ctx.font = "20px Arial";
+    ctx.fillText("♥:" + g_lives, g_gameWidth + 10, 25);
+},
+
+renderMoney : function(ctx){
+    ctx.fillStyle = "yellow";
+    ctx.font = "20px Arial";
+    ctx.fillText("$:" + g_money, g_gameWidth + 140, 25);
+},
+
 clearCanvas: function (ctx) {
     var prevfillStyle = ctx.fillStyle;
     ctx.fillStyle = "black";

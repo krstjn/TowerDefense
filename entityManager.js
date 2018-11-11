@@ -145,8 +145,11 @@ sendNextWave: function(){
 },
 
 createNewTower : function(xPos, yPos) {
-    if(xPos >= g_gameWidth) return;
+  if(xPos >= g_gameWidth) return;
 
+  var towerCost = 100; // Þarf að útfæra þetta betur
+  if(g_money < towerCost) return;
+  
   var xGridNum = Math.floor(xPos/40);
   var yGridNum = Math.floor(yPos/40);
   var arrayIndex = 20*yGridNum+xGridNum; 
@@ -156,6 +159,8 @@ createNewTower : function(xPos, yPos) {
       cx : xGridNum*40+20,
       cy : yGridNum*40+20
     }));
+
+    g_money -= towerCost;
   }
   g_mapGrids[0][arrayIndex] = 0;
 },
@@ -185,13 +190,18 @@ update: function(du) {
 
         var aCategory = this._categories[c];
         var i = 0;
+        var status = null;
 
         while (i < aCategory.length) {
 
-            if(aCategory[i].delay <= 0 || aCategory[i].delay === undefined)
-                var status = aCategory[i].update(du);
-            else aCategory[i].delay = aCategory[i].delay - 1; 
-
+            if(aCategory[i].delay <= 0 || aCategory[i].delay === undefined){
+                status = aCategory[i].update(du);
+            }
+            else{
+                 aCategory[i].delay = aCategory[i].delay - 1; 
+                 status = null; // Núllstilla status svo óvinum sem eiga eftir að spawna verði ekki eytt
+            }
+            
             if (status === this.KILL_ME_NOW) {
                 // remove the dead guy, and shuffle the others down to
                 // prevent a confusing gap from appearing in the array
