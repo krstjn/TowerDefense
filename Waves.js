@@ -6,6 +6,8 @@
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
 
+var time = -1000;
+
 var wave_enemies = [
     { hp:  1, delay: 60, vel: 1.0 }, 
     { hp:  2, delay: 60, vel: 1.5 },
@@ -13,7 +15,7 @@ var wave_enemies = [
     { hp: 10, delay: 70, vel: 1.2 },
     { hp:  5, delay: 80, vel: 1.5 },
 ];
-var waves = [[],
+var waves = [
     [
         {type: 1, amount: 1, initialDelay: 0}
     ],
