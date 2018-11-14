@@ -26,13 +26,14 @@ function Sprite(image, numberOfFrames = 1) {
 }
 
 Sprite.prototype.drawAt = function (ctx, x, y) {
-    ctx.drawImage(this.image, 
+    ctx.drawImage(this.image,
                   x, y);
 };
 
-Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation) {
+Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation, opacity) {
     if (rotation === undefined) rotation = 0;
-    
+    if (opacity === undefined) opacity = 1;
+
     var w = this.width,
         h = this.height;
 
@@ -40,14 +41,14 @@ Sprite.prototype.drawCentredAt = function (ctx, cx, cy, rotation) {
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
     ctx.scale(this.scale, this.scale);
-    
+    ctx.globalAlpha=opacity;
     // drawImage expects "top-left" coords, so we offset our destination
     // coords accordingly, to draw our sprite centred at the origin
-    ctx.drawImage(this.image, 
+    ctx.drawImage(this.image,
                   -w/2, -h/2);
-    
+
     ctx.restore();
-};  
+};
 
 Sprite.prototype.drawCentredAtAnimated = function (ctx, frameIndex, cx, cy, rotation) {
     if (rotation === undefined) rotation = 0;
@@ -78,13 +79,13 @@ Sprite.prototype.drawCentredAtAnimated = function (ctx, frameIndex, cx, cy, rota
 }; 
 
 Sprite.prototype.drawWrappedCentredAt = function (ctx, cx, cy, rotation) {
-    
+
     // Get "screen width"
     var sw = g_gameWidth;
-    
+
     // Draw primary instance
     this.drawWrappedVerticalCentredAt(ctx, cx, cy, rotation);
-    
+
     // Left and Right wraps
     this.drawWrappedVerticalCentredAt(ctx, cx - sw, cy, rotation);
     this.drawWrappedVerticalCentredAt(ctx, cx + sw, cy, rotation);
@@ -94,10 +95,10 @@ Sprite.prototype.drawWrappedVerticalCentredAt = function (ctx, cx, cy, rotation)
 
     // Get "screen height"
     var sh = g_gameHeight;
-    
+
     // Draw primary instance
     this.drawCentredAt(ctx, cx, cy, rotation);
-    
+
     // Top and Bottom wraps
     this.drawCentredAt(ctx, cx, cy - sh, rotation);
     this.drawCentredAt(ctx, cx, cy + sh, rotation);

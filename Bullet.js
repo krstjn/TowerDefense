@@ -20,7 +20,7 @@ function Bullet(descr) {
 
     // Make a noise when I am created (i.e. fired)
     this.fireSound.play();
-    
+
 /*
     // Diagnostics to check inheritance stuff
     this._bulletProperty = true;
@@ -36,7 +36,7 @@ Bullet.prototype.fireSound = new Audio(
     "sounds/bulletFire.ogg");
 Bullet.prototype.zappedSound = new Audio(
     "sounds/bulletZapped.ogg");
-    
+
 // Initial, inheritable, default values
 Bullet.prototype.rotation = 0;
 Bullet.prototype.cx = 200;
@@ -62,18 +62,16 @@ Bullet.prototype.update = function (du) {
     this.rotation = util.wrapRange(this.rotation,
                                    0, consts.FULL_CIRCLE);
 
-    this.wrapPosition();
-    
     //
     // Handle collisions
     //
     var hitEntity = this.findHitEntity();
     if (hitEntity) {
         var canTakeHit = hitEntity.takeBulletHit;
-        if (canTakeHit) canTakeHit.call(hitEntity, this.damage); 
+        if (canTakeHit) canTakeHit.call(hitEntity, this.damage, this.isSlow); 
         return entityManager.KILL_ME_NOW;
     }
-    
+
     spatialManager.register(this);
 
 };
@@ -84,7 +82,7 @@ Bullet.prototype.getRadius = function () {
 
 Bullet.prototype.takeBulletHit = function () {
     this.kill();
-    
+
     // Make a noise when I am zapped by another bullet
     this.zappedSound.play();
 };
@@ -97,7 +95,7 @@ Bullet.prototype.render = function (ctx) {
         ctx.globalAlpha = this.lifeSpan / fadeThresh;
     }
 
-    g_sprites.bullet.drawWrappedCentredAt(
+    g_sprites.bullet.drawCentredAt(
         ctx, this.cx, this.cy, this.rotation
     );
 
