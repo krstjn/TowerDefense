@@ -20,8 +20,7 @@ var waveManager = {
 
     // "PRIVATE" DATA
 
-    _nextWaveID: 1, // make all valid IDs non-falsey (i.e. don't start at 0)
-
+    _nextWaveID: 0, // make all valid IDs non-falsey (i.e. don't start at 0)
 
     // "PRIVATE" METHODS
     //
@@ -30,10 +29,11 @@ var waveManager = {
 
     // PUBLIC METHODS
 
-    getNextWave: function (waves) {
-        var wave = waves[this._nextWaveID];
+    getNextWave: function (wavesInput) {
+        var wave = wavesInput[this._nextWaveID];
         this._nextWaveID = this._nextWaveID + 1;
+        time += 1000;
 
-        return wave;
+        return {wave:wave, time:time};
     }
 }

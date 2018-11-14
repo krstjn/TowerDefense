@@ -38,22 +38,25 @@ var entityManager = {
   _generateEnemies: function () {
     var wave = waveManager.getNextWave(waves);
 
-    for (var i = 0; i < waves.length-1; i++) {
-      console.log("wave enemies type: " + (wave[i].type - 1));
-      var enemy = wave_enemies[wave[i].type -1];
-      for (var j = 0; j < wave[i].amount; j++) {
-        console.log("wave " + i + " amount: " + wave[i].amount);
-        this.generateEnemy({
-          hp: enemy.hp,
-          delay: (wave[i].initialDelay + enemy.delay * j),
-          vel: enemy.vel,
-          sprite: g_sprites.enemies[wave[i].type - 1],
-          numberOfFrames: 4
-        });
+    for (var i = 0; i < waves.length - 1; i++) {
+      console.log("wave enemies type: " + (wave.wave[i].type));
+      console.log(wave.wave.length);
+      for (var k = 0; k < wave.wave.length; k++) {
+        var enemy = wave_enemies[wave.wave[k].type];
+        for (var j = 0; j < wave.wave[k].amount; j++) {
+          console.log("wave " + i + " amount: " + wave.wave[i].amount);
+          console.log("enemydelay " + wave.wave[i].initialDelay + wave.time + enemy.delay * j);
+          this.generateEnemy({
+            hp: enemy.hp,
+            delay: (wave.wave[i].initialDelay + wave.time + enemy.delay * j),
+            vel: enemy.vel,
+            sprite: g_sprites.enemies[wave.wave[k].type -1],
+            numberOfFrames: 4
+          });
+        }
       }
       wave = waveManager.getNextWave(waves);
     }
-
 
     //   this.generateEnemy({hp: 5, delay: 0   });
     //   this.generateEnemy({hp: 5, delay: 80  });
