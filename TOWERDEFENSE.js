@@ -67,6 +67,8 @@ var KEY_0 = keyCode('0');
 
 var KEY_1 = keyCode('1');
 var KEY_2 = keyCode('2');
+var KEY_3 = keyCode('3');
+var KEY_4 = keyCode('4');
 var KEY_NEXT_WAVE = keyCode('Y');
 
 var KEY_K = keyCode('K');

@@ -21,8 +21,10 @@ function Enemy(descr) {
 
     // Default sprite and scale, if not otherwise specified
     this.nextNodeIndex = this.nextNodeIndex || 1;
-    this.sprite = this.sprite || g_sprites.enemy1;
+    this.sprite = this.sprite || g_sprites.enemies[0];
     this.scale  = this.scale  || 1;
+    this.defaultVel = this.vel;
+    this.slowTimer = 0;
 
 };
 
@@ -40,9 +42,15 @@ Enemy.prototype.update = function (du) {
     spatialManager.unregister(this);
     if(this._isDeadNow) return entityManager.KILL_ME_NOW;
 
+    if(this.slowTimer > 0){
+      this.vel = this.defaultVel/2;
+      this.slowTimer -= du;
+    }
+    else this.vel = this.defaultVel;
+
     // Athugar hvort óvinur sé kominn á endapunkt
     if (this.nextNodeIndex >= g_paths[0].length){
-      g_lives--;  // Minnkar líf 
+      g_lives--;  // Minnkar líf
       if(g_lives <= 0) main.gameOver(); // Endar leikinn ef lífin eru búin
       return entityManager.KILL_ME_NOW; // Eyðir óvini
     }
@@ -86,11 +94,12 @@ Enemy.prototype.getRadius = function () {
 Enemy.prototype.evaporateSound = new Audio(
   "sounds/rockEvaporate.ogg");
 
-Enemy.prototype.takeBulletHit = function (damage) {
+Enemy.prototype.takeBulletHit = function (damage, isSlow) {
     this.hp = this.hp - damage;
-    if(this.hp <= 0){ 
+    if(isSlow) this.slowTimer = 50;
+    if(this.hp <= 0){
       this.kill();
-      g_money += 50; 
+      g_money += 50;
     }
     this.evaporateSound.play();
 };

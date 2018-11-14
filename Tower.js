@@ -26,6 +26,7 @@ function Tower(descr) {
   this.price = this.price;
   this.damage = this.damage;
   this.inRangeFrameTime = null;
+  this.isSlow = this.isSlow || false;
 };
 
 Tower.prototype = new Entity();
@@ -92,7 +93,7 @@ Tower.prototype.shoot = function() {
   entityManager.fireBullet(
     this.cx + dX * launchDist, this.cy + dY * launchDist,
     relVelX, relVelY,
-    this.rotation, this.damage);
+    this.rotation, this.damage, this.isSlow);
 };
 
 Tower.prototype.render = function(ctx) {

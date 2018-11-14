@@ -116,15 +116,16 @@ var entityManager = {
     //this._generateShip();
   },
 
-  fireBullet: function(cx, cy, velX, velY, rotation, damage) {
+fireBullet: function(cx, cy, velX, velY, rotation, damage, isSlow) {
     this._bullets.push(new Bullet({
       cx: cx,
       cy: cy,
       velX: velX,
       velY: velY,
 
-      rotation: rotation,
-      damage: damage
+        rotation : rotation,
+        damage: damage,
+        isSlow : isSlow
     }));
   },
 
