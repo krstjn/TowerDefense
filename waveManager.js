@@ -30,7 +30,6 @@ var waveManager = {
     // Fall fyrir update fall i entityManager til að vita hvort  
     // hann eigi að kalla á næsta wave.
     hasTimePassed: function(du) {
-        console.log(this._timeLeft);
         if (this._timeLeft<0) {
             return true;
         }
