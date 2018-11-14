@@ -8,37 +8,38 @@
 
 var time = -1000;
 
-var wave_enemies = [
-    { hp:  1, delay: 60, vel: 1.0 }, 
-    { hp:  2, delay: 60, vel: 1.5 },
-    { hp:  5, delay: 80, vel: 2.0 },
-    { hp: 10, delay: 70, vel: 1.2 },
-    { hp:  5, delay: 80, vel: 1.5 },
+var enemies = [
+     { type: ROBOTMAN, hp:  1, delay: 60, vel: 1.0 }, 
+     { type: MOOSE, hp:  2, delay: 60, vel: 1.5 },
+     { type: DOG, hp:  5, delay: 80, vel: 2.0 },
+     { type: KID, hp: 10, delay: 70, vel: 1.2 },
+     { type: BIRD, hp:  5, delay: 80, vel: 1.5 },
 ];
+
 var waves = [
     [
-        {type: 1, amount: 1, initialDelay: 0}
+        {type: ROBOTMAN, amount: 1, initialDelay: 0}
     ],
     [
-        {type: 1, amount: 5, initialDelay: 0  }, 
-        {type: 2, amount: 2, initialDelay: 90 }
+        {type: ROBOTMAN, amount: 5, initialDelay: 0  }, 
+        {type: MOOSE, amount: 2, initialDelay: 90 }
     ],
     [
-        {type: 1, amount: 5, initialDelay: 0  }, 
-        {type: 2, amount: 5, initialDelay: 90 }, 
-        {type: 3, amount: 5, initialDelay: 130 }
+        {type: ROBOTMAN, amount: 5, initialDelay: 0  }, 
+        {type: MOOSE, amount: 5, initialDelay: 90 }, 
+        {type: DOG, amount: 5, initialDelay: 130 }
     ],
     [
-        {type: 1, amount: 10, initialDelay: 0  }, 
-        {type: 2, amount: 3, initialDelay: 90 }, 
-        {type: 3, amount: 3, initialDelay: 130 }, 
-        {type: 4, amount: 3, initialDelay: 160 }
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 3, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 3, initialDelay: 160 }
     ],
     [
-        {type: 1, amount: 10, initialDelay: 0  }, 
-        {type: 2, amount: 6, initialDelay: 90 }, 
-        {type: 3, amount: 3, initialDelay: 130 }, 
-        {type: 4, amount: 2, initialDelay: 150 }, 
-        {type: 5, amount: 2, initialDelay: 170 }
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
     ],
 ];

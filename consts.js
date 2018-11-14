@@ -11,3 +11,9 @@ var consts = {
     RADIANS_PER_DEGREE: Math.PI / 180.0
     
 };
+
+const MOOSE = 'MOOSE';
+const KID = 'KID';
+const BIRD = 'BIRD';
+const DOG = 'DOG';
+const ROBOTMAN = 'ROBOTMAN';

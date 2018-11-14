@@ -36,13 +36,32 @@ var entityManager = {
 
   // Býr til 5 óvini á sama stað í upphafi, lætur hann virðast vera með 5 hp.
   _generateEnemies: function () {
-    var wave = waveManager.getNextWave(waves);
+    var { wave, time } = waveManager.getNextWave(waves);
 
-    for (var i = 0; i < waves.length - 1; i++) {
+    for (var i = 0; i < wave.length; i++) {
+      var { type, amount, initialDelay } = wave[i];
+      var index = -1;
+      var enemy = enemies.find( (e, x) =>{
+          index = x;
+          return e.type === type;
+      });
+        for(var j = 0; j < amount; j++){
+
+            this.generateEnemy({
+                hp: enemy.hp,
+                delay: (initialDelay + enemy.delay * j),
+                vel: enemy.vel,
+                sprite: g_sprites.enemies[index],
+                numberOfFrames: 4
+            });
+        }
+    } 
+
+    /*for (var i = 0; i < waves.length - 1; i++) {
       console.log("wave enemies type: " + (wave.wave[i].type));
       console.log(wave.wave.length);
       for (var k = 0; k < wave.wave.length; k++) {
-        var enemy = wave_enemies[wave.wave[k].type];
+        var enemy = enemies[wave.wave[k].type];
         for (var j = 0; j < wave.wave[k].amount; j++) {
           console.log("wave " + i + " amount: " + wave.wave[i].amount);
           console.log("enemydelay " + wave.wave[i].initialDelay + wave.time + enemy.delay * j);
@@ -56,31 +75,16 @@ var entityManager = {
         }
       }
       wave = waveManager.getNextWave(waves);
-    }
+    }*/
 
     //   this.generateEnemy({hp: 5, delay: 0   });
     //   this.generateEnemy({hp: 5, delay: 80  });
     //   this.generateEnemy({hp: 5, delay: 160 });
     //   this.generateEnemy({hp: 5, delay: 240 });
-    /*
-    var wave = waves[this._CURRENT_WAVE];
-    this._CURRENT_WAVE = this._CURRENT_WAVE + 1;
-    console.log(wave);
-    for (var i = 0; i < wave.length; i++) {
-      var enemy = wave_enemies[wave[i].type - 1];
+    
+    //var wave = waves[this._CURRENT_WAVE];
 
-        for(var j = 0; j < wave[i].amount; j++){
-
-            this.generateEnemy({
-                hp: enemy.hp,
-                delay: (wave[i].initialDelay + enemy.delay * j),
-                vel: enemy.vel,
-                sprite: g_sprites.enemies[wave[i].type-1],
-                numberOfFrames: 4
-            });
-        }
-    } 
-    */
+    
   },
 
   // PUBLIC METHODS
