@@ -28,4 +28,4 @@ var NOMINAL_UPDATE_INTERVAL = 16.666;
 var SECS_TO_NOMINALS = 1000 / NOMINAL_UPDATE_INTERVAL;
 
 var g_lives = 20;
-var g_money = 300;
+var g_money = 1000;

@@ -67,6 +67,8 @@ var KEY_0 = keyCode('0');
 
 var KEY_1 = keyCode('1');
 var KEY_2 = keyCode('2');
+var KEY_3 = keyCode('3');
+var KEY_4 = keyCode('4');
 var KEY_NEXT_WAVE = keyCode('Y');
 
 var KEY_K = keyCode('K');
@@ -88,18 +90,13 @@ function processDiagnostics() {
 
     if (eatKey(KEY_0)) entityManager.toggleRocks();
 
-    if (eatKey(KEY_1)) entityManager.generateShip({
-        cx : g_mouseX,
-        cy : g_mouseY,
+    if (eatKey(KEY_1)) entityManager.createNewTower(g_mouseX, g_mouseY);
 
-        sprite : g_sprites.ship});
+    if (eatKey(KEY_2)) entityManager.createNewTower(g_mouseX, g_mouseY, g_sprites.towers[1], 500, 0.5);
 
-    if (eatKey(KEY_2)) entityManager.generateShip({
-        cx : g_mouseX,
-        cy : g_mouseY,
+    if (eatKey(KEY_3)) entityManager.createNewTower(g_mouseX, g_mouseY, g_sprites.towers[2], 2000, 2);
 
-        sprite : g_sprites.ship2
-        });
+    if (eatKey(KEY_4)) entityManager.createNewTower(g_mouseX, g_mouseY, g_sprites.towers[3], 1500, 0.5, true);
 
     if (eatKey(KEY_K)) entityManager.killNearestShip(
         g_mouseX, g_mouseY);
@@ -160,6 +157,9 @@ function requestPreloads() {
         enemy4	    : "images/enemy4.png",
         enemy5	    : "images/enemy5.png",
         tower1      : "images/tower1.png",
+        tower2      : "images/tower2.png",
+        tower3      : "images/tower3.png",
+        tower4      : "images/tower4.png",
         bullet1     : "images/tower1_bullet.png"
     };
 
@@ -180,7 +180,12 @@ function preloadDone() {
         new Sprite(g_images.enemy4),
         new Sprite(g_images.enemy5),
     ];
-    g_sprites.tower1 = new Sprite(g_images.tower1);
+    g_sprites.towers = [
+        new Sprite(g_images.tower1),
+        new Sprite(g_images.tower2),
+        new Sprite(g_images.tower3),
+        new Sprite(g_images.tower4)
+    ];
     g_sprites.bullet = new Sprite(g_images.bullet1);
     g_sprites.bullet.scale = 0.25;
 

@@ -19,12 +19,13 @@ function Tower(descr) {
   this.setup(descr);
 
   // Default sprite and scale, if not otherwise specified
-  this.sprite = this.sprite || g_sprites.tower1;
+  this.sprite = this.sprite || g_sprites.towers[0];
   this.shotVel = this.shotVel || 4; // Shot velocity in pixels
   this.fireRangeRadius = this.fireRangeRadius || 100; // Fire range in pixels
   this.rateOfFire = this.rateOfFire || 1000; // Rate of fire in milliseconds
   this.inRangeFrameTime = null;
-  this.damage = 1;
+  this.damage = this.damage || 1;
+  this.isSlow = this.isSlow || false;
 };
 
 Tower.prototype = new Entity();
@@ -95,7 +96,7 @@ Tower.prototype.shoot = function() {
   entityManager.fireBullet(
     this.cx + dX * launchDist, this.cy + dY * launchDist,
     relVelX, relVelY,
-    this.rotation, this.damage);
+    this.rotation, this.damage, this.isSlow);
 };
 
 Tower.prototype.render = function(ctx) {

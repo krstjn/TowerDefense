@@ -116,7 +116,7 @@ init: function() {
     //this._generateShip();
 },
 
-fireBullet: function(cx, cy, velX, velY, rotation, damage) {
+fireBullet: function(cx, cy, velX, velY, rotation, damage, isSlow) {
     this._bullets.push(new Bullet({
         cx   : cx,
         cy   : cy,
@@ -124,7 +124,8 @@ fireBullet: function(cx, cy, velX, velY, rotation, damage) {
         velY : velY,
 
         rotation : rotation,
-        damage: damage
+        damage: damage,
+        isSlow : isSlow
     }));
 },
 
@@ -144,7 +145,7 @@ sendNextWave: function(){
     this._generateEnemies();
 },
 
-createNewTower : function(xPos, yPos) {
+createNewTower : function(xPos, yPos, sprite, rateOfFire, damage, isSlow) {
   if(xPos >= g_gameWidth) return;
 
   var towerCost = 100; // Þarf að útfæra þetta betur
@@ -157,7 +158,11 @@ createNewTower : function(xPos, yPos) {
   if (g_mapGrids[0][arrayIndex]) {
     this._towers.push(new Tower({
       cx : xGridNum*40+20,
-      cy : yGridNum*40+20
+      cy : yGridNum*40+20,
+      sprite : sprite,
+      rateOfFire : rateOfFire,
+      damage : damage,
+      isSlow : isSlow
     }));
 
     g_money -= towerCost;
