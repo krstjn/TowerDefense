@@ -92,7 +92,24 @@ renderBackground : function (ctx) {
 
 // draws the town
 renderTown : function (ctx) {
-  ctx.drawImage(g_images.town, 435, 230, 140, 140);
+  ctx.drawImage(g_images.town, 425, 230, 140, 140);
+},
+
+// draws the menu
+renderMenu : function (ctx) {
+  ctx.drawImage(g_images.menu, 0, 0, g_canvas.width, g_canvas.height);
+},
+
+renderLives : function(ctx){
+    ctx.fillStyle = "red";
+    ctx.font = "20px Arial";
+    ctx.fillText("♥:" + g_lives, g_gameWidth + 10, 25);
+},
+
+renderMoney : function(ctx){
+    ctx.fillStyle = "yellow";
+    ctx.font = "20px Arial";
+    ctx.fillText("$:" + g_money, g_gameWidth + 140, 25);
 },
 
 clearCanvas: function (ctx) {

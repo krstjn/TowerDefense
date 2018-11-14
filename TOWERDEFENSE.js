@@ -21,8 +21,8 @@ var g_ctx = g_canvas.getContext("2d");
 // =============
 
 function gatherInputs() {
-    // Nothing to do here!
-    // The event handlers do everything we need for now.
+  // Nothing to do here!
+  // The event handlers do everything we need for now.
 }
 
 
@@ -42,9 +42,9 @@ function gatherInputs() {
 
 function updateSimulation(du) {
 
-    processDiagnostics();
+  processDiagnostics();
 
-    entityManager.update(du);
+  entityManager.update(du);
 
 }
 
@@ -55,12 +55,12 @@ var g_useGravity = false;
 var g_useAveVel = true;
 var g_renderSpatialDebug = false;
 
-var KEY_MIXED   = keyCode('M');;
+var KEY_MIXED = keyCode('M');;
 var KEY_GRAVITY = keyCode('G');
 var KEY_AVE_VEL = keyCode('V');
 var KEY_SPATIAL = keyCode('X');
 
-var KEY_HALT  = keyCode('H');
+var KEY_HALT = keyCode('H');
 var KEY_RESET = keyCode('R');
 
 var KEY_0 = keyCode('0');
@@ -73,42 +73,43 @@ var KEY_K = keyCode('K');
 
 function processDiagnostics() {
 
-    if (eatKey(KEY_MIXED))
-        g_allowMixedActions = !g_allowMixedActions;
+  if (eatKey(KEY_MIXED))
+    g_allowMixedActions = !g_allowMixedActions;
 
-    if (eatKey(KEY_GRAVITY)) g_useGravity = !g_useGravity;
+  if (eatKey(KEY_GRAVITY)) g_useGravity = !g_useGravity;
 
-    if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
+  if (eatKey(KEY_AVE_VEL)) g_useAveVel = !g_useAveVel;
 
-    if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
+  if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
 
-    if (eatKey(KEY_HALT)) entityManager.haltShips();
+  if (eatKey(KEY_HALT)) entityManager.haltShips();
 
-    if (eatKey(KEY_RESET)) entityManager.resetShips();
+  if (eatKey(KEY_RESET)) entityManager.resetShips();
 
-    if (eatKey(KEY_0)) entityManager.toggleRocks();
+  if (eatKey(KEY_0)) entityManager.toggleRocks();
 
-    if (eatKey(KEY_1)) entityManager.generateShip({
-        cx : g_mouseX,
-        cy : g_mouseY,
+  if (eatKey(KEY_1)) entityManager.generateShip({
+    cx: g_mouseX,
+    cy: g_mouseY,
 
-        sprite : g_sprites.ship});
+    sprite: g_sprites.ship
+  });
 
-    if (eatKey(KEY_2)) entityManager.generateShip({
-        cx : g_mouseX,
-        cy : g_mouseY,
+  if (eatKey(KEY_2)) entityManager.generateShip({
+    cx: g_mouseX,
+    cy: g_mouseY,
 
-        sprite : g_sprites.ship2
-        });
+    sprite: g_sprites.ship2
+  });
 
-    if (eatKey(KEY_K)) entityManager.killNearestShip(
-        g_mouseX, g_mouseY);
-    
-    if (eatKey(KEY_NEXT_WAVE)){
-        entityManager.sendNextWave();
-    }
+  if (eatKey(KEY_K)) entityManager.killNearestShip(
+    g_mouseX, g_mouseY);
 
-        
+  if (eatKey(KEY_NEXT_WAVE)) {
+    entityManager.sendNextWave();
+  }
+
+
 }
 
 
@@ -128,13 +129,17 @@ function processDiagnostics() {
 
 function renderSimulation(ctx) {
 
-    util.renderBackground(ctx);
-    util.renderTown(ctx);
-    entityManager.render(ctx);
+  util.renderBackground(ctx);
+  util.renderTown(ctx);
+  menuManager.renderMenu(ctx);
+  entityManager.render(ctx);
+  util.renderLives(ctx);
+  util.renderMoney(ctx);
+  menuManager.renderClickedTower(ctx);
 
-    if (g_renderSpatialDebug) spatialManager.render(ctx);
+  if (g_renderSpatialDebug) spatialManager.render(ctx);
 
-    eatKey(Ship.prototype.KEY_FIRE)
+  eatKey(Ship.prototype.KEY_FIRE)
 }
 
 
@@ -146,45 +151,59 @@ var g_images = {};
 
 function requestPreloads() {
 
-    var requiredImages = {
-        ship        : "https://notendur.hi.is/~pk/308G/images/ship.png",
-        ship2       : "https://notendur.hi.is/~pk/308G/images/ship_2.png",
-        rock        : "https://notendur.hi.is/~pk/308G/images/rock.png",
-        background  : "images/background.png",
-        town        : "images/town.png",
-        enemy1      : "images/enemy1.png",
-        enemy2	    : "images/enemy2.png",
-        enemy3	    : "images/enemy3.png",
-        enemy4	    : "images/enemy4.png",
-        enemy5	    : "images/enemy5.png",
-        tower1      : "images/tower1.png",
-        bullet1     : "images/tower1_bullet.png"
-    };
+  var requiredImages = {
+    ship: "https://notendur.hi.is/~pk/308G/images/ship.png",
+    ship2: "https://notendur.hi.is/~pk/308G/images/ship_2.png",
+    rock: "https://notendur.hi.is/~pk/308G/images/rock.png",
+    background: "images/background.png",
+    town: "images/town.png",
+    menu: "images/menu.png",
+    enemy1: "images/enemy1.png",
+    enemy2: "images/enemy2.png",
+    enemy3: "images/enemy3.png",
+    enemy4: "images/enemy4.png",
+    enemy5: "images/enemy5.png",
+    tower1: "images/tower1.png",
+    tower2: "images/tower2.png",
+    tower3: "images/tower3.png",
+    tower4: "images/tower4.png",
+    tower5: "images/tower5.png",
+    tower6: "images/tower6.png",
+    bullet1: "images/tower1_bullet.png"
+  };
 
-    imagesPreload(requiredImages, g_images, preloadDone);
+  imagesPreload(requiredImages, g_images, preloadDone);
 }
 
 var g_sprites = {};
 
 function preloadDone() {
 
-    g_sprites.ship  = new Sprite(g_images.ship);
-    g_sprites.ship2 = new Sprite(g_images.ship2);
-    g_sprites.rock  = new Sprite(g_images.rock);
-    g_sprites.enemies = [
-        new Sprite(g_images.enemy1),
-        new Sprite(g_images.enemy2),
-        new Sprite(g_images.enemy3),
-        new Sprite(g_images.enemy4),
-        new Sprite(g_images.enemy5),
-    ];
-    g_sprites.tower1 = new Sprite(g_images.tower1);
-    g_sprites.bullet = new Sprite(g_images.bullet1);
-    g_sprites.bullet.scale = 0.25;
+  g_sprites.ship = new Sprite(g_images.ship);
+  g_sprites.ship2 = new Sprite(g_images.ship2);
+  g_sprites.rock = new Sprite(g_images.rock);
+  g_sprites.enemies = [
+    new Sprite(g_images.enemy1),
+    new Sprite(g_images.enemy2),
+    new Sprite(g_images.enemy3),
+    new Sprite(g_images.enemy4),
+    new Sprite(g_images.enemy5),
+  ];
+  g_sprites.towers = [
+    new Sprite(g_images.tower1),
+    new Sprite(g_images.tower2),
+    new Sprite(g_images.tower3),
+    new Sprite(g_images.tower4),
+    new Sprite(g_images.tower5),
+    new Sprite(g_images.tower6),
+  ];
+  g_sprites.bullet = new Sprite(g_images.bullet1);
+  g_sprites.bullet.scale = 0.25;
 
-    entityManager.init();
+  entityManager.init();
+  menuManager.init();
 
-    main.init();
+  main.init();
 }
 
 // Kick it off

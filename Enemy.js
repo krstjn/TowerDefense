@@ -40,6 +40,13 @@ Enemy.prototype.update = function (du) {
     spatialManager.unregister(this);
     if(this._isDeadNow) return entityManager.KILL_ME_NOW;
 
+    // Athugar hvort óvinur sé kominn á endapunkt
+    if (this.nextNodeIndex >= g_paths[0].length){
+      g_lives--;  // Minnkar líf 
+      if(g_lives <= 0) main.gameOver(); // Endar leikinn ef lífin eru búin
+      return entityManager.KILL_ME_NOW; // Eyðir óvini
+    }
+
     var pathNode = g_paths[0][this.nextNodeIndex]; // ætti að taka inn hvaða bor/lvl er verið að spila
 
     // Athugar hvar næsti punktur er og færir enemy í átt að honum.
@@ -81,7 +88,10 @@ Enemy.prototype.evaporateSound = new Audio(
 
 Enemy.prototype.takeBulletHit = function (damage) {
     this.hp = this.hp - damage;
-    if(this.hp <= 0) this.kill();
+    if(this.hp <= 0){ 
+      this.kill();
+      g_money += 50; 
+    }
     this.evaporateSound.play();
 };
 

@@ -1,8 +1,8 @@
-1// ==============
-// MOUSE HANDLING
-// ==============
+1 // ==============
+  // MOUSE HANDLING
+  // ==============
 
-"use strict";
+  "use strict";
 
 /* jshint browser: true, devel: true, globalstrict: true */
 
@@ -12,19 +12,22 @@
 */
 
 var g_mouseX = 0,
-    g_mouseY = 0;
+  g_mouseY = 0;
 
 function handleMouse(evt) {
 
-    g_mouseX = evt.clientX - g_canvas.offsetLeft;
-    g_mouseY = evt.clientY - g_canvas.offsetTop;
+  g_mouseX = evt.clientX - g_canvas.offsetLeft;
+  g_mouseY = evt.clientY - g_canvas.offsetTop;
+  // If no button is being pressed, then bail
+  var button = evt.buttons === undefined ? evt.which : evt.buttons;
+  if (!button) return;
 
-    // If no button is being pressed, then bail
-    var button = evt.buttons === undefined ? evt.which : evt.buttons;
-    if (!button) return;
-
-    entityManager.createNewTower(g_mouseX, g_mouseY);
-}12
+  // Try to create tower, if no tower is selected we'll return from it.
+  entityManager.createNewTower(g_mouseX, g_mouseY);
+  menuManager.clickedTower = null;
+  menuManager.findClickedItem(g_mouseX, g_mouseY);
+};
 
 // Handle "down" and "move" events the same way.
 window.addEventListener("mousedown", handleMouse);
+window.addEventListener("mousemove", handleMouse);
