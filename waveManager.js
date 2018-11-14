@@ -30,7 +30,7 @@ var waveManager = {
 
     // PUBLIC METHODS
 
-    getNextWave: function () {
+    getNextWave: function (waves) {
         var wave = waves[this._nextWaveID];
         this._nextWaveID = this._nextWaveID + 1;
 
