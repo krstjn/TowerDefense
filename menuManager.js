@@ -116,6 +116,14 @@ var menuManager = {
   // Renders the tower we have selected where the mouse is hovering.
   renderClickedTower: function(ctx) {
     if (this.clickedTower != null) {
+      if (g_mouseX<g_gameWidth) {
+        util.fillCircle(
+          ctx,
+          g_mouseX,
+          g_mouseY,
+          this._towerTypes[this.clickedTower].fireRangeRadius,
+          0.3);
+      }
       this._towerTypes[this.clickedTower].sprite.drawCentredAt(
         ctx, g_mouseX, g_mouseY, 0, 0.3);
     }

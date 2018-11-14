@@ -137,10 +137,14 @@ strokeCircle: function (ctx, x, y, r) {
     ctx.stroke();
 },
 
-fillCircle: function (ctx, x, y, r) {
+fillCircle: function (ctx, x, y, r, opacity) {
+    if (opacity === undefined) opacity = 1;
+    ctx.save();
+    ctx.globalAlpha=opacity;
     ctx.beginPath();
     ctx.arc(x, y, r, 0, Math.PI * 2);
     ctx.fill();
+    ctx.restore();
 },
 
 fillBox: function (ctx, x, y, w, h, style) {
