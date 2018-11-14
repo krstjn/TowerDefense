@@ -124,6 +124,16 @@ renderMoney : function(ctx){
     ctx.fillText("$:" + g_money, g_gameWidth + 140, 25);
 },
 
+renderTime : function(ctx) {
+    ctx.fillStyle = "black";
+    ctx.font = "18px Arial";
+    ctx.fillText("Time to next wave:", g_gameWidth + 10, 500);
+    ctx.font = "25px Arial";
+    ctx.fillText(waveManager.getTimeLeftInSecs(), g_gameWidth + 10, 540);
+    ctx.font = "18px Arial";
+    ctx.fillText("Press 'Y' to skip wave", g_gameWidth + 10, 570);
+},
+
 clearCanvas: function (ctx) {
     var prevfillStyle = ctx.fillStyle;
     ctx.fillStyle = "black";

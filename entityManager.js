@@ -125,7 +125,7 @@ var entityManager = {
 
   update: function(du) {
 
-    if (waveManager.hasTimePassed(du)) {
+    if (waveManager.isNextWaveReadyToGo(du)) {
       this._generateEnemies();
     }
 
