@@ -34,6 +34,6 @@ var waveManager = {
         this._nextWaveID = this._nextWaveID + 1;
         time += 1000;
 
-        return {wave:wave, time:time};
+        return wave;
     }
 }
