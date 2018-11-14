@@ -93,6 +93,7 @@ function renderSimulation(ctx) {
   util.renderLives(ctx);
   util.renderMoney(ctx);
   menuManager.renderClickedTower(ctx);
+  util.renderTime(ctx);
 
   if (g_renderSpatialDebug) spatialManager.render(ctx);
 }

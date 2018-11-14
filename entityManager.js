@@ -34,7 +34,6 @@ var entityManager = {
   
   // "PRIVATE" METHODS
 
-  // Býr til 5 óvini á sama stað í upphafi, lætur hann virðast vera með 5 hp.
   _generateEnemies: function () {
     var wave = waveManager.getNextWave(waves);
 
@@ -53,36 +52,7 @@ var entityManager = {
                 numberOfFrames: 4
             });
         }
-    } 
-
-    /*for (var i = 0; i < waves.length - 1; i++) {
-      console.log("wave enemies type: " + (wave.wave[i].type));
-      console.log(wave.wave.length);
-      for (var k = 0; k < wave.wave.length; k++) {
-        var enemy = enemies[wave.wave[k].type];
-        for (var j = 0; j < wave.wave[k].amount; j++) {
-          console.log("wave " + i + " amount: " + wave.wave[i].amount);
-          console.log("enemydelay " + wave.wave[i].initialDelay + wave.time + enemy.delay * j);
-          this.generateEnemy({
-            hp: enemy.hp,
-            delay: (wave.wave[i].initialDelay + wave.time + enemy.delay * j),
-            vel: enemy.vel,
-            sprite: g_sprites.enemies[wave.wave[k].type -1],
-            numberOfFrames: 4
-          });
-        }
-      }
-      wave = waveManager.getNextWave(waves);
-    }*/
-
-    //   this.generateEnemy({hp: 5, delay: 0   });
-    //   this.generateEnemy({hp: 5, delay: 80  });
-    //   this.generateEnemy({hp: 5, delay: 160 });
-    //   this.generateEnemy({hp: 5, delay: 240 });
-    
-    //var wave = waves[this._CURRENT_WAVE];
-
-    
+    }     
   },
 
   // PUBLIC METHODS
@@ -103,7 +73,7 @@ var entityManager = {
     this._generateEnemies();
   },
 
-fireBullet: function(cx, cy, velX, velY, rotation, damage, isSlow) {
+  fireBullet: function (cx, cy, velX, velY, rotation, damage, isSlow) {
     this._bullets.push(new Bullet({
       cx: cx,
       cy: cy,
@@ -162,6 +132,10 @@ fireBullet: function(cx, cy, velX, velY, rotation, damage, isSlow) {
 
   update: function(du) {
 
+    if (waveManager.isNextWaveReadyToGo(du)) {
+      this._generateEnemies();
+    }
+
     for (var c = 0; c < this._categories.length; ++c) {
 
       var aCategory = this._categories[c];
@@ -186,7 +160,6 @@ fireBullet: function(cx, cy, velX, velY, rotation, damage, isSlow) {
         }
       }
     }
-
   },
 
   render: function(ctx) {

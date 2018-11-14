@@ -28,19 +28,34 @@ var waveManager = {
 
     // "PRIVATE" DATA
 
-    _nextWaveID: 0, // make all valid IDs non-falsey (i.e. don't start at 0)
+    _nextWaveID: 1, // make all valid IDs non-falsey (i.e. don't start at 0)
 
-    // "PRIVATE" METHODS
-    //
-    // <none yet>
-
+    _WAVE_TIME: 1000, // A constant that tells the time between waves if no button is pressed
+    _timeLeft: 0, // Time left before next wave comes.
 
     // PUBLIC METHODS
 
+    // Fall fyrir update fall i entityManager til að vita hvort  
+    // hann eigi að kalla á næsta wave.
+    getTimeLeftInSecs: function() {
+        return this._timeLeft/100;
+    },
+
+    isNextWaveReadyToGo: function(du) {
+        if (this._timeLeft<0) {
+            return true;
+        }
+        this._timeLeft -= du;
+        return false;
+    },
+
     getNextWave: function (wavesInput) {
-        var wave = wavesInput[this._nextWaveID];
-        this._nextWaveID = this._nextWaveID + 1;
-        time += 1000;
+        if (this._nextWaveID >= wavesInput.length) {
+            return [];
+        }
+        var wave = wavesInput[this._nextWaveID-1];
+        this._nextWaveID++;
+        this._timeLeft = this._WAVE_TIME;
 
         return wave;
     },
