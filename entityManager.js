@@ -36,7 +36,7 @@ var entityManager = {
 
   // Býr til 5 óvini á sama stað í upphafi, lætur hann virðast vera með 5 hp.
   _generateEnemies: function () {
-    var { wave, time } = waveManager.getNextWave(waves);
+    var wave = waveManager.getNextWave(waves);
 
     for (var i = 0; i < wave.length; i++) {
       var { type, amount, initialDelay } = wave[i];
