@@ -20,7 +20,6 @@ function Sprite(image, numberOfFrames = 1) {
     this.numberOfFrames = numberOfFrames;
     this.width = image.width;
     this.height = image.height/numberOfFrames;
-    console.log(this.width, numberOfFrames);
 
     this.scale = 1;
 }
@@ -78,7 +77,7 @@ Sprite.prototype.drawCentredAtAnimated = function (ctx, frameIndex, cx, cy, rota
     ctx.restore();
 }; 
 
-Sprite.prototype.drawWrappedCentredAt = function (ctx, cx, cy, rotation) {
+Sprite.prototype.drawWrappedCentredAt = function (ctx, cx, cy, rotation = 0) {
 
     // Get "screen width"
     var sw = g_gameWidth;

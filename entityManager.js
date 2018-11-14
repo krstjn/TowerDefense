@@ -41,13 +41,11 @@ var entityManager = {
     for (var i = 0; i < wave.length; i++) {
       var { type, amount, initialDelay } = wave[i];
       var index = -1;
-      var enemy = enemies.find( (e, x) =>{
-          index = x;
-          return e.type === type;
-      });
+      var { enemy, index } = waveManager.getEnemyStats(type);
         for(var j = 0; j < amount; j++){
 
             this.generateEnemy({
+                type: type,
                 hp: enemy.hp,
                 delay: (initialDelay + enemy.delay * j),
                 vel: enemy.vel,
@@ -114,7 +112,8 @@ fireBullet: function(cx, cy, velX, velY, rotation, damage, isSlow) {
 
         rotation : rotation,
         damage: damage,
-        isSlow : isSlow
+        isSlow : isSlow,
+        type: EXPLODE
     }));
   },
 
@@ -151,6 +150,14 @@ fireBullet: function(cx, cy, velX, velY, rotation, damage, isSlow) {
       g_money -= towerCost;
     }
     g_mapGrids[0][arrayIndex] = 0;
+  },
+  createExplosion: function(cx,cy) {
+    this._bullets.push(new Explosion({ 
+      cx,
+      cy,
+      sprite: g_sprites.explosion,
+      numberOfFrames: 5
+    }));
   },
 
   update: function(du) {

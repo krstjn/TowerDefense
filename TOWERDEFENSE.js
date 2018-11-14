@@ -110,18 +110,19 @@ function requestPreloads() {
     background: "images/background.png",
     town: "images/town.png",
     menu: "images/menu.png",
-        enemy1      : "images/enemy1ax4.png",
-        enemy2	    : "images/enemy2x4.png",
-        enemy3	    : "images/enemy3x4.png",
-        enemy4	    : "images/enemy4x4.png",
-        enemy5	    : "images/enemy5x4.png",
+    enemy1: "images/enemy1ax4.png",
+    enemy2: "images/enemy2x4.png",
+    enemy3: "images/enemy3x4.png",
+    enemy4: "images/enemy4x4.png",
+    enemy5: "images/enemy5x4.png",
     tower1: "images/tower1.png",
     tower2: "images/tower2.png",
     tower3: "images/tower3.png",
     tower4: "images/tower4.png",
     tower5: "images/tower5.png",
     tower6: "images/tower6.png",
-    bullet1: "images/tower1_bullet.png"
+    bullet1: "images/tower1_bullet.png",
+    explosion: "images/explosion.png"
   };
 
   imagesPreload(requiredImages, g_images, preloadDone);
@@ -145,6 +146,7 @@ function preloadDone() {
     new Sprite(g_images.tower5),
     new Sprite(g_images.tower6),
   ];
+  g_sprites.explosion = new Sprite(g_images.explosion, 9);
   g_sprites.bullet = new Sprite(g_images.bullet1);
   g_sprites.bullet.scale = 0.25;
 

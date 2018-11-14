@@ -17,3 +17,5 @@ const KID = 'KID';
 const BIRD = 'BIRD';
 const DOG = 'DOG';
 const ROBOTMAN = 'ROBOTMAN';
+
+const EXPLODE = 'EXPLODE';

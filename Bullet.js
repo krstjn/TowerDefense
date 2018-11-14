@@ -69,6 +69,8 @@ Bullet.prototype.update = function (du) {
     if (hitEntity) {
         var canTakeHit = hitEntity.takeBulletHit;
         if (canTakeHit) canTakeHit.call(hitEntity, this.damage, this.isSlow); 
+        if(this.type === EXPLODE) entityManager.createExplosion(hitEntity.cx, hitEntity.cy);
+
         return entityManager.KILL_ME_NOW;
     }
 
