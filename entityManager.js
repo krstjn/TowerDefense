@@ -58,7 +58,8 @@ _generateEnemies : function() {
                 hp: enemy.hp,
                 delay: (wave[i].initialDelay + enemy.delay * j),
                 vel: enemy.vel,
-                sprite: g_sprites.enemies[wave[i].type-1]
+                sprite: g_sprites.enemies[wave[i].type-1],
+                numberOfFrames: 4
             });
         }
     }

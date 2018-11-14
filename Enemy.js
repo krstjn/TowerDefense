@@ -19,6 +19,11 @@ function Enemy(descr) {
     this.setup(descr);
     this.setStartPosition(); // Ætti að taka inn hvaða borð/level er verið að spila
 
+    this.frameIndex = 0,
+    this.tickCount = 0,
+    this.ticksPerFrame = 6,
+    this.numberOfFrames = this.numberOfFrames || 1;
+
     // Default sprite and scale, if not otherwise specified
     this.nextNodeIndex = this.nextNodeIndex || 1;
     this.sprite = this.sprite || g_sprites.enemy1;
@@ -38,6 +43,22 @@ Enemy.prototype.setStartPosition = function () {
 
 Enemy.prototype.update = function (du) {
     spatialManager.unregister(this);
+
+    this.tickCount += 1;
+			
+    if(this.tickCount > this.ticksPerFrame) {
+      this.tickCount = 0;
+      // Go to the next frame
+      // If the current frame index is in range
+      if (this.frameIndex < this.numberOfFrames - 1) {	
+        // Go to the next frame
+        this.frameIndex += 1;
+        
+      } else {
+        this.frameIndex = 0;
+      }    
+    }
+
     if(this._isDeadNow) return entityManager.KILL_ME_NOW;
 
     var pathNode = g_paths[0][this.nextNodeIndex]; // ætti að taka inn hvaða bor/lvl er verið að spila
@@ -88,8 +109,16 @@ Enemy.prototype.takeBulletHit = function (damage) {
 Enemy.prototype.render = function (ctx) {
     var origScale = this.sprite.scale;
     // pass my scale into the sprite, for drawing
+    var w = this.width/ this.numberOfFrames;
     this.sprite.scale = this.scale;
-    this.sprite.drawCentredAt(
-        ctx, this.cx, this.cy, this.rotation
+    // this.sprite.drawCentredAt(
+    //   ctx, this.cx, this.cy, this.rotation
+    // );
+    this.sprite.drawCentredAtAnimated(
+        ctx, 
+        this.frameIndex,
+        this.cx, 
+        this.cy, 
+        this.rotation
     );
 };

@@ -15,7 +15,7 @@ var wave_enemies = [
 ];
 var waves = [[],
     [
-        {type: 1, amount: 5, initialDelay: 0}
+        {type: 1, amount: 1, initialDelay: 0}
     ],
     [
         {type: 1, amount: 5, initialDelay: 0  }, 
