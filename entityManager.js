@@ -26,19 +26,13 @@ with suitable 'data' and 'methods'.
 var entityManager = {
 
   // "PRIVATE" DATA
-  _rocks: [],
   _bullets: [],
-  _ships: [],
   _enemies: [],
   _towers: [],
 
-  _bShowRocks: false,
   _CURRENT_WAVE: 1,
+  
   // "PRIVATE" METHODS
-
-  _generateRocks: function() {
-
-  },
 
   // Býr til 5 óvini á sama stað í upphafi, lætur hann virðast vera með 5 hp.
   _generateEnemies: function() {
@@ -53,7 +47,7 @@ var entityManager = {
       var enemy = wave_enemies[wave[i].type - 1];
 
         for(var j = 0; j < wave[i].amount; j++){
-            
+
             this.generateEnemy({
                 hp: enemy.hp,
                 delay: (wave[i].initialDelay + enemy.delay * j),
@@ -62,38 +56,6 @@ var entityManager = {
                 numberOfFrames: 4
             });
         }
-    }
-  },
-
-  _findNearestShip: function(posX, posY) {
-    var closestShip = null,
-      closestIndex = -1,
-      closestSq = 1000 * 1000;
-
-    for (var i = 0; i < this._ships.length; ++i) {
-
-      var thisShip = this._ships[i];
-      var shipPos = thisShip.getPos();
-      var distSq = util.wrappedDistSq(
-        shipPos.posX, shipPos.posY,
-        posX, posY,
-        g_gameWidth, g_gameHeight);
-
-      if (distSq < closestSq) {
-        closestShip = thisShip;
-        closestIndex = i;
-        closestSq = distSq;
-      }
-    }
-    return {
-      theShip: closestShip,
-      theIndex: closestIndex
-    };
-  },
-
-  _forEachOf: function(aCategory, fn) {
-    for (var i = 0; i < aCategory.length; ++i) {
-      fn.call(aCategory[i]);
     }
   },
 
@@ -108,13 +70,11 @@ var entityManager = {
   // i.e. thing which need `this` to be defined.
   //
   deferredSetup: function() {
-    this._categories = [this._rocks, this._bullets, this._ships, this._enemies, this._towers];
+    this._categories = [this._bullets, this._enemies, this._towers];
   },
 
   init: function() {
-    this._generateRocks();
     this._generateEnemies();
-    //this._generateShip();
   },
 
 fireBullet: function(cx, cy, velX, velY, rotation, damage, isSlow) {
@@ -130,16 +90,8 @@ fireBullet: function(cx, cy, velX, velY, rotation, damage, isSlow) {
     }));
   },
 
-  generateRock: function(descr) {
-    this._rocks.push(new Rock(descr));
-  },
-
   generateEnemy: function(descr) {
     this._enemies.push(new Enemy(descr));
-  },
-
-  generateShip: function(descr) {
-    this._ships.push(new Ship(descr));
   },
 
   sendNextWave: function() {
@@ -173,27 +125,6 @@ fireBullet: function(cx, cy, velX, velY, rotation, damage, isSlow) {
     g_mapGrids[0][arrayIndex] = 0;
   },
 
-  killNearestShip: function(xPos, yPos) {
-    var {
-      theShip
-    } = this._findNearestShip(xPos, yPos);
-    if (theShip) {
-      theShip.kill();
-    }
-  },
-
-  resetShips: function() {
-    this._forEachOf(this._ships, Ship.prototype.reset);
-  },
-
-  haltShips: function() {
-    this._forEachOf(this._ships, Ship.prototype.halt);
-  },
-
-  toggleRocks: function() {
-    this._bShowRocks = !this._bShowRocks;
-  },
-
   update: function(du) {
 
     for (var c = 0; c < this._categories.length; ++c) {
@@ -221,8 +152,6 @@ fireBullet: function(cx, cy, velX, velY, rotation, damage, isSlow) {
       }
     }
 
-    if (this._rocks.length === 0) this._generateRocks();
-
   },
 
   render: function(ctx) {
@@ -233,10 +162,6 @@ fireBullet: function(cx, cy, velX, velY, rotation, damage, isSlow) {
     for (var c = 0; c < this._categories.length; ++c) {
 
       var aCategory = this._categories[c];
-
-      if (!this._bShowRocks &&
-        aCategory == this._rocks)
-        continue;
 
       for (var i = 0; i < aCategory.length; ++i) {
         if (aCategory[i].delay <= 0 || aCategory[i].delay == undefined)
