@@ -37,7 +37,7 @@ Enemy.prototype = new Entity();
 
 // Finnur fyrsta punktinn í pathinu og setur hann sem upphafspunkt fyrir óvininn
 Enemy.prototype.setStartPosition = function () {
-  var pathNode = g_paths[0][0]; // Fyrra núllið ætti að vera borðið/lvl sem við erum að spila
+  var pathNode = g_paths[g_level][0]; // Fyrra núllið ætti að vera borðið/lvl sem við erum að spila
   this.cx = pathNode.cx;
   this.cy = pathNode.cy;
 };
@@ -70,13 +70,16 @@ Enemy.prototype.update = function (du) {
     else this.vel = this.defaultVel;
 
     // Athugar hvort óvinur sé kominn á endapunkt
-    if (this.nextNodeIndex >= g_paths[0].length){
+    if (this.nextNodeIndex >= g_paths[g_level].length){
       g_lives--;  // Minnkar líf
-      if(g_lives <= 0) main.gameOver(); // Endar leikinn ef lífin eru búin
+
+      if(g_lives <= 0) {
+        g_gameState = GAME_OVER;
+      } // Endar leikinn ef lífin eru búin
       return entityManager.KILL_ME_NOW; // Eyðir óvini
     }
 
-    var pathNode = g_paths[0][this.nextNodeIndex]; // ætti að taka inn hvaða bor/lvl er verið að spila
+    var pathNode = g_paths[g_level][this.nextNodeIndex]; // ætti að taka inn hvaða bor/lvl er verið að spila
 
     // Athugar hvar næsti punktur er og færir enemy í átt að honum.
     // Ef enemy er á næsta punkt þá breytum við næsta punkt.

@@ -41,10 +41,10 @@ function generatePath1() {
 // Búa til path fyrir lvl 2
 function generatePath2() {
   var p = [];
-  p.push(new Node(20, 0));
-  p.push(new Node(20, 50));
-  p.push(new Node(200, 50));
-  p.push(new Node(200, 200));
-  p.push(new Node(50, 200));
+  p.push(new Node(150, 0));
+  p.push(new Node(150, 300));
+  p.push(new Node(80, 300));
+  p.push(new Node(80, 450));
+  p.push(new Node(400, 450));
   return p;
 }

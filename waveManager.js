@@ -67,5 +67,9 @@ var waveManager = {
         });
         
         return { enemy, index };
+    },
+    reset: function() {
+        this._nextWaveID = 1;
+        this._timeLeft = 0;
     }
 }

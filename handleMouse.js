@@ -23,9 +23,19 @@ function handleMouse(evt) {
   if (!button) return;
 
   // Try to create tower, if no tower is selected we'll return from it.
-  entityManager.createNewTower(g_mouseX, g_mouseY);
-  menuManager.clickedTower = null;
-  menuManager.findClickedItem(g_mouseX, g_mouseY);
+  if(g_gameState === PLAYING){
+    entityManager.createNewTower(g_mouseX, g_mouseY);
+    menuManager.clickedTower = null;
+    menuManager.findClickedItem(g_mouseX, g_mouseY);
+  }
+  // From the Main Menu setup selected level
+  if(g_gameState === MAIN_MENU){
+    menuManager.setupSelectedLevel(g_mouseX, g_mouseY);
+  }
+
+  if(g_gameState === PAUSED || g_gameState === GAME_OVER)
+    menuManager.performAction(g_mouseX, g_mouseY);
+
 };
 
 // Handle "down" and "move" events the same way.
