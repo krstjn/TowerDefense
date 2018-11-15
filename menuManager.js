@@ -12,6 +12,115 @@ var menuManager = {
   _towerTypes: [],
   clickedTower: null,
 
+
+  _levels: [],
+  _action: [],
+
+  /**
+   * Render the start menu
+   * Where a user selects a level to play
+   * @param {context} ctx 
+   */
+  renderStartMenu: function(ctx) {
+    util.clearCanvas(ctx);
+    ctx.fillStyle = "yellow";
+    ctx.font = "BOLD 40px Verdana";
+    ctx.fillText("TOWER DEFENSE", g_canvas.width/2 - 200, 100);
+    ctx.font = "30px Arial";
+    ctx.fillText("Select a map to play", g_canvas.width/2 - 140, 150);
+
+    ctx.drawImage(g_images.background, 180, 250, 200, 150);
+    ctx.drawImage(g_images.background, 400, 250, 200, 150);
+    ctx.drawImage(g_images.background, 620, 250, 200, 150);
+  },
+
+  /**
+   * Renders an overlay over the game,
+   * when paused and when game is over
+   * @param {context} ctx 
+   * @param {string} message 
+   */
+  renderPausedOrGameOver: function(ctx, message) {
+    var prevfillStyle = ctx.fillStyle;
+    var oldAlpha = ctx.globalAlpha;
+    ctx.fillStyle = "white";
+    ctx.globalAlpha = 0.7;
+    ctx.fillRect(0, 0, g_canvas.width, g_canvas.height);
+    ctx.globalAlpha = oldAlpha;
+
+    ctx.font = "40px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText(message, g_gameWidth/2-150, g_gameHeight/2);
+
+    util.fillBox(ctx, g_gameWidth/2-100, g_gameHeight/2 + 100, 200, 50,"#A00");
+    util.fillBox(ctx, g_gameWidth/2-95, g_gameHeight/2 + 105, 190, 40,"red");
+
+    ctx.font = "30px Arial";
+    ctx.fillStyle = "white";
+    ctx.fillText("NEW GAME",g_gameWidth/2-80,g_gameHeight/2 + 135);
+
+    ctx.fillStyle = prevfillStyle;
+
+  },
+
+  /**
+   * Figure out if a mouse was pressed inside of the 
+   * level "buttons", and setup the game based on the level "button" selected
+   * @param {number} xPos 
+   * @param {number} yPos 
+   */
+  setupSelectedLevel: function(xPos, yPos){
+    var level = this._levels.find((el) => {
+      var { pos } = el;
+      if(pos.left <= xPos && pos.right >= xPos){
+        if(pos.bottom >= yPos && pos.top <= yPos){
+          return el;
+        }
+      }
+    });
+
+    if (level) {
+      g_gameState = PLAYING;
+      g_level = level.index;
+      entityManager.init();
+    }
+    
+  },
+  /**
+   * "Button" handler when game is paused or over, 
+   * finds out what "button", and acts accordingly
+   * @param {number} xPos 
+   * @param {number} yPos 
+   */
+  performAction: function(xPos,yPos) {
+    
+    var action = this._action.find((el) => {
+      var { pos } = el;
+      if(pos.left <= xPos && pos.right >= xPos){
+        if(pos.bottom >= yPos && pos.top <= yPos){
+          return el;
+        }
+      }
+    });
+
+    if (action) {
+      if(action.what === NEW_GAME){
+        this.resetGame();
+      }
+    }
+  },
+
+  /**
+   * Runs when user requests a new game
+   */
+  resetGame: function() {
+    g_gameState = MAIN_MENU;
+    g_level = 0;
+    g_lives = 20;
+    g_isUpdatePaused = false;
+    entityManager.reset();
+    waveManager.reset();
+  },
   // This function initialises our tower types.
   generateTowerTypes: function() {
     this._towerTypes.push(new Tower({
@@ -149,9 +258,34 @@ var menuManager = {
       }
     }
   },
+  _setupControls: function(){
+    this._levels.push(    
+      { index: 0, sprite: g_sprites.levels[0], 
+        pos: {  left: 180, right: 380, top: 250, bottom: 400 } 
+      }
+    );
+
+    this._levels.push(    
+      { index: 1, sprite: g_sprites.levels[1], 
+        pos: { left: 400, right: 600, top: 250, bottom: 400 } 
+      }
+    );
+
+    this._levels.push(    
+      { index: 2, sprite: g_sprites.levels[2], 
+        pos: { left: 620, right: 820, top: 250, bottom: 400 } 
+      }
+    ); 
+
+    this._action.push({
+      what: NEW_GAME,
+      pos: { left: 300, right: 500, top: 400, bottom: 450 } 
+    })
+  },
 
   // called in TOWERDEFENSE to initalise.
   init: function() {
+    this._setupControls();
     this.generateTowerTypes();
   },
 

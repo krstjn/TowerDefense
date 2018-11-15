@@ -12,6 +12,12 @@ var consts = {
     
 };
 
+const MAIN_MENU = 'MainMenu';
+const GAME_OVER = 'GameOver';
+const PLAYING = 'Playing';
+const PAUSED = 'Paused';
+const NEW_GAME = 'NewGame'
+
 const MOOSE = 'MOOSE';
 const KID = 'KID';
 const BIRD = 'BIRD';

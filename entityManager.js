@@ -72,6 +72,27 @@ var entityManager = {
   init: function() {
     this._generateEnemies();
   },
+  reset: function() {
+    for (var c = 0; c < this._categories.length; ++c) {
+
+      var aCategory = this._categories[c];
+      var i = 0;
+      // Clean up the spatialManager, by unregistering entities
+      while (i < aCategory.length) {
+        var entity = aCategory[i];
+        console.log(entity);
+        spatialManager.unregister(entity);
+        i++;
+      }
+    }
+
+    // Clean up entityManager, reset arrays
+    this._bullets = [];
+    this._enemies = [];
+    this._towers  = [];
+
+    this.deferredSetup();
+  },
 
   fireBullet: function (cx, cy, velX, velY, rotation, damage, isSlow) {
     this._bullets.push(new Bullet({

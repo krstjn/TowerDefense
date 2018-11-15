@@ -112,18 +112,6 @@ renderMoney : function(ctx){
     ctx.fillText("$:" + g_money, g_gameWidth + 140, 25);
 },
 
-renderLives : function(ctx){
-    ctx.fillStyle = "red";
-    ctx.font = "20px Arial";
-    ctx.fillText("♥:" + g_lives, g_gameWidth + 10, 25);
-},
-
-renderMoney : function(ctx){
-    ctx.fillStyle = "yellow";
-    ctx.font = "20px Arial";
-    ctx.fillText("$:" + g_money, g_gameWidth + 140, 25);
-},
-
 renderTime : function(ctx) {
     ctx.fillStyle = "black";
     ctx.font = "18px Arial";
@@ -157,11 +145,14 @@ fillCircle: function (ctx, x, y, r, opacity) {
     ctx.restore();
 },
 
-fillBox: function (ctx, x, y, w, h, style) {
+fillBox: function (ctx, x, y, w, h, style, opacity = 1) {
     var oldStyle = ctx.fillStyle;
+    var oldAlpha = ctx.globalAlpha;
+    ctx.globalAlpha = opacity;
     ctx.fillStyle = style;
     ctx.fillRect(x, y, w, h);
     ctx.fillStyle = oldStyle;
+    ctx.globalAlpha = oldAlpha;
 }
 
 };

@@ -56,8 +56,15 @@ var KEY_STEP  = 'O'.charCodeAt(0);
 var g_isUpdatePaused = false;
 
 function shouldSkipUpdate() {
+    if(g_gameState === MAIN_MENU || g_gameState == GAME_OVER) return true;
+
     if (eatKey(KEY_PAUSE)) {
         g_isUpdatePaused = !g_isUpdatePaused;
     }
-    return g_isUpdatePaused && !eatKey(KEY_STEP);    
+
+    if(g_isUpdatePaused)
+        g_gameState = PAUSED;
+    else
+        g_gameState = PLAYING;
+    return (g_isUpdatePaused && !eatKey(KEY_STEP)) || g_gameState !== PLAYING;    
 }

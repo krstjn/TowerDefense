@@ -43,9 +43,7 @@ function gatherInputs() {
 function updateSimulation(du) {
 
   processDiagnostics();
-
   entityManager.update(du);
-
 }
 
 // GAME-SPECIFIC DIAGNOSTICS
@@ -82,18 +80,35 @@ function processDiagnostics() {
 // It then delegates the game-specific logic to `gameRender`
 
 
-// GAME-SPECIFIC RENDERING
 
+/************
+ * MainMenu *
+ * GameOver *
+ * Playing  *
+ * Paused   *
+ ************/
+var g_gameState = MAIN_MENU;
+var g_level = 0;
+
+// GAME-SPECIFIC RENDERING
 function renderSimulation(ctx) {
 
-  util.renderBackground(ctx);
-  util.renderTown(ctx);
-  menuManager.renderMenu(ctx);
-  entityManager.render(ctx);
-  util.renderLives(ctx);
-  util.renderMoney(ctx);
-  menuManager.renderClickedTower(ctx);
-  util.renderTime(ctx);
+  if(g_gameState === MAIN_MENU){
+    menuManager.renderStartMenu(ctx);
+  } else {
+    util.renderBackground(ctx);
+    util.renderTown(ctx);
+    menuManager.renderMenu(ctx);
+    entityManager.render(ctx);
+    util.renderLives(ctx);
+    util.renderMoney(ctx);
+    menuManager.renderClickedTower(ctx);
+    util.renderTime(ctx);
+  }
+  if (g_gameState === PAUSED) menuManager.renderPausedOrGameOver(ctx, "GAME PAUSED");
+
+  if (g_gameState === GAME_OVER) menuManager.renderPausedOrGameOver(ctx, "GAME OVER");
+
 
   if (g_renderSpatialDebug) spatialManager.render(ctx);
 }
@@ -147,11 +162,16 @@ function preloadDone() {
     new Sprite(g_images.tower5),
     new Sprite(g_images.tower6),
   ];
+  g_sprites.levels = [
+    new Sprite(g_images.background),
+    new Sprite(g_images.background),
+    new Sprite(g_images.background),
+  ];
   g_sprites.explosion = new Sprite(g_images.explosion, 9);
   g_sprites.bullet = new Sprite(g_images.bullet1);
   g_sprites.bullet.scale = 0.25;
 
-  entityManager.init();
+  //entityManager.init();
   menuManager.init();
 
   main.init();
