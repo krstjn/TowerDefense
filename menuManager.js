@@ -117,6 +117,7 @@ var menuManager = {
     g_gameState = MAIN_MENU;
     g_level = 0;
     g_lives = 20;
+    g_money = 300;
     g_isUpdatePaused = false;
     entityManager.reset();
     waveManager.reset();
