@@ -100,6 +100,14 @@ renderMenu : function (ctx) {
   ctx.drawImage(g_images.menu, 0, 0, g_canvas.width, g_canvas.height);
 },
 
+renderText : function (ctx, color, size, text, x, y) {
+    ctx.save();
+    ctx.fillStyle = "color";
+    ctx.font = "450 " + size + "px Berlin sans FB";
+    ctx.fillText(text, x, y);
+    ctx.restore();
+},
+
 renderLives : function(ctx){
     ctx.fillStyle = "red";
     ctx.font = "20px Arial";

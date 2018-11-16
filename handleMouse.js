@@ -18,12 +18,15 @@ function handleMouse(evt) {
 
   g_mouseX = evt.clientX - g_canvas.offsetLeft;
   g_mouseY = evt.clientY - g_canvas.offsetTop;
+
+  menuManager.mouseOverTower = null; // reset this each time the mouse is moved
+  menuManager.isMouseOverMenuTower(g_mouseX, g_mouseY);
   // If no button is being pressed, then bail
   var button = evt.buttons === undefined ? evt.which : evt.buttons;
   if (!button) return;
 
-  // Try to create tower, if no tower is selected we'll return from it.
   if(g_gameState === PLAYING){
+    // Try to create tower, if no tower is selected we'll return from it.
     entityManager.createNewTower(g_mouseX, g_mouseY);
     menuManager.clickedTower = null;
     menuManager.findClickedItem(g_mouseX, g_mouseY);

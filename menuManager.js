@@ -11,6 +11,7 @@ var menuManager = {
   // clickedTower knows if and then what tower on the menu we clicked last.
   _towerTypes: [],
   clickedTower: null,
+  mouseOverTower: null,
 
 
   _levels: [],
@@ -223,6 +224,28 @@ var menuManager = {
 
   },
 
+  renderTowerInfo: function(ctx) {
+      var tower = this._towerTypes[this.mouseOverTower];
+      ctx.save();
+      ctx.drawImage(g_images.infobox, g_gameWidth+15, 305, 170 , 160);
+      ctx.textBaseline="top";
+      ctx.textAlign="center";
+      util.renderText(ctx, "#734d26", 20, "Tower Type:", g_gameWidth + 100, 320);
+      util.renderText(ctx, "#734d26", 18, "" + "töff turn", g_gameWidth + 100, 340);
+      ctx.textAlign="start";
+      util.renderText(ctx, "#734d26", 18, "Price:", g_gameWidth + 35, 370);
+      util.renderText(ctx, "#734d26", 18, "Damage:", g_gameWidth + 35, 390);
+      util.renderText(ctx, "#734d26", 18, "Range:", g_gameWidth + 35, 410);
+      util.renderText(ctx, "#734d26", 18, "Rate of fire:", g_gameWidth + 35, 430);
+
+      ctx.textAlign="end";
+      util.renderText(ctx, "#734d26", 18, "" + tower.price, g_gameWidth + 165, 370);
+      util.renderText(ctx, "#734d26", 18, "" + tower.damage, g_gameWidth + 165, 390);
+      util.renderText(ctx, "#734d26", 18, "" + tower.fireRangeRadius/10, g_gameWidth + 165, 410);
+      util.renderText(ctx, "#734d26", 18, "" + tower.rateOfFire/1000, g_gameWidth + 165, 430);
+      ctx.restore();
+  },
+
   // Renders the tower we have selected where the mouse is hovering.
   renderClickedTower: function(ctx) {
     if (this.clickedTower != null) {
@@ -241,22 +264,8 @@ var menuManager = {
 
   // Checks and selects the tower we clicked, is one was clicked.
   findClickedItem: function(x, y) {
-    if (x > 837 && x < 887) {
-      if (y > 75 && y < 125) {
-        this.clickedTower = 0;
-      } else if (y > 151 && y < 201) {
-        this.clickedTower = 2;
-      } else if (y > 227 && y < 277) {
-        this.clickedTower = 4;
-      }
-    } else if (x > 913 && x < 963) {
-      if (y > 75 && y < 125) {
-        this.clickedTower = 1;
-      } else if (y > 151 && y < 201) {
-        this.clickedTower = 3;
-      } else if (y > 227 && y < 277) {
-        this.clickedTower = 5;
-      }
+    if (this.mouseOverTower != null) {
+        this.clickedTower = this.mouseOverTower;
     }
     // Don't select the tower if we can't afford it.
     if (this.clickedTower != null) {
@@ -264,6 +273,27 @@ var menuManager = {
             this.clickedTower = null;
         }
     }
+  },
+
+  isMouseOverMenuTower: function(x, y) {
+      if (x > 837 && x < 887) {
+        if (y > 75 && y < 125) {
+          this.mouseOverTower = 0;
+        } else if (y > 151 && y < 201) {
+          this.mouseOverTower = 2;
+        } else if (y > 227 && y < 277) {
+          this.mouseOverTower = 4;
+        }
+      } else if (x > 913 && x < 963) {
+        if (y > 75 && y < 125) {
+          this.mouseOverTower = 1;
+        } else if (y > 151 && y < 201) {
+          this.mouseOverTower = 3;
+        } else if (y > 227 && y < 277) {
+          this.mouseOverTower = 5;
+        }
+      }
+      if (this.mouseOverTower != null) return true;
   },
 
   _setupControls: function(){

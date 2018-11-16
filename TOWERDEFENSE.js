@@ -97,8 +97,10 @@ function renderSimulation(ctx) {
     menuManager.renderStartMenu(ctx);
   } else {
     util.renderBackground(ctx);
-    //util.renderTown(ctx);
     menuManager.renderMenu(ctx);
+    if (menuManager.mouseOverTower != null) {
+        menuManager.renderTowerInfo(ctx);
+    }
     entityManager.render(ctx);
     util.renderLives(ctx);
     util.renderMoney(ctx);
@@ -128,6 +130,7 @@ function requestPreloads() {
     background3: "images/background3.png",
     town: "images/town.png",
     menu: "images/menu.png",
+    infobox: "images/infobox.png",
     enemy1: "images/enemy1ax4.png",
     enemy2: "images/enemy2x4.png",
     enemy3: "images/enemy3x4.png",

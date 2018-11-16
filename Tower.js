@@ -80,7 +80,6 @@ Tower.prototype.shootSound = new Audio(
 
 // Shoot in the direction the tower is pointing
 Tower.prototype.shoot = function() {
-  console.log("bullet was fired at frame time: " + main._frameTime_ms);
   this.shootSound.play();
   var dX = +Math.sin(this.rotation);
   var dY = -Math.cos(this.rotation);
