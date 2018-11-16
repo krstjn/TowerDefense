@@ -18,6 +18,8 @@ e.g. general collision detection.
 
 var waveManager = {
 
+    // "PRIVATE" DATA
+
     _enemies: [
         { type: ROBOTMAN, hp:  1, delay: 60, vel: 1.0 }, 
         { type: MOOSE, hp:  2, delay: 60, vel: 1.5 },
@@ -26,11 +28,9 @@ var waveManager = {
         { type: BIRD, hp:  5, delay: 80, vel: 1.5 },
    ],
 
-    // "PRIVATE" DATA
-
     _nextWaveID: 1, // make all valid IDs non-falsey (i.e. don't start at 0)
 
-    _WAVE_TIME: 1000, // A constant that tells the time between waves if no button is pressed
+    _WAVE_TIME: 1, // A constant that tells the time between waves if no button is pressed
     _timeLeft: 0, // Time left before next wave comes.
 
     // PUBLIC METHODS
@@ -39,6 +39,10 @@ var waveManager = {
     // hann eigi að kalla á næsta wave.
     getTimeLeftInSecs: function() {
         return this._timeLeft/100;
+    },
+    
+    getNextWaveID: function() {
+        return this._nextWaveID;
     },
 
     isNextWaveReadyToGo: function(du) {
