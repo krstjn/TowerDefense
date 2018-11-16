@@ -100,6 +100,14 @@ renderMenu : function (ctx) {
   ctx.drawImage(g_images.menu, 0, 0, g_canvas.width, g_canvas.height);
 },
 
+renderText : function (ctx, color, size, text, x, y) {
+    ctx.save();
+    ctx.fillStyle = "color";
+    ctx.font = "450 " + size + "px Berlin sans FB";
+    ctx.fillText(text, x, y);
+    ctx.restore();
+},
+
 renderLives : function(ctx){
     ctx.fillStyle = "red";
     ctx.font = "20px Arial";
@@ -112,14 +120,14 @@ renderMoney : function(ctx){
     ctx.fillText("$:" + g_money, g_gameWidth + 140, 25);
 },
 
-renderTime : function(ctx) {
+renderWaveInfo : function(ctx) {
+    ctx.save();
+    ctx.font = "18px Arial";
     ctx.fillStyle = "black";
-    ctx.font = "18px Arial";
-    ctx.fillText("Time to next wave:", g_gameWidth + 10, 500);
-    ctx.font = "25px Arial";
-    ctx.fillText(waveManager.getTimeLeftInSecs(), g_gameWidth + 10, 540);
-    ctx.font = "18px Arial";
-    ctx.fillText("Press 'Y' to skip wave", g_gameWidth + 10, 570);
+    ctx.fillText("Wave " + (waveManager.getNextWaveID()-1) + " of " + waves.length , g_gameWidth + 10, 500);
+    ctx.fillStyle = "blue";
+    ctx.fillText("Press 'Y' to skip wave", g_gameWidth + 10, 540);
+    ctx.restore();
 },
 
 clearCanvas: function (ctx) {
