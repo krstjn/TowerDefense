@@ -79,7 +79,7 @@ Tower.prototype.shootSound = new Audio(
   "sounds/rockEvaporate.ogg");
 
 // Shoot in the direction the tower is pointing
-Tower.prototype.shoot = function() {
+Tower.prototype.shoot = function(ID) {
   this.shootSound.play();
   var dX = +Math.sin(this.rotation);
   var dY = -Math.cos(this.rotation);
