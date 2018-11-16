@@ -31,6 +31,7 @@ function Enemy(descr) {
     this.defaultVel = this.vel;
     this.slowTimer = 0;
     this.maxHP = this.hp;
+    this.distTravelled = 0;
 
 };
 
@@ -106,6 +107,7 @@ Enemy.prototype.update = function (du) {
     else {
       this.nextNodeIndex += 1;
     }
+    this.distTravelled += this.vel;
 
     spatialManager.register(this);
 

@@ -31,6 +31,7 @@ var entityManager = {
   _towers: [],
 
   _CURRENT_WAVE: 1,
+  _ENEMY_ID: 1,
 
   // "PRIVATE" METHODS
 
@@ -44,6 +45,7 @@ var entityManager = {
         for(var j = 0; j < amount; j++){
 
             this.generateEnemy({
+                ID: this._ENEMY_ID++,
                 type: type,
                 hp: enemy.hp,
                 delay: (initialDelay + enemy.delay * j),
@@ -94,13 +96,13 @@ var entityManager = {
     this.deferredSetup();
   },
 
-  fireBullet: function (cx, cy, velX, velY, rotation, damage, isSlow) {
+  fireBullet: function (cx, cy, velX, velY, rotation, damage, isSlow, targetID) {
     this._bullets.push(new Bullet({
       cx: cx,
       cy: cy,
       velX: velX,
       velY: velY,
-
+        targetID: targetID,
         rotation : rotation,
         damage: damage,
         isSlow : isSlow,
@@ -149,6 +151,16 @@ var entityManager = {
       sprite: g_sprites.explosion,
       numberOfFrames: 5
     }));
+  },
+  getEnemiesByDist: function(){
+    return this._enemies.sort((a,b) => {
+      return b.distTravelled - a.distTravelled;
+    });
+  },
+  getEnemyById: function(id) {
+    return this._enemies.find(el => {
+      return el.ID === id;
+    });
   },
 
   update: function(du) {

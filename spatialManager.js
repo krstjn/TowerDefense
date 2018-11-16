@@ -23,6 +23,7 @@ var spatialManager = {
 _nextSpatialID : 1, // make all valid IDs non-falsey (i.e. don't start at 0)
 
 _entities : [],
+_enemies : [],
 
 // "PRIVATE" METHODS
 //
@@ -57,6 +58,27 @@ unregister: function(entity) {
 
 },
 
+registerEnemy: function(entity) {
+    var pos = entity.getPos();
+    var rad = entity.getRadius();
+    var spatialID = entity.getSpatialID();
+    this._enemies[spatialID] = {
+        entity,
+        posX: pos.posX,
+        posY: pos.posY,
+        radius: rad,
+        distTravelled: entity.distTravelled || -1
+    };
+
+},
+
+unregisterEnemy: function(entity) {
+    var spatialID = entity.getSpatialID();
+
+    delete this._entities[spatialID];
+
+},
+
 findEntityInRange: function(posX, posY, radius) {
 
     for (var ID in this._entities){
@@ -77,9 +99,11 @@ findEntityInRange: function(posX, posY, radius) {
 },
 
 findEnemyInRange: function(posX, posY, radius) {
-
-    for (var i=0; i<entityManager._enemies.length; i++)  {
-        var e = entityManager._enemies[i];
+    var maxDistTravelled = 0;
+    var hitEntity;
+    var enemies = entityManager.getEnemiesByDist();
+    for (var i=0; i<enemies.length; i++)  {
+        var e = enemies[i];
         // Calculate the distance between entities and posX and posY
         var distSq = util.distSq(posX, posY, e.cx, e.cy);
 
@@ -87,9 +111,14 @@ findEnemyInRange: function(posX, posY, radius) {
         var hitDistSq = util.square(radius + e.getRadius());
 
         if(distSq < hitDistSq){
-            return e;
+            if(maxDistTravelled < e.distTravelled){
+                hitEntity = e;
+                maxDistTravelled = e.distTravelled;
+            }
         }
     }
+    return hitEntity;
+
 },
 
 render: function(ctx) {

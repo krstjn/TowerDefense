@@ -50,9 +50,9 @@ Tower.prototype.update = function(du) {
     // we check wether enough time has passed between shots.
     if (!this.inRangeFrameTime) {
       this.inRangeFrameTime = main._frameTime_ms;
-      this.shoot();
+      this.shoot(entityInRange.ID);
     } else if (this.shouldShoot()) {
-      this.shoot();
+      this.shoot(entityInRange.ID);
     }
   } else {
     // To make sure this becomes null when an enemy gets out of range.
@@ -79,7 +79,7 @@ Tower.prototype.shootSound = new Audio(
   "sounds/rockEvaporate.ogg");
 
 // Shoot in the direction the tower is pointing
-Tower.prototype.shoot = function() {
+Tower.prototype.shoot = function(ID) {
   this.shootSound.play();
   var dX = +Math.sin(this.rotation);
   var dY = -Math.cos(this.rotation);
@@ -92,7 +92,7 @@ Tower.prototype.shoot = function() {
   entityManager.fireBullet(
     this.cx + dX * launchDist, this.cy + dY * launchDist,
     relVelX, relVelY,
-    this.rotation, this.damage, this.isSlow);
+    this.rotation, this.damage, this.isSlow, ID);
 };
 
 Tower.prototype.render = function(ctx) {
