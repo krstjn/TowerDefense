@@ -87,7 +87,7 @@ wrappedDistSq: function(x1, y1, x2, y2, xWrap, yWrap) {
 
 // draws the background
 renderBackground : function (ctx) {
-  ctx.drawImage(g_images.background, 0, 0, g_gameWidth, g_gameHeight);
+  g_sprites.levels[g_level].drawAt(ctx, 0, 0, g_gameWidth, g_gameHeight);
 },
 
 // draws the town

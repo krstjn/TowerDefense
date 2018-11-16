@@ -97,7 +97,7 @@ function renderSimulation(ctx) {
     menuManager.renderStartMenu(ctx);
   } else {
     util.renderBackground(ctx);
-    util.renderTown(ctx);
+    //util.renderTown(ctx);
     menuManager.renderMenu(ctx);
     entityManager.render(ctx);
     util.renderLives(ctx);
@@ -123,7 +123,9 @@ var g_images = {};
 function requestPreloads() {
 
   var requiredImages = {
-    background: "images/background.png",
+    background1: "images/background1.png",
+    background2: "images/background2.png",
+    background3: "images/background3.png",
     town: "images/town.png",
     menu: "images/menu.png",
     enemy1: "images/enemy1ax4.png",
@@ -163,9 +165,9 @@ function preloadDone() {
     new Sprite(g_images.tower6),
   ];
   g_sprites.levels = [
-    new Sprite(g_images.background),
-    new Sprite(g_images.background),
-    new Sprite(g_images.background),
+    new Sprite(g_images.background1),
+    new Sprite(g_images.background2),
+    new Sprite(g_images.background3),
   ];
   g_sprites.explosion = new Sprite(g_images.explosion, 9);
   g_sprites.bullet = new Sprite(g_images.bullet1);

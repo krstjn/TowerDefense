@@ -12,7 +12,7 @@
 */
 
 // Array with multiple paths, one for each lvl.
-var g_paths = [generatePath1(), generatePath2()];
+var g_paths = [generatePath1(), generatePath2(), generatePath3()];
 
 // Bætir punkt inn í path-ið
 function insertNode (x, y) {
@@ -41,10 +41,33 @@ function generatePath1() {
 // Búa til path fyrir lvl 2
 function generatePath2() {
   var p = [];
-  p.push(new Node(150, 0));
-  p.push(new Node(150, 300));
-  p.push(new Node(80, 300));
-  p.push(new Node(80, 450));
-  p.push(new Node(400, 450));
+  p.push(new Node(360, 0));
+  p.push(new Node(360, 480));
+  p.push(new Node(120, 480));
+  p.push(new Node(120, 120));
+  p.push(new Node(680, 120));
+  p.push(new Node(680, 240));
+  p.push(new Node(480, 240));
+  p.push(new Node(480, 400));
+  p.push(new Node(680, 400));
+  p.push(new Node(680, 520));
+  p.push(new Node(600, 520));
+  return p;
+}
+
+// Búa til path fyrir lvl 3
+function generatePath3() {
+  var p = [];
+  p.push(new Node(360, 0));
+  p.push(new Node(360, 480));
+  p.push(new Node(120, 480));
+  p.push(new Node(120, 120));
+  p.push(new Node(680, 120));
+  p.push(new Node(680, 240));
+  p.push(new Node(480, 240));
+  p.push(new Node(480, 400));
+  p.push(new Node(680, 400));
+  p.push(new Node(680, 520));
+  p.push(new Node(600, 520));
   return p;
 }

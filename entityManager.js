@@ -31,7 +31,7 @@ var entityManager = {
   _towers: [],
 
   _CURRENT_WAVE: 1,
-  
+
   // "PRIVATE" METHODS
 
   _generateEnemies: function () {
@@ -52,7 +52,7 @@ var entityManager = {
                 numberOfFrames: 4
             });
         }
-    }     
+    }
   },
 
   // PUBLIC METHODS
@@ -126,7 +126,7 @@ var entityManager = {
     var yGridNum = Math.floor(yPos / 40);
     var arrayIndex = 20 * yGridNum + xGridNum;
 
-    if (g_mapGrids[0][arrayIndex]) {
+    if (g_mapGrids[g_level][arrayIndex]) {
       this._towers.push(new Tower({
         cx: xGridNum * 40 + 20,
         cy: yGridNum * 40 + 20,
@@ -143,7 +143,7 @@ var entityManager = {
     g_mapGrids[0][arrayIndex] = 0;
   },
   createExplosion: function(cx,cy) {
-    this._bullets.push(new Explosion({ 
+    this._bullets.push(new Explosion({
       cx,
       cy,
       sprite: g_sprites.explosion,

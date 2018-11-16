@@ -37,7 +37,7 @@ Enemy.prototype = new Entity();
 
 // Finnur fyrsta punktinn í pathinu og setur hann sem upphafspunkt fyrir óvininn
 Enemy.prototype.setStartPosition = function () {
-  var pathNode = g_paths[g_level][0]; // Fyrra núllið ætti að vera borðið/lvl sem við erum að spila
+  var pathNode = g_paths[g_level][0];
   this.cx = pathNode.cx;
   this.cy = pathNode.cy;
 };
@@ -47,18 +47,18 @@ Enemy.prototype.update = function (du) {
     spatialManager.unregister(this);
 
     this.tickCount += 1;
-			
+
     if(this.tickCount > this.ticksPerFrame) {
       this.tickCount = 0;
       // Go to the next frame
       // If the current frame index is in range
-      if (this.frameIndex < this.numberOfFrames - 1) {	
+      if (this.frameIndex < this.numberOfFrames - 1) {
         // Go to the next frame
         this.frameIndex += 1;
-        
+
       } else {
         this.frameIndex = 0;
-      }    
+      }
     }
 
     if(this._isDeadNow) return entityManager.KILL_ME_NOW;
@@ -137,10 +137,10 @@ Enemy.prototype.render = function (ctx) {
     //   ctx, this.cx, this.cy, this.rotation
     // );
     this.sprite.drawCentredAtAnimated(
-        ctx, 
+        ctx,
         this.frameIndex,
-        this.cx, 
-        this.cy, 
+        this.cx,
+        this.cy,
         this.rotation
     );
 };

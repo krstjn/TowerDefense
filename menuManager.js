@@ -19,7 +19,7 @@ var menuManager = {
   /**
    * Render the start menu
    * Where a user selects a level to play
-   * @param {context} ctx 
+   * @param {context} ctx
    */
   renderStartMenu: function(ctx) {
     util.clearCanvas(ctx);
@@ -29,16 +29,16 @@ var menuManager = {
     ctx.font = "30px Arial";
     ctx.fillText("Select a map to play", g_canvas.width/2 - 140, 150);
 
-    ctx.drawImage(g_images.background, 180, 250, 200, 150);
-    ctx.drawImage(g_images.background, 400, 250, 200, 150);
-    ctx.drawImage(g_images.background, 620, 250, 200, 150);
+    ctx.drawImage(g_images.background1, 180, 250, 200, 150);
+    ctx.drawImage(g_images.background2, 400, 250, 200, 150);
+    ctx.drawImage(g_images.background3, 620, 250, 200, 150);
   },
 
   /**
    * Renders an overlay over the game,
    * when paused and when game is over
-   * @param {context} ctx 
-   * @param {string} message 
+   * @param {context} ctx
+   * @param {string} message
    */
   renderPausedOrGameOver: function(ctx, message) {
     var prevfillStyle = ctx.fillStyle;
@@ -64,10 +64,10 @@ var menuManager = {
   },
 
   /**
-   * Figure out if a mouse was pressed inside of the 
+   * Figure out if a mouse was pressed inside of the
    * level "buttons", and setup the game based on the level "button" selected
-   * @param {number} xPos 
-   * @param {number} yPos 
+   * @param {number} xPos
+   * @param {number} yPos
    */
   setupSelectedLevel: function(xPos, yPos){
     var level = this._levels.find((el) => {
@@ -84,16 +84,16 @@ var menuManager = {
       g_level = level.index;
       entityManager.init();
     }
-    
+
   },
   /**
-   * "Button" handler when game is paused or over, 
+   * "Button" handler when game is paused or over,
    * finds out what "button", and acts accordingly
-   * @param {number} xPos 
-   * @param {number} yPos 
+   * @param {number} xPos
+   * @param {number} yPos
    */
   performAction: function(xPos,yPos) {
-    
+
     var action = this._action.find((el) => {
       var { pos } = el;
       if(pos.left <= xPos && pos.right >= xPos){
@@ -258,29 +258,36 @@ var menuManager = {
         this.clickedTower = 5;
       }
     }
+    // Don't select the tower if we can't afford it.
+    if (this.clickedTower != null) {
+        if (this._towerTypes[this.clickedTower].price>g_money) {
+            this.clickedTower = null;
+        }
+    }
   },
+
   _setupControls: function(){
-    this._levels.push(    
-      { index: 0, sprite: g_sprites.levels[0], 
-        pos: {  left: 180, right: 380, top: 250, bottom: 400 } 
+    this._levels.push(
+      { index: 0, sprite: g_sprites.levels[0],
+        pos: {  left: 180, right: 380, top: 250, bottom: 400 }
       }
     );
 
-    this._levels.push(    
-      { index: 1, sprite: g_sprites.levels[1], 
-        pos: { left: 400, right: 600, top: 250, bottom: 400 } 
+    this._levels.push(
+      { index: 1, sprite: g_sprites.levels[1],
+        pos: { left: 400, right: 600, top: 250, bottom: 400 }
       }
     );
 
-    this._levels.push(    
-      { index: 2, sprite: g_sprites.levels[2], 
-        pos: { left: 620, right: 820, top: 250, bottom: 400 } 
+    this._levels.push(
+      { index: 2, sprite: g_sprites.levels[2],
+        pos: { left: 620, right: 820, top: 250, bottom: 400 }
       }
-    ); 
+    );
 
     this._action.push({
       what: NEW_GAME,
-      pos: { left: 300, right: 500, top: 400, bottom: 450 } 
+      pos: { left: 300, right: 500, top: 400, bottom: 450 }
     })
   },
 
