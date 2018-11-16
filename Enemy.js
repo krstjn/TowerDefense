@@ -17,7 +17,7 @@ function Enemy(descr) {
 
     // Common inherited setup logic from Entity
     this.setup(descr);
-    this.setStartPosition(); // Ætti að taka inn hvaða borð/level er verið að spila
+    this.setStartPosition();
 
     this.frameIndex = 0,
     this.tickCount = 0,
@@ -30,6 +30,7 @@ function Enemy(descr) {
     this.scale  = this.scale  || 1;
     this.defaultVel = this.vel;
     this.slowTimer = 0;
+    this.maxHP = this.hp;
 
 };
 
@@ -144,3 +145,16 @@ Enemy.prototype.render = function (ctx) {
         this.rotation
     );
 };
+
+Enemy.prototype.renderHealthBar = function (ctx) {
+    var green = "#00ff00"
+    var red = "#ff3300"
+    var x = this.cx-10;
+    var y = this.cy-20;
+    var wGreen = Math.ceil(20*(this.hp/this.maxHP));
+    var hGreen = 5;
+    var wRed = 20;
+    var hRed = 5;
+    util.fillBox(ctx, x, y, wRed, hRed, red);
+    util.fillBox(ctx, x, y, wGreen, hGreen, green);
+}

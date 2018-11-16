@@ -200,6 +200,9 @@ var entityManager = {
       }
       debugY += 10;
     }
+    this._enemies.forEach(el => {
+        el.renderHealthBar(ctx);
+    });
   }
 
 }
