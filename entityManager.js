@@ -153,9 +153,12 @@ var entityManager = {
 
   update: function(du) {
 
+    // Kalla á wave tengt tíma EKKI I NOTAD NUNA
+    /*
     if (waveManager.isNextWaveReadyToGo(du)) {
       this._generateEnemies();
     }
+    */
 
     for (var c = 0; c < this._categories.length; ++c) {
 

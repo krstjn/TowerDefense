@@ -40,4 +40,285 @@ var waves = [
         {type: KID, amount: 2, initialDelay: 150 }, 
         {type: BIRD, amount: 2, initialDelay: 170 }
     ],
+    // copyu peistaði seinasta waves nokkrum sinnum bara til að testa betur
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
+    [
+        {type: ROBOTMAN, amount: 10, initialDelay: 0  }, 
+        {type: MOOSE, amount: 6, initialDelay: 90 }, 
+        {type: DOG, amount: 3, initialDelay: 130 }, 
+        {type: KID, amount: 2, initialDelay: 150 }, 
+        {type: BIRD, amount: 2, initialDelay: 170 }
+    ],
 ];

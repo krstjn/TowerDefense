@@ -51,6 +51,11 @@ function updateSimulation(du) {
 
 var g_renderSpatialDebug = false;
 
+// Býr til key array fyrir takkan 1-10 á lyklaborði
+var KEY_NUMBER = [];
+for (var i=0; i<10; i++) {
+  KEY_NUMBER[i] = keyCode(i.toString());
+}
 
 var KEY_SPATIAL = keyCode('X');
 
@@ -64,6 +69,16 @@ function processDiagnostics() {
     entityManager.sendNextWave();
   }
 
+  for (var i = 1; i <= 6; i++) {
+    if (eatKey(KEY_NUMBER[i])) {
+      // Try to create tower, if no tower is selected we'll return from it.
+      if (g_gameState === PLAYING) {
+        entityManager.createNewTower(g_mouseX, g_mouseY);
+        menuManager.clickedTower = null;
+        menuManager.clickedTower = i - 1;
+      }
+    }
+  }
 
 }
 
@@ -92,10 +107,10 @@ var g_level = 0;
 
 // GAME-SPECIFIC RENDERING
 function renderSimulation(ctx) {
-
+  ctx.save();
   if(g_gameState === MAIN_MENU){
     menuManager.renderStartMenu(ctx);
-  } else {
+  } else { 
     util.renderBackground(ctx);
     //util.renderTown(ctx);
     menuManager.renderMenu(ctx);
@@ -103,8 +118,9 @@ function renderSimulation(ctx) {
     util.renderLives(ctx);
     util.renderMoney(ctx);
     menuManager.renderClickedTower(ctx);
-    util.renderTime(ctx);
+    util.renderWaveInfo(ctx);
   }
+  ctx.restore();
   if (g_gameState === PAUSED) menuManager.renderPausedOrGameOver(ctx, "GAME PAUSED");
 
   if (g_gameState === GAME_OVER) menuManager.renderPausedOrGameOver(ctx, "GAME OVER");
