@@ -65,13 +65,15 @@ Bullet.prototype.update = function (du) {
     //
     // Handle collisions
     //
-    var hitEntity = this.findHitEntity();
-    if (hitEntity) {
-        var canTakeHit = hitEntity.takeBulletHit;
-        if (canTakeHit) canTakeHit.call(hitEntity, this.damage, this.isSlow); 
-        if(this.type === EXPLODE) entityManager.createExplosion(hitEntity.cx, hitEntity.cy);
-
-        return entityManager.KILL_ME_NOW;
+    var e = entityManager.getEnemyById(this.targetID);
+    if (e) {
+        var distSq = util.distSq(this.cx, this.cy, e.cx, e.cy);
+        var hitDistSq = util.square(this.getRadius() + e.getRadius());
+        if (hitDistSq >= distSq) {
+            e.takeBulletHit(this.damage, this.isSlow); 
+            if(this.type === EXPLODE) entityManager.createExplosion(e.cx, e.cy);
+            return entityManager.KILL_ME_NOW;
+        }
     }
 
     spatialManager.register(this);
