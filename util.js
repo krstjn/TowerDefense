@@ -126,7 +126,7 @@ renderWaveInfo : function(ctx) {
     ctx.fillStyle = "black";
     ctx.fillText("Wave " + (waveManager.getNextWaveID()-1) + " of " + waves.length , g_gameWidth + 10, 500);
     ctx.fillStyle = "blue";
-    ctx.fillText("Press 'Y' to skip wave", g_gameWidth + 10, 540);
+    //ctx.fillText("Press 'Y' to skip wave", g_gameWidth + 10, 540);
     ctx.restore();
 },
 

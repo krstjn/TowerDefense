@@ -13,6 +13,7 @@
 
 var g_mouseX = 0,
   g_mouseY = 0;
+var g_wasMouseDown = false;
 
 function handleMouse(evt) {
 
@@ -20,13 +21,28 @@ function handleMouse(evt) {
   g_mouseY = evt.clientY - g_canvas.offsetTop;
 
   menuManager.mouseOverTower = null; // reset this each time the mouse is moved
+
+  // Each time the mouse moves we check if it's hovering over a tower.
   menuManager.isMouseOverMenuTower(g_mouseX, g_mouseY);
+
   // If no button is being pressed, then bail
   var button = evt.buttons === undefined ? evt.which : evt.buttons;
-  if (!button) return;
+  if (!button) {
+      g_wasMouseDown = false;
+      return;
+  }
+
+  // checks if player is holding the mousebutton down, if so
+  // we bail on the click functions.
+  if (g_wasMouseDown) return;
+
+  g_wasMouseDown = true;
 
   if(g_gameState === PLAYING){
     // Try to create tower, if no tower is selected we'll return from it.
+    if (menuManager.isMouseOnNextWaveButton()) {
+        entityManager.sendNextWave();
+    }
     entityManager.createNewTower(g_mouseX, g_mouseY);
     menuManager.clickedTower = null;
     menuManager.findClickedItem(g_mouseX, g_mouseY);
@@ -43,4 +59,5 @@ function handleMouse(evt) {
 
 // Handle "down" and "move" events the same way.
 window.addEventListener("mousedown", handleMouse);
+window.addEventListener("mouseup", handleMouse);
 window.addEventListener("mousemove", handleMouse);

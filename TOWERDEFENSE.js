@@ -110,7 +110,7 @@ function renderSimulation(ctx) {
   ctx.save();
   if(g_gameState === MAIN_MENU){
     menuManager.renderStartMenu(ctx);
-  } else { 
+  } else {
     util.renderBackground(ctx);
     menuManager.renderMenu(ctx);
     if (menuManager.mouseOverTower != null) {
@@ -147,6 +147,7 @@ function requestPreloads() {
     town: "images/town.png",
     menu: "images/menu.png",
     infobox: "images/infobox.png",
+    nextWaveButton: "images/nextWaveButton.png",
     enemy1: "images/enemy1ax4.png",
     enemy2: "images/enemy2x4.png",
     enemy3: "images/enemy3x4.png",

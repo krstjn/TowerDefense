@@ -185,12 +185,13 @@ var menuManager = {
   // draws the menu
   renderMenu: function(ctx) {
     ctx.drawImage(g_images.menu, 0, 0, g_canvas.width, g_canvas.height);
-    this._renderTowerIcons(ctx);
+    this.renderTowerIcons(ctx);
+    this.renderNextWaveButton(ctx);
   },
 
   // draws the tower icons on the menu. If player can not afford the tower
   // then it will be drawn with a low opacity.
-  _renderTowerIcons: function(ctx) {
+  renderTowerIcons: function(ctx) {
     if (g_money >= this._towerTypes[0].price) {
       this._towerTypes[0].sprite.drawCentredAt(ctx, 862, 100, 0, 1);
     } else {
@@ -221,10 +222,20 @@ var menuManager = {
     } else {
       this._towerTypes[5].sprite.drawCentredAt(ctx, 938, 252, 0, 0.3);
     }
-
   },
 
-  renderTowerInfo: function(ctx) {
+  renderNextWaveButton: function (ctx) {
+      ctx.save();
+      ctx.globalAlpha=1;
+      if (this.isMouseOnNextWaveButton()) {
+          ctx.globalAlpha=0.85;
+          if (g_wasMouseDown) ctx.globalAlpha=1;
+      }
+      ctx.drawImage(g_images.nextWaveButton, g_gameWidth+25, 530, 150, 50);
+      ctx.restore();
+  },
+
+  renderTowerInfo: function (ctx) {
       var tower = this._towerTypes[this.mouseOverTower];
       ctx.save();
       ctx.drawImage(g_images.infobox, g_gameWidth+15, 305, 170 , 160);
@@ -294,6 +305,15 @@ var menuManager = {
         }
       }
       if (this.mouseOverTower != null) return true;
+  },
+
+  isMouseOnNextWaveButton: function () {
+      var bool = true;
+      console.log(g_mouseX);
+      console.log(g_mouseY);
+      if (g_mouseX<g_gameWidth+25 || g_gameWidth+175<g_mouseX) bool = false;
+      if (g_mouseY<530 || 580<g_mouseY) bool = false;
+      return bool;
   },
 
   _setupControls: function(){
