@@ -117,10 +117,7 @@ function renderSimulation(ctx) {
         menuManager.renderTowerInfo(ctx);
     }
     entityManager.render(ctx);
-    util.renderLives(ctx);
-    util.renderMoney(ctx);
     menuManager.renderClickedTower(ctx);
-    util.renderWaveInfo(ctx);
   }
   ctx.restore();
   if (g_gameState === PAUSED) menuManager.renderPausedOrGameOver(ctx, "GAME PAUSED");
@@ -144,7 +141,6 @@ function requestPreloads() {
     background1: "images/background1.png",
     background2: "images/background2.png",
     background3: "images/background3.png",
-    town: "images/town.png",
     menu: "images/menu.png",
     infobox: "images/infobox.png",
     nextWaveButton: "images/nextWaveButton.png",
