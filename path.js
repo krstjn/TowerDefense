@@ -58,16 +58,12 @@ function generatePath2() {
 // Búa til path fyrir lvl 3
 function generatePath3() {
   var p = [];
-  p.push(new Node(360, 0));
-  p.push(new Node(360, 480));
+  p.push(new Node(120, 0));
   p.push(new Node(120, 480));
-  p.push(new Node(120, 120));
-  p.push(new Node(680, 120));
-  p.push(new Node(680, 240));
-  p.push(new Node(480, 240));
-  p.push(new Node(480, 400));
-  p.push(new Node(680, 400));
-  p.push(new Node(680, 520));
-  p.push(new Node(600, 520));
+  p.push(new Node(240, 480));
+  p.push(new Node(240, 120));
+  p.push(new Node(360, 120));
+  p.push(new Node(360, 340));
+  p.push(new Node(740, 340));
   return p;
 }
