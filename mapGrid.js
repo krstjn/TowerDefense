@@ -12,9 +12,15 @@
 */
 
 // Array with multiple mapGrids, one for each lvl.
-var g_mapGrids = [generateMapGrid1(), generateMapGrid2(), generateMapGrid3()];
+var g_mapGrids;
 
-function generateMapGrid1(){
+var mapGrid = {
+
+  init : function () {
+    g_mapGrids = [mapGrid.generateMapGrid1(), mapGrid.generateMapGrid2(), mapGrid.generateMapGrid3()];
+  },
+
+generateMapGrid1 : function () {
   var g = [1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
            1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
            1,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,
@@ -31,9 +37,9 @@ function generateMapGrid1(){
            1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,
            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,]
     return g;
-}
+},
 
-function generateMapGrid2(){
+generateMapGrid2 : function () {
   var g = [1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,
            1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,
            1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
@@ -50,9 +56,9 @@ function generateMapGrid2(){
            1,1,1,1,1,1,1,1,1,1,1,0,1,0,0,0,0,0,1,1,
            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,]
     return g;
-}
+},
 
-function generateMapGrid3(){
+generateMapGrid3 : function () {
   var g = [1,1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
            1,1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,
            1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -69,4 +75,6 @@ function generateMapGrid3(){
            1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,
            1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,1,1,1,1,]
     return g;
-}
+},
+
+};

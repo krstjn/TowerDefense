@@ -149,7 +149,7 @@ var entityManager = {
 
             g_money -= towerCost;
         }
-        g_mapGrids[0][arrayIndex] = 0;
+        g_mapGrids[g_level][arrayIndex] = 0;
     },
     createExplosion: function(cx, cy) {
         this._bullets.push(new Explosion({

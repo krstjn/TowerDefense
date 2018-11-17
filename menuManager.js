@@ -86,6 +86,7 @@ var menuManager = {
             g_gameState = PLAYING;
             g_level = level.index;
             entityManager.init();
+            mapGrid.init();
         }
 
     },
