@@ -26,7 +26,6 @@ function Tower(descr) {
   this.price = this.price;
   this.damage = this.damage;
   this.inRangeFrameTime = null;
-  this.isSlow = this.isSlow || false;
 };
 
 Tower.prototype = new Entity();
@@ -35,7 +34,7 @@ Tower.prototype.update = function(du) {
   spatialManager.unregister(this);
   if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
-  var entityInRange = this.findHitEnemy();
+  var entityInRange = this.findHitEnemy(this.type === FLYING);
   if (entityInRange) {
     var entityPos = this.getPos();
     // Make tower point at first enemy in range.
@@ -92,7 +91,7 @@ Tower.prototype.shoot = function(ID) {
   entityManager.fireBullet(
     this.cx + dX * launchDist, this.cy + dY * launchDist,
     relVelX, relVelY,
-    this.rotation, this.damage, this.isSlow, ID);
+    this.rotation, this.damage, this.type, ID);
 };
 
 Tower.prototype.render = function(ctx) {

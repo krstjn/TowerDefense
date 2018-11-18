@@ -29,10 +29,10 @@ function Enemy(descr) {
     this.sprite = this.sprite || g_sprites.enemies[0];
     this.scale  = this.scale  || 1;
     this.defaultVel = this.vel;
-    this.slowTimer = 0;
     this.maxHP = this.hp;
     this.distTravelled = 0;
-
+    this.slowTimer = 0;
+    this.stunTimer = 0;
 };
 
 Enemy.prototype = new Entity();
@@ -65,11 +65,7 @@ Enemy.prototype.update = function (du) {
 
     if(this._isDeadNow) return entityManager.KILL_ME_NOW;
 
-    if(this.slowTimer > 0){
-      this.vel = this.defaultVel/2;
-      this.slowTimer -= du;
-    }
-    else this.vel = this.defaultVel;
+    this.checkStatus(du); // Uppfærir slow/stun/poison
 
     // Athugar hvort óvinur sé kominn á endapunkt
     if (this.nextNodeIndex >= g_paths[g_level].length){
@@ -121,9 +117,11 @@ Enemy.prototype.getRadius = function () {
 Enemy.prototype.evaporateSound = new Audio(
   "sounds/rockEvaporate.ogg");
 
-Enemy.prototype.takeBulletHit = function (damage, isSlow) {
+Enemy.prototype.takeBulletHit = function (damage, type) {
     this.hp = this.hp - damage;
-    if(isSlow) this.slowTimer = 50;
+    if(type === SLOW) this.slowTimer = 60;
+    if(type === POISON) this.poisonTimer = 120;
+    if(type === STUN) this.stunTimer = 30;
     if(this.hp <= 0){
       this.kill();
       g_money += 50;
@@ -160,3 +158,28 @@ Enemy.prototype.renderHealthBar = function (ctx) {
     util.fillBox(ctx, x, y, wRed, hRed, red);
     util.fillBox(ctx, x, y, wGreen, hGreen, green);
 }
+
+
+// Uppfærir slow/stun/poison
+Enemy.prototype.checkStatus = function(du) {
+  if (this.slowTimer > 0) {
+    this.vel = this.defaultVel / 2;
+    this.slowTimer -= du;
+  }
+
+  if (this.stunTimer > 0) {
+    this.vel = 0;
+    this.stunTimer -= du;
+  }
+
+  if(this.slowTimer <= 0 && this.stunTimer <= 0){
+    this.vel = this.defaultVel;
+  }
+  
+  if (this.poisonTimer > 0) {
+    this.hp -= 0.016;
+    this.poisonTimer -= du;
+    if (this.hp < 0) this.kill();
+  }
+}
+

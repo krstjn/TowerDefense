@@ -196,7 +196,7 @@ var menuManager = {
         ctx.textBaseline = "top";
         ctx.textAlign = "center";
         util.renderText(ctx, "#3D2914", 20, "Tower Type:", g_gameWidth + 100, 320);
-        util.renderText(ctx, "#3D2914", 18, "" + "töff turn", g_gameWidth + 100, 340);
+        util.renderText(ctx, "#3D2914", 18, "" + tower.type, g_gameWidth + 100, 340);
         ctx.textAlign = "start";
         util.renderText(ctx, "#3D2914", 18, "Price:", g_gameWidth + 35, 370);
         util.renderText(ctx, "#3D2914", 18, "Damage:", g_gameWidth + 35, 390);
@@ -306,8 +306,6 @@ var menuManager = {
 
     isMouseOnNextWaveButton: function() {
         var bool = true;
-        console.log(g_mouseX);
-        console.log(g_mouseY);
         if (g_mouseX < g_gameWidth + 25 || g_gameWidth + 175 < g_mouseX) bool = false;
         if (g_mouseY < 530 || 580 < g_mouseY) bool = false;
         return bool;
@@ -321,56 +319,66 @@ var menuManager = {
     generateTowerTypes: function() {
         this._towerTypes.push(new Tower({
             sprite: g_sprites.towers[0],
-            shotVel: 4,
+            shotVel: 15,
             fireRangeRadius: 100,
             rateOfFire: 1000,
             price: 100,
-            damage: 1
+            damage: 1,
+            type: NORMAL
         }));
 
+        // Turn sem skýtur bara flying óvini
         this._towerTypes.push(new Tower({
             sprite: g_sprites.towers[1],
-            shotVel: 6,
+            shotVel: 15,
             fireRangeRadius: 200,
             rateOfFire: 1000,
             price: 200,
-            damage: 1
+            damage: 1,
+            type: FLYING
         }));
-
+        // Sprengjuturn
         this._towerTypes.push(new Tower({
             sprite: g_sprites.towers[2],
-            shotVel: 4,
+            shotVel: 15,
             fireRangeRadius: 100,
-            rateOfFire: 600,
+            rateOfFire: 3000,
             price: 300,
-            damage: 2
+            damage: 1,
+            type: EXPLODE
         }));
 
+        // Poison turn
         this._towerTypes.push(new Tower({
             sprite: g_sprites.towers[3],
-            shotVel: 10,
-            fireRangeRadius: 300,
-            rateOfFire: 1500,
-            price: 400,
-            damage: 2
+            shotVel: 15,
+            fireRangeRadius: 100,
+            rateOfFire: 2000,
+            price: 200,
+            damage: 0.1,
+            type: POISON
         }));
 
+        // Slow turn
         this._towerTypes.push(new Tower({
             sprite: g_sprites.towers[4],
             shotVel: 15,
-            fireRangeRadius: 1000,
-            rateOfFire: 5000,
-            price: 500,
-            damage: 4
+            fireRangeRadius: 100,
+            rateOfFire: 1000,
+            price: 200,
+            damage: 0.5,
+            type: SLOW
         }));
 
+        // Stun turn
         this._towerTypes.push(new Tower({
             sprite: g_sprites.towers[5],
-            shotVel: 10,
-            fireRangeRadius: 300,
-            rateOfFire: 200,
-            price: 600,
-            damage: 2
+            shotVel: 15,
+            fireRangeRadius: 100,
+            rateOfFire: 1500,
+            price: 200,
+            damage: 0.2,
+            type: STUN
         }));
 
     },

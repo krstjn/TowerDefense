@@ -11,12 +11,13 @@ var enemies = [
      { type: MOOSE, hp:  2, delay: 60, vel: 1.5 },
      { type: DOG, hp:  5, delay: 80, vel: 2.0 },
      { type: KID, hp: 10, delay: 70, vel: 1.2 },
-     { type: BIRD, hp:  5, delay: 80, vel: 1.5 },
+     { type: BIRD, hp:  5, delay: 80, vel: 1.5},
 ];
 
 var waves = [
     [
-        {type: ROBOTMAN, amount: 1, initialDelay: 0}
+        {type: ROBOTMAN, amount: 1, initialDelay: 0},
+        {type: BIRD, amount: 2, initialDelay: 90, flying: true }
     ],
     [
         {type: ROBOTMAN, amount: 5, initialDelay: 0  }, 
@@ -38,7 +39,7 @@ var waves = [
         {type: MOOSE, amount: 6, initialDelay: 90 }, 
         {type: DOG, amount: 3, initialDelay: 130 }, 
         {type: KID, amount: 2, initialDelay: 150 }, 
-        {type: BIRD, amount: 2, initialDelay: 170 }
+        {type: BIRD, amount: 2, initialDelay: 170, flying: true }
     ],
     // copyu peistaði seinasta waves nokkrum sinnum bara til að testa betur
     [

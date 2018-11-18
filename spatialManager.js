@@ -98,7 +98,7 @@ findEntityInRange: function(posX, posY, radius) {
     }
 },
 
-findEnemyInRange: function(posX, posY, radius) {
+findEnemyInRange: function(posX, posY, radius, isFlying) {
     var maxDistTravelled = 0;
     var hitEntity;
     var enemies = entityManager.getEnemiesByDist();
@@ -112,13 +112,34 @@ findEnemyInRange: function(posX, posY, radius) {
 
         if(distSq < hitDistSq){
             if(maxDistTravelled < e.distTravelled){
-                hitEntity = e;
-                maxDistTravelled = e.distTravelled;
+                if(isFlying && e.flying || !isFlying && !e.flying){ // Finnur bara flying óvini ef turn er flying og öfugt
+                  hitEntity = e;
+                  maxDistTravelled = e.distTravelled;
+                }
             }
         }
     }
     return hitEntity;
 
+},
+
+
+// Finnur alla óvini innan radíus
+findAllEnemiesInRange: function(posX, posY, radius){
+    var enemies = entityManager._enemies;
+    var hitEnemies = [];
+
+    for (var i=0; i<enemies.length; i++){
+        var e = enemies[i];
+
+        var distSq = util.distSq(posX, posY, e.cx, e.cy);
+
+        var hitDistSq = util.square(radius + e.getRadius());
+        if(distSq < hitDistSq){
+            hitEnemies.push(e);
+        }
+    }
+    return hitEnemies;
 },
 
 render: function(ctx) {

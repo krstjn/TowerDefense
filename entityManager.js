@@ -42,7 +42,8 @@ var entityManager = {
             var {
                 type,
                 amount,
-                initialDelay
+                initialDelay,
+                flying
             } = wave[i];
             var index = -1;
             var {
@@ -58,7 +59,8 @@ var entityManager = {
                     delay: (initialDelay + enemy.delay * j),
                     vel: enemy.vel,
                     sprite: g_sprites.enemies[index],
-                    numberOfFrames: 4
+                    numberOfFrames: 4,
+                    flying: flying
                 });
             }
         }
@@ -103,7 +105,7 @@ var entityManager = {
         this.deferredSetup();
     },
 
-    fireBullet: function(cx, cy, velX, velY, rotation, damage, isSlow, targetID) {
+    fireBullet: function(cx, cy, velX, velY, rotation, damage, type, targetID) {
         this._bullets.push(new Bullet({
             cx: cx,
             cy: cy,
@@ -112,8 +114,7 @@ var entityManager = {
             targetID: targetID,
             rotation: rotation,
             damage: damage,
-            isSlow: isSlow,
-            type: EXPLODE
+            type: type
         }));
     },
 
@@ -144,7 +145,8 @@ var entityManager = {
                 fireRangeRadius: menuManager._towerTypes[menuManager.clickedTower].fireRangeRadius,
                 rateOfFire: menuManager._towerTypes[menuManager.clickedTower].rateOfFire,
                 price: menuManager._towerTypes[menuManager.clickedTower].price,
-                damage: menuManager._towerTypes[menuManager.clickedTower].damage
+                damage: menuManager._towerTypes[menuManager.clickedTower].damage,
+                type: menuManager._towerTypes[menuManager.clickedTower].type
             }));
 
             g_money -= towerCost;

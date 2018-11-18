@@ -25,3 +25,8 @@ const DOG = 'DOG';
 const ROBOTMAN = 'ROBOTMAN';
 
 const EXPLODE = 'EXPLODE';
+const SLOW = 'SLOW';
+const POISON = 'POISON';
+const STUN = 'STUN';
+const FLYING = 'FLYING';
+const NORMAL = 'NORMAL';

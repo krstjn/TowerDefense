@@ -25,7 +25,7 @@ var waveManager = {
         { type: MOOSE, hp:  2, delay: 60, vel: 1.5 },
         { type: DOG, hp:  5, delay: 80, vel: 2.0 },
         { type: KID, hp: 10, delay: 70, vel: 1.2 },
-        { type: BIRD, hp:  5, delay: 80, vel: 1.5 },
+        { type: BIRD, hp:  5, delay: 80, vel: 1.5,},
    ],
 
     _nextWaveID: 1, // make all valid IDs non-falsey (i.e. don't start at 0)

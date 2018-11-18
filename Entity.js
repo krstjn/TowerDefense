@@ -74,10 +74,10 @@ Entity.prototype.findHitEntity = function () {
     );
 };
 
-Entity.prototype.findHitEnemy = function () {
+Entity.prototype.findHitEnemy = function (isFlying) {
     var pos = this.getPos();
     return spatialManager.findEnemyInRange(
-        pos.posX, pos.posY, this.fireRangeRadius
+        pos.posX, pos.posY, this.fireRangeRadius, isFlying
     );
 };
 

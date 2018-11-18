@@ -70,7 +70,7 @@ Bullet.prototype.update = function (du) {
         var distSq = util.distSq(this.cx, this.cy, e.cx, e.cy);
         var hitDistSq = util.square(this.getRadius() + e.getRadius());
         if (hitDistSq >= distSq) {
-            e.takeBulletHit(this.damage, this.isSlow); 
+            e.takeBulletHit(this.damage, this.type); 
             if(this.type === EXPLODE) entityManager.createExplosion(e.cx, e.cy);
             return entityManager.KILL_ME_NOW;
         }
