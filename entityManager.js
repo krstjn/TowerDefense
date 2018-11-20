@@ -141,6 +141,7 @@ var entityManager = {
                 cx: xGridNum * 40 + 20,
                 cy: yGridNum * 40 + 20,
                 sprite: menuManager._towerTypes[menuManager.clickedNewTower].sprite,
+                spriteIndex: menuManager._towerTypes[menuManager.clickedNewTower].spriteIndex,
                 shotVel: menuManager._towerTypes[menuManager.clickedNewTower].shotVel,
                 fireRangeRadius: menuManager._towerTypes[menuManager.clickedNewTower].fireRangeRadius,
                 rateOfFire: menuManager._towerTypes[menuManager.clickedNewTower].rateOfFire,

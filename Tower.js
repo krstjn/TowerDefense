@@ -27,6 +27,7 @@ function Tower(descr) {
     this.damage = this.damage;
     this.inRangeFrameTime = null;
     this.index = this.index;
+    this.lvl = 1;
 };
 
 Tower.prototype = new Entity();
@@ -63,12 +64,17 @@ Tower.prototype.update = function(du) {
 };
 
 Tower.prototype.upgrade = function() {
-    console.log(this.price);
+    this.lvl += 1;
+    if (this.lvl == 2) this.spriteIndex += 6;
+    if (this.lvl == 4) this.spriteIndex += 6;
+    if (this.lvl == 6) this.spriteIndex += 6;
+    if (this.lvl == 8) this.spriteIndex += 6;
+    if (this.lvl == 10) this.spriteIndex += 6;
+    this.sprite = g_sprites.towers[this.spriteIndex];
     this.price = Math.round(this.price * 1.5 / 50) * 50;
     this.damage *= 2;
     this.fireRangeRadius *= 1.2;
     this.rateOfFire *= 0.8;
-    console.log(this.price);
     g_money -= this.price;
 };
 
