@@ -293,13 +293,21 @@ var menuManager = {
         ctx.globalAlpha = 0.8;
         ctx.textBaseline = "top";
         ctx.textAlign = "start";
-        util.renderText(ctx, "#3D2914", 18, "Price:", tower.cx + 5, tower.cy + yOffset + 70);
+        if (this.mouseOverSellButton()) {
+            util.renderText(ctx, "#3D2914", 18, "Sell price:", tower.cx + 5, tower.cy + yOffset + 70);
+        } else {
+            util.renderText(ctx, "#3D2914", 18, "Price:", tower.cx + 5, tower.cy + yOffset + 70);
+        }
         util.renderText(ctx, "#3D2914", 18, "Damage:", tower.cx + 5, tower.cy + yOffset + 90);
         util.renderText(ctx, "#3D2914", 18, "Range:", tower.cx + 5, tower.cy + yOffset + 110);
         util.renderText(ctx, "#3D2914", 18, "Fire rate:", tower.cx + 5, tower.cy + yOffset + 130);
 
         ctx.textAlign = "end";
-        util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.price * 1.5 / 50) * 50, tower.cx + 165, tower.cy + yOffset + 70);
+        if (this.mouseOverSellButton()) {
+            util.renderText(ctx, "#3D2914", 18, "" + Math.floor(tower.price*0.75 / 50) * 50, tower.cx + 165, tower.cy + yOffset + 70);
+        } else {
+            util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.price * 1.5 / 50) * 50, tower.cx + 165, tower.cy + yOffset + 70);
+        }
         util.renderText(ctx, "#3D2914", 18, "" + tower.damage + " → " + tower.damage * 2, tower.cx + 165, tower.cy + yOffset + 90);
         util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.fireRangeRadius / 10) + " → " + Math.round(tower.fireRangeRadius * 1.2 / 10), tower.cx + 165, tower.cy + yOffset + 110);
         util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.rateOfFire / 100) / 10 + " → " + Math.round(tower.rateOfFire * 0.8 / 100) / 10, tower.cx + 165, tower.cy + yOffset + 130);

@@ -73,7 +73,7 @@ Tower.prototype.upgrade = function() {
 };
 
 Tower.prototype.sell = function() {
-    g_money += this.price * 0.75;
+    g_money += Math.floor(this.price*0.75 / 50) * 50;
     g_mapGrids[g_level][this.index] = 1;
     for (var i = 0; i < entityManager._towers.length; i++) {
         if (entityManager._towers[i] === this) {
