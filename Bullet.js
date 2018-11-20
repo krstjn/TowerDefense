@@ -75,6 +75,8 @@ Bullet.prototype.update = function(du) {
         if (hitDistSq >= distSq) {
             e.takeBulletHit(this.damage, this.type);
             if (this.type === EXPLODE) entityManager.createExplosion(e.cx, e.cy, this.damage);
+            if (this.type === POISON) entityManager.createPoison(e);
+            if (this.type === STUN) entityManager.createStun(e.cx, e.cy);
             if (g_soundOn) this.hitSound.play();
             return entityManager.KILL_ME_NOW;
         }

@@ -7,24 +7,20 @@
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
 
-function Explosion(descr) {
+function Stun(descr) {
     this.setup(descr);
 
     this.frameIndex = 0,
-        this.tickCount = 0,
-        this.ticksPerFrame = 6,
-        this.numberOfFrames = 9;
-    this.radius = 50;
-    this.damage *= 0.3;
+    this.tickCount = 0,
+    this.ticksPerFrame = 1,
+    this.numberOfFrames = 49;
 
-    this.explode();
 }
 
-Explosion.prototype = new Entity();
+Stun.prototype = new Entity();
 
-Explosion.prototype.update = function(du) {
+Stun.prototype.update = function(du) {
     this.tickCount += 1;
-    console.log(this.damage);
 
     if (this.tickCount > this.ticksPerFrame) {
         this.tickCount = 0;
@@ -40,10 +36,10 @@ Explosion.prototype.update = function(du) {
     }
 }
 
-Explosion.prototype.render = function(ctx) {
+Stun.prototype.render = function(ctx) {
     var origScale = this.sprite.scale;
     // pass my scale into the sprite, for drawing
-    this.sprite.scale = 1.5;
+    this.sprite.scale = 0.4;
     // this.sprite.drawCentredAt(
     //   ctx, this.cx, this.cy, this.rotation
     // );
@@ -58,11 +54,3 @@ Explosion.prototype.render = function(ctx) {
     );
 }
 
-// Býr til sprengingu sem hittir alla óvini innan radíus
-Explosion.prototype.explode = function() {
-    var hitEnemies = spatialManager.findAllEnemiesInRange(this.cx, this.cy, this.radius);
-
-    for (var i = 0; i < hitEnemies.length; i++) {
-        hitEnemies[i].takeBulletHit(this.damage);
-    }
-}

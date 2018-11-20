@@ -120,6 +120,7 @@ Enemy.prototype.takeBulletHit = function(damage, type) {
     if (type === STUN) this.stunTimer = 30;
     if (this.hp <= 0) {
         if (g_soundOn) this.grunt.play();
+        entityManager.createDeath(this.cx, this.cy);
         this.kill();
         g_money += 50;
     }

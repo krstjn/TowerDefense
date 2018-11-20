@@ -153,7 +153,11 @@ function requestPreloads() {
         tower5: "images/tower5.png",
         tower6: "images/tower6.png",
         bullet1: "images/tower1_bullet.png",
-        explosion: "images/explosion.png"
+        explosion: "images/explosion.png",
+        death: "images/death.png",
+        slow: "images/freeze.png",
+        stun: "images/stun2.png",
+        poison: "images/poison.png"
     };
 
     imagesPreload(requiredImages, g_images, preloadDone);
@@ -183,6 +187,9 @@ function preloadDone() {
         new Sprite(g_images.background3),
     ];
     g_sprites.explosion = new Sprite(g_images.explosion, 9);
+    g_sprites.death = new Sprite(g_images.death, 7);
+    g_sprites.stun = new Sprite(g_images.stun, 16);
+    g_sprites.poison = new Sprite(g_images.poison, 9);
     g_sprites.bullet = new Sprite(g_images.bullet1);
     g_sprites.bullet.scale = 0.25;
     g_sprites.towers.forEach(el => {
