@@ -58,16 +58,14 @@ for (var i = 0; i < 10; i++) {
 }
 
 var KEY_SPATIAL = keyCode('X');
-
 var KEY_NEXT_WAVE = keyCode('Y');
+var KEY_MUTE = keyCode('M');
 
 function processDiagnostics() {
 
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
-
-    if (eatKey(KEY_NEXT_WAVE)) {
-        entityManager.sendNextWave();
-    }
+    if (eatKey(KEY_NEXT_WAVE)) entityManager.sendNextWave();
+    if (eatKey(KEY_MUTE)) g_soundOn = !g_soundOn;
 
     for (var i = 1; i <= 6; i++) {
         if (eatKey(KEY_NUMBER[i])) {

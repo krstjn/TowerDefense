@@ -20,88 +20,88 @@ function Enemy(descr) {
     this.setStartPosition();
 
     this.frameIndex = 0,
-    this.tickCount = 0,
-    this.ticksPerFrame = 6,
-    this.numberOfFrames = this.numberOfFrames || 1;
+        this.tickCount = 0,
+        this.ticksPerFrame = 6,
+        this.numberOfFrames = this.numberOfFrames || 1;
 
     // Default sprite and scale, if not otherwise specified
     this.nextNodeIndex = this.nextNodeIndex || 1;
     this.sprite = this.sprite || g_sprites.enemies[0];
-    this.scale  = this.scale  || 1;
+    this.scale = this.scale || 1;
     this.defaultVel = this.vel;
     this.maxHP = this.hp;
     this.distTravelled = 0;
     this.slowTimer = 0;
     this.stunTimer = 0;
+    this.grunt = this.grunt || new Audio("sounds/maleGrunt.ogg");
+    if (this.type == KID) this.grunt = new Audio("sounds/femaleGrunt.ogg");
+    if (this.type == BIRD) this.grunt = new Audio("sounds/birdGrunt.ogg");
+    this.grunt.volume = 0.5;
 };
 
 Enemy.prototype = new Entity();
 
 // Finnur fyrsta punktinn í pathinu og setur hann sem upphafspunkt fyrir óvininn
-Enemy.prototype.setStartPosition = function () {
-  var pathNode = g_paths[g_level][0];
-  this.cx = pathNode.cx;
-  this.cy = pathNode.cy;
+Enemy.prototype.setStartPosition = function() {
+    var pathNode = g_paths[g_level][0];
+    this.cx = pathNode.cx;
+    this.cy = pathNode.cy;
 };
 
 
-Enemy.prototype.update = function (du) {
+Enemy.prototype.update = function(du) {
     spatialManager.unregister(this);
 
     this.tickCount += 1;
 
-    if(this.tickCount > this.ticksPerFrame) {
-      this.tickCount = 0;
-      // Go to the next frame
-      // If the current frame index is in range
-      if (this.frameIndex < this.numberOfFrames - 1) {
+    if (this.tickCount > this.ticksPerFrame) {
+        this.tickCount = 0;
         // Go to the next frame
-        this.frameIndex += 1;
+        // If the current frame index is in range
+        if (this.frameIndex < this.numberOfFrames - 1) {
+            // Go to the next frame
+            this.frameIndex += 1;
 
-      } else {
-        this.frameIndex = 0;
-      }
+        } else {
+            this.frameIndex = 0;
+        }
     }
 
-    if(this._isDeadNow) return entityManager.KILL_ME_NOW;
+    if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
     this.checkStatus(du); // Uppfærir slow/stun/poison
 
     // Athugar hvort óvinur sé kominn á endapunkt
-    if (this.nextNodeIndex >= g_paths[g_level].length){
-      g_lives--;  // Minnkar líf
+    if (this.nextNodeIndex >= g_paths[g_level].length) {
+        g_lives--; // Minnkar líf
 
-      if(g_lives <= 0) {
-        g_gameState = GAME_OVER;
-      } // Endar leikinn ef lífin eru búin
-      return entityManager.KILL_ME_NOW; // Eyðir óvini
+        if (g_lives <= 0) {
+            g_gameState = GAME_OVER;
+        } // Endar leikinn ef lífin eru búin
+        return entityManager.KILL_ME_NOW; // Eyðir óvini
     }
 
     var pathNode = g_paths[g_level][this.nextNodeIndex]; // ætti að taka inn hvaða bor/lvl er verið að spila
 
     // Athugar hvar næsti punktur er og færir enemy í átt að honum.
     // Ef enemy er á næsta punkt þá breytum við næsta punkt.
-    if(Math.abs(pathNode.cx - this.cx) < this.vel) this.cx = pathNode.cx;
-    if(Math.abs(pathNode.cy - this.cy) < this.vel) this.cy = pathNode.cy;
+    if (Math.abs(pathNode.cx - this.cx) < this.vel) this.cx = pathNode.cx;
+    if (Math.abs(pathNode.cy - this.cy) < this.vel) this.cy = pathNode.cy;
 
     if (pathNode.cx > this.cx) {
-      this.cx += this.vel;
-      this.rotation = Math.PI/2;
-    }
-    else if (pathNode.cx < this.cx) {
-      this.cx -= this.vel;
-      this.rotation = Math.PI*1.5;
-    }
-    else if (pathNode.cy > this.cy) {
-      this.cy += this.vel;
-      this.rotation = Math.PI;
-    }
-    else if (pathNode.cy < this.cy) {
-      this.cy -= this.vel;
-      this.rotation = 0;
-    }
-    else {
-      this.nextNodeIndex += 1;
+        this.cx += this.vel;
+        this.rotation = Math.PI / 2;
+    } else if (pathNode.cx < this.cx) {
+        this.cx -= this.vel;
+        this.rotation = Math.PI * 1.5;
+    } else if (pathNode.cy > this.cy) {
+        this.cy += this.vel;
+        this.rotation = Math.PI;
+    } else if (pathNode.cy < this.cy) {
+        this.cy -= this.vel;
+        this.rotation = 0;
+    } else {
+        this.nextNodeIndex += 1;
     }
     this.distTravelled += this.vel;
 
@@ -109,30 +109,26 @@ Enemy.prototype.update = function (du) {
 
 };
 
-Enemy.prototype.getRadius = function () {
+Enemy.prototype.getRadius = function() {
     return this.scale * (this.sprite.width / 2) * 0.9;
 };
 
-// HACKED-IN AUDIO (no preloading)
-Enemy.prototype.evaporateSound = new Audio(
-  "sounds/rockEvaporate.ogg");
-
-Enemy.prototype.takeBulletHit = function (damage, type) {
+Enemy.prototype.takeBulletHit = function(damage, type) {
     this.hp = this.hp - damage;
-    if(type === SLOW) this.slowTimer = 60;
-    if(type === POISON) this.poisonTimer = 120;
-    if(type === STUN) this.stunTimer = 30;
-    if(this.hp <= 0){
-      this.kill();
-      g_money += 50;
+    if (type === SLOW) this.slowTimer = 60;
+    if (type === POISON) this.poisonTimer = 120;
+    if (type === STUN) this.stunTimer = 30;
+    if (this.hp <= 0) {
+        if (g_soundOn) this.grunt.play();
+        this.kill();
+        g_money += 50;
     }
-    this.evaporateSound.play();
 };
 
-Enemy.prototype.render = function (ctx) {
+Enemy.prototype.render = function(ctx) {
     var origScale = this.sprite.scale;
     // pass my scale into the sprite, for drawing
-    var w = this.width/ this.numberOfFrames;
+    var w = this.width / this.numberOfFrames;
     this.sprite.scale = this.scale;
     // this.sprite.drawCentredAt(
     //   ctx, this.cx, this.cy, this.rotation
@@ -146,12 +142,12 @@ Enemy.prototype.render = function (ctx) {
     );
 };
 
-Enemy.prototype.renderHealthBar = function (ctx) {
+Enemy.prototype.renderHealthBar = function(ctx) {
     var green = "#00ff00"
     var red = "#ff3300"
-    var x = this.cx-10;
-    var y = this.cy-20;
-    var wGreen = Math.ceil(20*(this.hp/this.maxHP));
+    var x = this.cx - 10;
+    var y = this.cy - 20;
+    var wGreen = Math.ceil(20 * (this.hp / this.maxHP));
     var hGreen = 5;
     var wRed = 20;
     var hRed = 5;
@@ -162,24 +158,23 @@ Enemy.prototype.renderHealthBar = function (ctx) {
 
 // Uppfærir slow/stun/poison
 Enemy.prototype.checkStatus = function(du) {
-  if (this.slowTimer > 0) {
-    this.vel = this.defaultVel / 2;
-    this.slowTimer -= du;
-  }
+    if (this.slowTimer > 0) {
+        this.vel = this.defaultVel / 2;
+        this.slowTimer -= du;
+    }
 
-  if (this.stunTimer > 0) {
-    this.vel = 0;
-    this.stunTimer -= du;
-  }
+    if (this.stunTimer > 0) {
+        this.vel = 0;
+        this.stunTimer -= du;
+    }
 
-  if(this.slowTimer <= 0 && this.stunTimer <= 0){
-    this.vel = this.defaultVel;
-  }
-  
-  if (this.poisonTimer > 0) {
-    this.hp -= 0.016;
-    this.poisonTimer -= du;
-    if (this.hp < 0) this.kill();
-  }
+    if (this.slowTimer <= 0 && this.stunTimer <= 0) {
+        this.vel = this.defaultVel;
+    }
+
+    if (this.poisonTimer > 0) {
+        this.hp -= 0.016;
+        this.poisonTimer -= du;
+        if (this.hp < 0) this.kill();
+    }
 }
-

@@ -18,24 +18,25 @@ function Bullet(descr) {
     // Common inherited setup logic from Entity
     this.setup(descr);
 
+    if (this.type === EXPLODE) {
+        this.fireSound = new Audio("sounds/shot1.ogg");
+        this.hitSound = new Audio("sounds/explosion.ogg");
+        this.hitSound.volume = 0.5;
+    }
     // Make a noise when I am created (i.e. fired)
-    this.fireSound.play();
+    if (g_soundOn) this.fireSound.play();
 
-/*
-    // Diagnostics to check inheritance stuff
-    this._bulletProperty = true;
-    console.dir(this);
-*/
+    /*
+        // Diagnostics to check inheritance stuff
+        this._bulletProperty = true;
+        console.dir(this);
+    */
 
 }
 
 Bullet.prototype = new Entity();
 
-// HACKED-IN AUDIO (no preloading)
-Bullet.prototype.fireSound = new Audio(
-    "sounds/bulletFire.ogg");
-Bullet.prototype.zappedSound = new Audio(
-    "sounds/bulletZapped.ogg");
+
 
 // Initial, inheritable, default values
 Bullet.prototype.rotation = 0;
@@ -44,13 +45,15 @@ Bullet.prototype.cy = 200;
 Bullet.prototype.velX = 1;
 Bullet.prototype.velY = 1;
 
+Bullet.prototype.fireSound = new Audio("sounds/shot1.ogg");
+Bullet.prototype.hitSound = new Audio("sounds/bulletHit.ogg");
 // Convert times from milliseconds to "nominal" time units.
 Bullet.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
 
-Bullet.prototype.update = function (du) {
+Bullet.prototype.update = function(du) {
 
     spatialManager.unregister(this);
-    if(this._isDeadNow) return entityManager.KILL_ME_NOW;
+    if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
     this.lifeSpan -= du;
     if (this.lifeSpan < 0) return entityManager.KILL_ME_NOW;
@@ -60,7 +63,7 @@ Bullet.prototype.update = function (du) {
 
     this.rotation += 1 * du;
     this.rotation = util.wrapRange(this.rotation,
-                                   0, consts.FULL_CIRCLE);
+        0, consts.FULL_CIRCLE);
 
     //
     // Handle collisions
@@ -70,8 +73,9 @@ Bullet.prototype.update = function (du) {
         var distSq = util.distSq(this.cx, this.cy, e.cx, e.cy);
         var hitDistSq = util.square(this.getRadius() + e.getRadius());
         if (hitDistSq >= distSq) {
-            e.takeBulletHit(this.damage, this.type); 
-            if(this.type === EXPLODE) entityManager.createExplosion(e.cx, e.cy);
+            e.takeBulletHit(this.damage, this.type);
+            if (this.type === EXPLODE) entityManager.createExplosion(e.cx, e.cy);
+            if (g_soundOn) this.hitSound.play();
             return entityManager.KILL_ME_NOW;
         }
     }
@@ -80,18 +84,15 @@ Bullet.prototype.update = function (du) {
 
 };
 
-Bullet.prototype.getRadius = function () {
+Bullet.prototype.getRadius = function() {
     return 4;
 };
 
-Bullet.prototype.takeBulletHit = function () {
+Bullet.prototype.takeBulletHit = function() {
     this.kill();
-
-    // Make a noise when I am zapped by another bullet
-    this.zappedSound.play();
 };
 
-Bullet.prototype.render = function (ctx) {
+Bullet.prototype.render = function(ctx) {
 
     var fadeThresh = Bullet.prototype.lifeSpan / 3;
 

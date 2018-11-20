@@ -10,14 +10,17 @@ var menuManager = {
     // towerTypes stores each of the different towers as tower objects.
     // clickedNewTower knows if and then what tower on the menu we clicked last.
     _towerTypes: [],
+    _levels: [],
+    _action: [],
     clickedNewTower: null,
     clickedExistingTower: null,
     mouseOverMenuTower: null,
     mouseOverExistingTower: null,
 
+    selectSound: new Audio("sounds/select.ogg"),
+    actionSound: new Audio("sounds/action.ogg"),
+    sellSound: new Audio("sounds/sell.ogg"),
 
-    _levels: [],
-    _action: [],
 
     /**
      * Render the start menu
@@ -303,15 +306,6 @@ var menuManager = {
         ctx.restore();
     },
 
-    getUpgradedTower: function(tower) {
-        var upgTower = tower;
-        upgTower.price += 1.5 * tower.price;
-        upgTower.damage *= 2;
-        upgTower.fireRangeRadius *= 1.2;
-        upgTower.rateOfFire *= 0.8;
-        return upgTower;
-    },
-
     // Renders the tower we have selected where the mouse is hovering.
     renderclickedNewTower: function(ctx) {
         ctx.save();
@@ -371,32 +365,39 @@ var menuManager = {
     // MENU MOUSE OPS
     //===============
 
-    // Checks and selects the tower we clicked, is one was clicked.
+    // Finds the the item that's being clicked if any.
     findClickedItem: function(x, y) {
         if (this.mouseOverUpgradeButton()) {
             if (this.clickedExistingTower.price * 1.5 <= g_money) {
                 this.clickedExistingTower.upgrade();
                 this.clickedExistingTower = null;
             }
+            if (g_soundOn) this.actionSound.play();
             return;
         }
         if (this.mouseOverSellButton()) {
             console.log("inní sell í findClickedItem")
             this.clickedExistingTower.sell();
+            this.clickedExistingTower = null;
+            if (g_soundOn) this.sellSound.play();
             return;
         }
         if (this.isMouseOnNextWaveButton()) {
             entityManager.sendNextWave();
+            if (g_soundOn) this.actionSound.play();
+            return;
         }
         if (this.mouseOverMenuTower != null) {
             this.clickedNewTower = this.mouseOverMenuTower;
             // Don't select the tower if we can't afford it.
+            if (g_soundOn) this.selectSound.play();
             if (this._towerTypes[this.clickedNewTower].price > g_money) {
                 this.clickedNewTower = null;
             }
         }
         if (this.mouseOverExistingTower) {
             this.clickedExistingTower = this.mouseOverExistingTower;
+            if (g_soundOn) this.selectSound.play();
         }
     },
 

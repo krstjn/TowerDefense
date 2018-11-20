@@ -153,6 +153,7 @@ var entityManager = {
             g_money -= towerCost;
         }
         g_mapGrids[g_level][arrayIndex] = 0;
+        if (g_soundOn) menuManager.actionSound.play();
     },
     createExplosion: function(cx, cy) {
         this._bullets.push(new Explosion({

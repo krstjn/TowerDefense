@@ -29,3 +29,4 @@ var SECS_TO_NOMINALS = 1000 / NOMINAL_UPDATE_INTERVAL;
 
 var g_lives = 20;
 var g_money = 1000;
+var g_soundOn = true;
