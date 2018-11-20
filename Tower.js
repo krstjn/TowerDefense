@@ -63,10 +63,12 @@ Tower.prototype.update = function(du) {
 };
 
 Tower.prototype.upgrade = function() {
-    this.price += Math.round(this.price * 1.5 / 50) * 50;
+    console.log(this.price);
+    this.price = Math.round(this.price * 1.5 / 50) * 50;
     this.damage *= 2;
     this.fireRangeRadius *= 1.2;
     this.rateOfFire *= 0.8;
+    console.log(this.price);
     g_money -= this.price;
 };
 

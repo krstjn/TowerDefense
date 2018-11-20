@@ -468,7 +468,7 @@ var menuManager = {
             fireRangeRadius: 100,
             rateOfFire: 3000,
             price: 300,
-            damage: 1,
+            damage: 0.5,
             type: EXPLODE
         }));
 

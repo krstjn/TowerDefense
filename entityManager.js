@@ -155,11 +155,12 @@ var entityManager = {
         g_mapGrids[g_level][arrayIndex] = 0;
         if (g_soundOn) menuManager.actionSound.play();
     },
-    createExplosion: function(cx, cy) {
+    createExplosion: function(cx, cy, damage) {
         this._bullets.push(new Explosion({
             cx,
             cy,
             sprite: g_sprites.explosion,
+            damage,
             numberOfFrames: 5
         }));
     },
