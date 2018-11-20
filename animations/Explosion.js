@@ -23,6 +23,11 @@ function Explosion(descr) {
 Explosion.prototype = new Entity();
 
 Explosion.prototype.update = function(du) {
+    if (this.tickCount < 1) {
+        g_isExplosion = true;
+    } else {
+        g_isExplosion = false;
+    }
     this.tickCount += 1;
     console.log(this.damage);
 

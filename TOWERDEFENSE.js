@@ -109,8 +109,13 @@ function renderSimulation(ctx) {
     if (g_gameState === MAIN_MENU) {
         menuManager.renderStartMenu(ctx);
     } else {
+        ctx.save();
+        if (g_isExplosion) {
+            ctx.translate(util.randRange(-2,2),util.randRange(-2,2));
+        }
         util.renderBackground(ctx);
         entityManager.render(ctx);
+        ctx.restore();
         menuManager.renderMenu(ctx);
         menuManager.renderclickedNewTower(ctx);
     }
