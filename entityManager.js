@@ -127,9 +127,9 @@ var entityManager = {
     },
 
     createNewTower: function(xPos, yPos) {
-        if (menuManager.clickedTower === null) return;
+        if (menuManager.clickedNewTower === null) return;
         if (xPos >= g_gameWidth) return;
-        var towerCost = menuManager._towerTypes[menuManager.clickedTower].price;
+        var towerCost = menuManager._towerTypes[menuManager.clickedNewTower].price;
         if (g_money < towerCost) return;
 
         var xGridNum = Math.floor(xPos / 40);
@@ -140,13 +140,14 @@ var entityManager = {
             this._towers.push(new Tower({
                 cx: xGridNum * 40 + 20,
                 cy: yGridNum * 40 + 20,
-                sprite: menuManager._towerTypes[menuManager.clickedTower].sprite,
-                shotVel: menuManager._towerTypes[menuManager.clickedTower].shotVel,
-                fireRangeRadius: menuManager._towerTypes[menuManager.clickedTower].fireRangeRadius,
-                rateOfFire: menuManager._towerTypes[menuManager.clickedTower].rateOfFire,
-                price: menuManager._towerTypes[menuManager.clickedTower].price,
-                damage: menuManager._towerTypes[menuManager.clickedTower].damage,
-                type: menuManager._towerTypes[menuManager.clickedTower].type
+                sprite: menuManager._towerTypes[menuManager.clickedNewTower].sprite,
+                shotVel: menuManager._towerTypes[menuManager.clickedNewTower].shotVel,
+                fireRangeRadius: menuManager._towerTypes[menuManager.clickedNewTower].fireRangeRadius,
+                rateOfFire: menuManager._towerTypes[menuManager.clickedNewTower].rateOfFire,
+                price: menuManager._towerTypes[menuManager.clickedNewTower].price,
+                damage: menuManager._towerTypes[menuManager.clickedNewTower].damage,
+                type: menuManager._towerTypes[menuManager.clickedNewTower].type,
+                index: arrayIndex
             }));
 
             g_money -= towerCost;

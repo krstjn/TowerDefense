@@ -8,10 +8,12 @@
 var menuManager = {
 
     // towerTypes stores each of the different towers as tower objects.
-    // clickedTower knows if and then what tower on the menu we clicked last.
+    // clickedNewTower knows if and then what tower on the menu we clicked last.
     _towerTypes: [],
-    clickedTower: null,
-    mouseOverTower: null,
+    clickedNewTower: null,
+    clickedExistingTower: null,
+    mouseOverMenuTower: null,
+    mouseOverExistingTower: null,
 
 
     _levels: [],
@@ -141,6 +143,8 @@ var menuManager = {
         this.renderLives(ctx);
         this.renderMoney(ctx);
         this.renderWaveInfo(ctx);
+        this.renderTowerInfo(ctx);
+        this.renderTowerUpgradeInfo(ctx);
     },
 
     // draws the tower icons on the menu. If player can not afford the tower
@@ -180,17 +184,61 @@ var menuManager = {
 
     renderNextWaveButton: function(ctx) {
         ctx.save();
-        ctx.globalAlpha = 1;
+        ctx.globalAlpha = 0.85;
         if (this.isMouseOnNextWaveButton()) {
-            ctx.globalAlpha = 0.85;
-            if (g_wasMouseDown) ctx.globalAlpha = 1;
+            ctx.globalAlpha = 1;
+            if (g_wasMouseDown) ctx.globalAlpha = 0.85;
         }
         ctx.drawImage(g_images.nextWaveButton, g_gameWidth + 25, 530, 150, 50);
         ctx.restore();
     },
 
+    mouseOverUpgradeInfo: function() {
+        if (!this.clickedExistingTower) return;
+        var cx = this.clickedExistingTower.cx;
+        var cy = this.clickedExistingTower.cy;
+        var yOffset = 20;
+        if (cy > 400) yOffset = -200;
+        if (g_mouseY > cy + yOffset && g_mouseY < cy + yOffset + 180) {
+            if (g_mouseX > cx - 15 && g_mouseX < cx + 185) {
+                return true;
+            }
+        }
+    },
+
+    mouseOverUpgradeButton: function() {
+        if (!this.clickedExistingTower) return;
+        var cx = this.clickedExistingTower.cx;
+        var cy = this.clickedExistingTower.cy;
+        var yOffset = 25;
+        if (cy > 400) yOffset = -200;
+        if (g_mouseY > cy + yOffset + 20 && g_mouseY < cy + yOffset + 60) {
+            if (g_mouseX > cx + 5 && g_mouseX < cx + 105) {
+                return true;
+            }
+        }
+    },
+
+    mouseOverSellButton: function() {
+        if (!this.clickedExistingTower) return;
+        var cx = this.clickedExistingTower.cx;
+        var cy = this.clickedExistingTower.cy;
+        var yOffset = 25;
+        if (cy > 400) yOffset = -200;
+        if (g_mouseY > cy + yOffset + 20 && g_mouseY < cy + yOffset + 60) {
+            if (g_mouseX > cx + 110 && g_mouseX < cx + 165) {
+                return true;
+            }
+        }
+    },
+
     renderTowerInfo: function(ctx) {
-        var tower = this._towerTypes[this.mouseOverTower];
+        var tower = this._towerTypes[this.mouseOverMenuTower]
+        if (!tower) {
+            tower = this.mouseOverExistingTower;
+        }
+        // Don't draw any info if there's no tower to draw
+        if (tower == null) return;
         ctx.save();
         ctx.drawImage(g_images.infobox, g_gameWidth + 15, 305, 170, 160);
         ctx.textBaseline = "top";
@@ -201,20 +249,73 @@ var menuManager = {
         util.renderText(ctx, "#3D2914", 18, "Price:", g_gameWidth + 35, 370);
         util.renderText(ctx, "#3D2914", 18, "Damage:", g_gameWidth + 35, 390);
         util.renderText(ctx, "#3D2914", 18, "Range:", g_gameWidth + 35, 410);
-        util.renderText(ctx, "#3D2914", 18, "Rate of fire:", g_gameWidth + 35, 430);
+        util.renderText(ctx, "#3D2914", 18, "Fire rate:", g_gameWidth + 35, 430);
 
         ctx.textAlign = "end";
-        util.renderText(ctx, "#3D2914", 18, "" + tower.price, g_gameWidth + 165, 370);
+        util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.price / 50) * 50, g_gameWidth + 165, 370);
         util.renderText(ctx, "#3D2914", 18, "" + tower.damage, g_gameWidth + 165, 390);
-        util.renderText(ctx, "#3D2914", 18, "" + tower.fireRangeRadius / 10, g_gameWidth + 165, 410);
-        util.renderText(ctx, "#3D2914", 18, "" + tower.rateOfFire / 1000, g_gameWidth + 165, 430);
+        util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.fireRangeRadius / 10), g_gameWidth + 165, 410);
+        util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.rateOfFire / 100) / 10, g_gameWidth + 165, 430);
         ctx.restore();
     },
 
-    // Renders the tower we have selected where the mouse is hovering.
-    renderClickedTower: function(ctx) {
+    renderTowerUpgradeInfo: function(ctx) {
+        var tower = this.clickedExistingTower;
+        if (!tower) return;
+        var yOffset = 25;
+        var xOffset = -15
+        if (tower.cy > 400) {
+            yOffset = -200;
+        }
+
         ctx.save();
-        if (this.clickedTower != null) {
+        // Start by drawing the fire range radius around the tower.
+        ctx.fillStyle = "green";
+        util.fillCircle(ctx, tower.cx, tower.cy, tower.fireRangeRadius, 0.25);
+
+        ctx.globalAlpha = 0.8;
+        ctx.drawImage(g_images.infobox, tower.cx + xOffset, tower.cy + yOffset, 200, 180);
+
+        if (this.mouseOverUpgradeButton() && tower.price * 1.5 <= g_money) {
+            ctx.globalAlpha = 1;
+        }
+        ctx.drawImage(g_images.upgradeButton, tower.cx + 5, tower.cy + yOffset + 20, 100, 40);
+
+        ctx.globalAlpha = 0.8;
+        if (this.mouseOverSellButton()) {
+            ctx.globalAlpha = 1;
+        }
+        ctx.drawImage(g_images.sellButton, tower.cx + 110, tower.cy + yOffset + 20, 55, 40);
+
+        ctx.globalAlpha = 0.8;
+        ctx.textBaseline = "top";
+        ctx.textAlign = "start";
+        util.renderText(ctx, "#3D2914", 18, "Price:", tower.cx + 5, tower.cy + yOffset + 70);
+        util.renderText(ctx, "#3D2914", 18, "Damage:", tower.cx + 5, tower.cy + yOffset + 90);
+        util.renderText(ctx, "#3D2914", 18, "Range:", tower.cx + 5, tower.cy + yOffset + 110);
+        util.renderText(ctx, "#3D2914", 18, "Fire rate:", tower.cx + 5, tower.cy + yOffset + 130);
+
+        ctx.textAlign = "end";
+        util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.price * 1.5 / 50) * 50, tower.cx + 165, tower.cy + yOffset + 70);
+        util.renderText(ctx, "#3D2914", 18, "" + tower.damage + " → " + tower.damage * 2, tower.cx + 165, tower.cy + yOffset + 90);
+        util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.fireRangeRadius / 10) + " → " + Math.round(tower.fireRangeRadius * 1.2 / 10), tower.cx + 165, tower.cy + yOffset + 110);
+        util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.rateOfFire / 100) / 10 + " → " + Math.round(tower.rateOfFire * 0.8 / 100) / 10, tower.cx + 165, tower.cy + yOffset + 130);
+        ctx.restore();
+    },
+
+    getUpgradedTower: function(tower) {
+        var upgTower = tower;
+        upgTower.price += 1.5 * tower.price;
+        upgTower.damage *= 2;
+        upgTower.fireRangeRadius *= 1.2;
+        upgTower.rateOfFire *= 0.8;
+        return upgTower;
+    },
+
+    // Renders the tower we have selected where the mouse is hovering.
+    renderclickedNewTower: function(ctx) {
+        ctx.save();
+        if (this.clickedNewTower != null) {
             if (g_mouseX < g_gameWidth) {
                 ctx.fillStyle = "red";
                 // Check whether current mouse location is unocupied space.
@@ -227,18 +328,18 @@ var menuManager = {
                     ctx,
                     g_mouseX,
                     g_mouseY,
-                    this._towerTypes[this.clickedTower].fireRangeRadius,
+                    this._towerTypes[this.clickedNewTower].fireRangeRadius,
                     0.25);
             }
-            this._towerTypes[this.clickedTower].sprite.drawCentredAt(
+            this._towerTypes[this.clickedNewTower].sprite.drawCentredAt(
                 ctx, g_mouseX, g_mouseY, 0, 0.3);
         }
         ctx.restore();
     },
 
-    renderMoney : function(ctx) {
+    renderMoney: function(ctx) {
         ctx.save();
-        ctx.textAlign="start";
+        ctx.textAlign = "start";
         ctx.font = "450 24px Berlin sans FB";
         ctx.fillStyle = "#FFE87C";
         ctx.fillText("$ " + g_money, g_gameWidth + 30, 493);
@@ -247,9 +348,9 @@ var menuManager = {
         ctx.restore();
     },
 
-    renderLives : function(ctx) {
+    renderLives: function(ctx) {
         ctx.save();
-        ctx.textAlign="end";
+        ctx.textAlign = "end";
         ctx.font = "450 24px Berlin sans FB";
         ctx.fillStyle = "red";
         ctx.fillText("♥ " + g_lives, g_gameWidth + 170, 493);
@@ -258,11 +359,11 @@ var menuManager = {
         ctx.restore();
     },
 
-    renderWaveInfo : function(ctx) {
+    renderWaveInfo: function(ctx) {
         ctx.save();
-        var text = "Wave " + (waveManager.getNextWaveID()-1) + " of " + waves.length;
-        ctx.textAlign="center";
-        util.renderText(ctx, "#3D2914", 22, text, g_gameWidth+100, 520);
+        var text = "Wave " + (waveManager.getNextWaveID() - 1) + " of " + waves.length;
+        ctx.textAlign = "center";
+        util.renderText(ctx, "#3D2914", 22, text, g_gameWidth + 100, 520);
         ctx.restore();
     },
 
@@ -272,36 +373,58 @@ var menuManager = {
 
     // Checks and selects the tower we clicked, is one was clicked.
     findClickedItem: function(x, y) {
-        if (this.mouseOverTower != null) {
-            this.clickedTower = this.mouseOverTower;
-        }
-        // Don't select the tower if we can't afford it.
-        if (this.clickedTower != null) {
-            if (this._towerTypes[this.clickedTower].price > g_money) {
-                this.clickedTower = null;
+        if (this.mouseOverUpgradeButton()) {
+            if (this.clickedExistingTower.price * 1.5 <= g_money) {
+                this.clickedExistingTower.upgrade();
+                this.clickedExistingTower = null;
             }
+            return;
+        }
+        if (this.mouseOverSellButton()) {
+            console.log("inní sell í findClickedItem")
+            this.clickedExistingTower.sell();
+            return;
+        }
+        if (this.isMouseOnNextWaveButton()) {
+            entityManager.sendNextWave();
+        }
+        if (this.mouseOverMenuTower != null) {
+            this.clickedNewTower = this.mouseOverMenuTower;
+            // Don't select the tower if we can't afford it.
+            if (this._towerTypes[this.clickedNewTower].price > g_money) {
+                this.clickedNewTower = null;
+            }
+        }
+        if (this.mouseOverExistingTower) {
+            this.clickedExistingTower = this.mouseOverExistingTower;
         }
     },
 
-    isMouseOverMenuTower: function(x, y) {
+    isMouseOverTower: function(x, y) {
         if (x > 837 && x < 887) {
             if (y > 75 && y < 125) {
-                this.mouseOverTower = 0;
+                this.mouseOverMenuTower = 0;
             } else if (y > 151 && y < 201) {
-                this.mouseOverTower = 2;
+                this.mouseOverMenuTower = 2;
             } else if (y > 227 && y < 277) {
-                this.mouseOverTower = 4;
+                this.mouseOverMenuTower = 4;
             }
         } else if (x > 913 && x < 963) {
             if (y > 75 && y < 125) {
-                this.mouseOverTower = 1;
+                this.mouseOverMenuTower = 1;
             } else if (y > 151 && y < 201) {
-                this.mouseOverTower = 3;
+                this.mouseOverMenuTower = 3;
             } else if (y > 227 && y < 277) {
-                this.mouseOverTower = 5;
+                this.mouseOverMenuTower = 5;
             }
         }
-        if (this.mouseOverTower != null) return true;
+        if (this.mouseOverMenuTower != null) return;
+        entityManager._towers.forEach(el => {
+            if (Math.abs(g_mouseX - el.cx) < 20 &&
+                Math.abs(g_mouseY - el.cy) < 20) {
+                this.mouseOverExistingTower = el;
+            }
+        })
     },
 
     isMouseOnNextWaveButton: function() {
