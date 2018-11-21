@@ -31,3 +31,4 @@ var g_lives = 20;
 var g_money = 300;
 var g_soundOn = true;
 var g_isExplosion = false;
+var g_speed = 1;

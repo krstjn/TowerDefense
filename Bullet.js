@@ -18,6 +18,9 @@ function Bullet(descr) {
     // Common inherited setup logic from Entity
     this.setup(descr);
 
+    this.xDistTravelled = 0;
+    this.yDistTravelled = 0;
+
     if (this.type === EXPLODE) {
         this.fireSound = new Audio("sounds/shot1.ogg");
         this.hitSound = new Audio("sounds/explosion.ogg");
@@ -39,11 +42,8 @@ Bullet.prototype = new Entity();
 
 
 // Initial, inheritable, default values
-Bullet.prototype.rotation = 0;
-Bullet.prototype.cx = 200;
-Bullet.prototype.cy = 200;
-Bullet.prototype.velX = 1;
-Bullet.prototype.velY = 1;
+Bullet.prototype.xDistTravelled = 0;
+Bullet.prototype.yDistTravelled = 0;
 
 Bullet.prototype.fireSound = new Audio("sounds/shot1.ogg");
 Bullet.prototype.hitSound = new Audio("sounds/bulletHit.ogg");
@@ -52,7 +52,6 @@ Bullet.prototype.lifeSpan = 3000 / NOMINAL_UPDATE_INTERVAL;
 
 Bullet.prototype.update = function(du) {
 
-    spatialManager.unregister(this);
     if (this._isDeadNow) return entityManager.KILL_ME_NOW;
 
     this.lifeSpan -= du;
@@ -65,24 +64,26 @@ Bullet.prototype.update = function(du) {
     this.rotation = util.wrapRange(this.rotation,
         0, consts.FULL_CIRCLE);
 
+    this.xDistTravelled += Math.abs(this.velX) * du;
+    this.yDistTravelled += Math.abs(this.velY) * du;
+
     //
     // Handle collisions
     //
-    var e = entityManager.getEnemyById(this.targetID);
-    if (e) {
-        var distSq = util.distSq(this.cx, this.cy, e.cx, e.cy);
-        var hitDistSq = util.square(this.getRadius() + e.getRadius());
-        if (hitDistSq >= distSq) {
-            e.takeBulletHit(this.damage, this.type);
-            if (this.type === EXPLODE) entityManager.createExplosion(e.cx, e.cy, this.damage);
-            if (this.type === POISON) entityManager.createPoison(e);
-            if (this.type === STUN) entityManager.createStun(e.cx, e.cy);
-            if (g_soundOn) this.hitSound.play();
-            return entityManager.KILL_ME_NOW;
-        }
-    }
 
-    spatialManager.register(this);
+    if (this.xDistTravelled >= this.xLength ||
+        this.yDistTravelled >= this.yLength) {
+          console.log(this.target);
+          if (!this.target) {
+            return entityManager.KILL_ME_NOW;
+          }
+          this.target.takeBulletHit(this.damage, this.type);
+          if (this.type === EXPLODE) entityManager.createExplosion(e.cx, e.cy, this.damage);
+          if (this.type === POISON) entityManager.createPoison(e);
+          if (this.type === STUN) entityManager.createStun(e.cx, e.cy);
+          if (g_soundOn) this.hitSound.play();
+          return entityManager.KILL_ME_NOW;
+    }
 
 };
 

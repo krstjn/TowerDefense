@@ -109,16 +109,18 @@ var entityManager = {
         this.deferredSetup();
     },
 
-    fireBullet: function(cx, cy, velX, velY, rotation, damage, type, targetID) {
+    fireBullet: function(cx, cy, velX, velY, xLength, yLength, rotation, damage, type, target) {
         this._bullets.push(new Bullet({
             cx: cx,
             cy: cy,
             velX: velX,
             velY: velY,
-            targetID: targetID,
+            xLength: xLength,
+            yLength: yLength,
             rotation: rotation,
             damage: damage,
-            type: type
+            type: type,
+            target: target
         }));
     },
 

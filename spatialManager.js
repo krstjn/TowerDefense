@@ -98,7 +98,7 @@ findEntityInRange: function(posX, posY, radius) {
     }
 },
 
-findEnemyInRange: function(posX, posY, radius, isFlying) {
+findEnemyInRange: function(posX, posY, radius, towerType) {
     var maxDistTravelled = 0;
     var hitEntity;
     var enemies = entityManager.getEnemiesByDist();
@@ -112,7 +112,10 @@ findEnemyInRange: function(posX, posY, radius, isFlying) {
 
         if(distSq < hitDistSq){
             if(maxDistTravelled < e.distTravelled){
-                if(isFlying && e.flying || !e.flying){ // Finnur bara flying óvini ef turn er flying
+              // Finnur bara flying óvini ef turn er flying eða normal.
+                if(     towerType == FLYING  && e.flying
+                    ||  towerType == NORMAL && e.flying
+                    ||  towerType != FLYING && !e.flying){ // Finnur bara flying óvini ef turn er flying eða normal.
                   hitEntity = e;
                   maxDistTravelled = e.distTravelled;
                 }
