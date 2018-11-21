@@ -210,7 +210,7 @@ var entityManager = {
           this._generateEnemies();
         }
         */
-
+        du *= g_speed;
         for (var c = 0; c < this._categories.length; ++c) {
 
             var aCategory = this._categories[c];
@@ -222,7 +222,7 @@ var entityManager = {
                 if (aCategory[i].delay <= 0 || aCategory[i].delay === undefined) {
                     status = aCategory[i].update(du);
                 } else {
-                    aCategory[i].delay = aCategory[i].delay - 1;
+                    aCategory[i].delay = aCategory[i].delay - du;
                     status = null; // Núllstilla status svo óvinum sem eiga eftir að spawna verði ekki eytt
                 }
 

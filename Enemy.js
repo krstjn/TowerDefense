@@ -56,7 +56,7 @@ Enemy.prototype.setStartPosition = function() {
 Enemy.prototype.update = function(du) {
     spatialManager.unregister(this);
 
-    this.tickCount += 1;
+    this.tickCount += du;
 
     if (this.tickCount > this.ticksPerFrame) {
         this.tickCount = 0;
@@ -92,22 +92,24 @@ Enemy.prototype.update = function(du) {
     if (Math.abs(pathNode.cx - this.cx) < this.vel) this.cx = pathNode.cx;
     if (Math.abs(pathNode.cy - this.cy) < this.vel) this.cy = pathNode.cy;
 
+    let velocity = this.vel * du;
+
     if (pathNode.cx > this.cx) {
-        this.cx += this.vel;
+        this.cx += velocity ;
         this.rotation = Math.PI / 2;
     } else if (pathNode.cx < this.cx) {
-        this.cx -= this.vel;
+        this.cx -= velocity;
         this.rotation = Math.PI * 1.5;
     } else if (pathNode.cy > this.cy) {
-        this.cy += this.vel;
+        this.cy += velocity;
         this.rotation = Math.PI;
     } else if (pathNode.cy < this.cy) {
-        this.cy -= this.vel;
+        this.cy -= velocity;
         this.rotation = 0;
     } else {
         this.nextNodeIndex += 1;
     }
-    this.distTravelled += this.vel;
+    this.distTravelled += velocity;
 
     spatialManager.register(this);
 

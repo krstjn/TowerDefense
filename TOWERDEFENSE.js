@@ -9,6 +9,7 @@
 
 var g_canvas = document.getElementById("myCanvas");
 var g_ctx = g_canvas.getContext("2d");
+var g_speed = 1;
 
 /*
 0        1         2         3         4         5         6         7         8
@@ -56,7 +57,7 @@ var KEY_NUMBER = [];
 for (var i = 0; i < 10; i++) {
     KEY_NUMBER[i] = keyCode(i.toString());
 }
-
+var KEY_RIGHT_ARROW = keyCode('L');  
 var KEY_SPATIAL = keyCode('X');
 var KEY_NEXT_WAVE = keyCode('Y');
 var KEY_MUTE = keyCode('M');
@@ -66,6 +67,11 @@ function processDiagnostics() {
     if (eatKey(KEY_SPATIAL)) g_renderSpatialDebug = !g_renderSpatialDebug;
     if (eatKey(KEY_NEXT_WAVE)) entityManager.sendNextWave();
     if (eatKey(KEY_MUTE)) g_soundOn = !g_soundOn;
+
+    if (eatKey(KEY_RIGHT_ARROW)) {
+        g_speed = 3;
+    }
+    else g_speed = 1;
 
     for (var i = 1; i <= 6; i++) {
         if (eatKey(KEY_NUMBER[i])) {
