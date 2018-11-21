@@ -37,14 +37,16 @@ var entityManager = {
     // "PRIVATE" METHODS
 
     _generateEnemies: function() {
-        var wave = waveManager.getNextWave(waves);
+        var wave = waveManager.getNextWave();
 
         for (var i = 0; i < wave.length; i++) {
             var {
                 type,
                 amount,
                 initialDelay,
-                flying
+                flying,
+                bounty,
+                hp
             } = wave[i];
             var index = -1;
             var {
@@ -56,12 +58,13 @@ var entityManager = {
                 this.generateEnemy({
                     ID: this._ENEMY_ID++,
                     type: type,
-                    hp: enemy.hp,
+                    hp: hp,
                     delay: (initialDelay + enemy.delay * j),
                     vel: enemy.vel,
                     sprite: g_sprites.enemies[index],
                     numberOfFrames: 4,
-                    flying: flying
+                    flying: flying,
+                    bounty: bounty,
                 });
             }
         }

@@ -21,12 +21,12 @@ var waveManager = {
     // "PRIVATE" DATA
 
     _enemies: [
-        { type: ROBOTMAN, hp:  1, delay: 60, vel: 1.0 }, 
-        { type: MOOSE, hp:  2, delay: 60, vel: 1.5 },
-        { type: DOG, hp:  5, delay: 80, vel: 2.0 },
-        { type: KID, hp: 10, delay: 70, vel: 1.2 },
-        { type: BIRD, hp:  5, delay: 80, vel: 1.5,},
-   ],
+         { type: ROBOTMAN, hp:  2, delay: 50, vel: 1.0 },
+         { type: MOOSE, hp:  6, delay: 50, vel: 1.5 },
+         { type: DOG, hp:  3, delay: 50, vel: 2.0 },
+         { type: KID, hp: 10, delay: 50, vel: 1.2 },
+         { type: BIRD, hp:  3, delay: 50, vel: 1.5}
+    ],
 
     _nextWaveID: 1, // make all valid IDs non-falsey (i.e. don't start at 0)
 
@@ -35,12 +35,12 @@ var waveManager = {
 
     // PUBLIC METHODS
 
-    // Fall fyrir update fall i entityManager til að vita hvort  
+    // Fall fyrir update fall i entityManager til að vita hvort
     // hann eigi að kalla á næsta wave.
     getTimeLeftInSecs: function() {
         return this._timeLeft/100;
     },
-    
+
     getNextWaveID: function() {
         return this._nextWaveID;
     },
@@ -53,11 +53,11 @@ var waveManager = {
         return false;
     },
 
-    getNextWave: function (wavesInput) {
-        if (this._nextWaveID >= wavesInput.length) {
+    getNextWave: function () {
+        if (this._nextWaveID >= g_waves.length) {
             return [];
         }
-        var wave = wavesInput[this._nextWaveID-1];
+        var wave = g_waves[this._nextWaveID-1];
         this._nextWaveID++;
         this._timeLeft = this._WAVE_TIME;
 
@@ -69,7 +69,7 @@ var waveManager = {
             index = i;
             return e.type === type;
         });
-        
+
         return { enemy, index };
     },
     reset: function() {

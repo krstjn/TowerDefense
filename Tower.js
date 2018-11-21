@@ -71,10 +71,10 @@ Tower.prototype.upgrade = function() {
     if (this.lvl == 8) this.spriteIndex += 6;
     if (this.lvl == 10) this.spriteIndex += 6;
     this.sprite = g_sprites.towers[this.spriteIndex];
-    this.price = Math.round(this.price * 1.5 / 50) * 50;
-    this.damage *= 2;
-    this.fireRangeRadius *= 1.2;
-    this.rateOfFire *= 0.8;
+    this.price = Math.round(this.price * 2.5 / 50) * 50;
+    this.damage *= 1.5;
+    this.fireRangeRadius *= 1.1;
+    this.rateOfFire *= 0.9;
     g_money -= this.price;
 };
 

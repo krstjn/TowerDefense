@@ -30,6 +30,7 @@ function Enemy(descr) {
     this.scale = this.scale || 1;
     this.defaultVel = this.vel;
     this.maxHP = this.hp;
+    this.bounty = this.bounty || 1;
     this.distTravelled = 0;
     this.slowTimer = 0;
     this.stunTimer = 0;
@@ -37,6 +38,9 @@ function Enemy(descr) {
     if (this.type == KID) this.grunt = new Audio("sounds/femaleGrunt.ogg");
     if (this.type == BIRD) this.grunt = new Audio("sounds/birdGrunt.ogg");
     this.grunt.volume = 0.5;
+
+    this.scale = 0.6 + Math.floor(this.maxHP/10)*0.2;
+    if (this.scale>2.5) this.scale = 2.5;
 };
 
 Enemy.prototype = new Entity();
@@ -122,7 +126,7 @@ Enemy.prototype.takeBulletHit = function(damage, type) {
         if (g_soundOn) this.grunt.play();
         entityManager.createDeath(this.cx, this.cy);
         this.kill();
-        g_money += 50;
+        g_money += this.bounty;
     }
 };
 
@@ -131,9 +135,6 @@ Enemy.prototype.render = function(ctx) {
     // pass my scale into the sprite, for drawing
     var w = this.width / this.numberOfFrames;
     this.sprite.scale = this.scale;
-    // this.sprite.drawCentredAt(
-    //   ctx, this.cx, this.cy, this.rotation
-    // );
     this.sprite.drawCentredAtAnimated(
         ctx,
         this.frameIndex,

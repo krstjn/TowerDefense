@@ -279,7 +279,7 @@ var menuManager = {
         ctx.globalAlpha = 0.8;
         ctx.drawImage(g_images.infobox, tower.cx + xOffset, tower.cy + yOffset, 200, 180);
 
-        if (this.mouseOverUpgradeButton() && tower.price * 1.5 <= g_money) {
+        if (this.mouseOverUpgradeButton() && tower.price * 2.5 <= g_money) {
             ctx.globalAlpha = 1;
         }
         ctx.drawImage(g_images.upgradeButton, tower.cx + 5, tower.cy + yOffset + 20, 100, 40);
@@ -307,12 +307,12 @@ var menuManager = {
         if (this.mouseOverSellButton()) {
             util.renderText(ctx, "#3D2914", 18, "" + Math.floor(tower.price*0.75 / 50) * 50, tower.cx + 165, tower.cy + yOffset + 65);
         } else {
-            util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.price * 1.5 / 50) * 50, tower.cx + 165, tower.cy + yOffset + 65);
+            util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.price * 2.5 / 50) * 50, tower.cx + 165, tower.cy + yOffset + 65);
         }
         util.renderText(ctx, "#3D2914", 18, "" + tower.lvl + " → " + (tower.lvl+1), tower.cx + 165, tower.cy + yOffset + 85);
-        util.renderText(ctx, "#3D2914", 18, "" + tower.damage + " → " + tower.damage * 2, tower.cx + 165, tower.cy + yOffset + 105);
-        util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.fireRangeRadius / 10) + " → " + Math.round(tower.fireRangeRadius * 1.2 / 10), tower.cx + 165, tower.cy + yOffset + 125);
-        util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.rateOfFire / 100) / 10 + " → " + Math.round(tower.rateOfFire * 0.8 / 100) / 10, tower.cx + 165, tower.cy + yOffset + 145);
+        util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.damage*10)/10 + " → " + Math.round(tower.damage * 1.5 *10)/10, tower.cx + 165, tower.cy + yOffset + 105);
+        util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.fireRangeRadius / 10) + " → " + Math.round(tower.fireRangeRadius * 1.1 / 10), tower.cx + 165, tower.cy + yOffset + 125);
+        util.renderText(ctx, "#3D2914", 18, "" + Math.round(tower.rateOfFire / 100) / 10 + " → " + Math.round(tower.rateOfFire * 0.9 / 100) / 10, tower.cx + 165, tower.cy + yOffset + 145);
         ctx.restore();
     },
 
@@ -365,7 +365,7 @@ var menuManager = {
 
     renderWaveInfo: function(ctx) {
         ctx.save();
-        var text = "Wave " + (waveManager.getNextWaveID() - 1) + " of " + waves.length;
+        var text = "Wave " + (waveManager.getNextWaveID() - 1) + " of " + (g_waves.length);
         ctx.textAlign = "center";
         util.renderText(ctx, "#3D2914", 22, text, g_gameWidth + 100, 520);
         ctx.restore();
@@ -378,7 +378,7 @@ var menuManager = {
     // Finds the the item that's being clicked if any.
     findClickedItem: function(x, y) {
         if (this.mouseOverUpgradeButton()) {
-            if (this.clickedExistingTower.price * 1.5 <= g_money) {
+            if (this.clickedExistingTower.price * 2.5 <= g_money) {
                 this.clickedExistingTower.upgrade();
                 this.clickedExistingTower = null;
             }
@@ -470,7 +470,7 @@ var menuManager = {
             fireRangeRadius: 200,
             rateOfFire: 1000,
             price: 200,
-            damage: 1,
+            damage: 1.5,
             type: FLYING
         }));
         // Sprengjuturn
