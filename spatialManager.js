@@ -112,7 +112,7 @@ findEnemyInRange: function(posX, posY, radius, isFlying) {
 
         if(distSq < hitDistSq){
             if(maxDistTravelled < e.distTravelled){
-                if(isFlying && e.flying || !isFlying && !e.flying){ // Finnur bara flying óvini ef turn er flying og öfugt
+                if(isFlying && e.flying || !e.flying){ // Finnur bara flying óvini ef turn er flying
                   hitEntity = e;
                   maxDistTravelled = e.distTravelled;
                 }

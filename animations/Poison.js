@@ -15,7 +15,7 @@ function Poison(descr) {
 
     this.frameIndex = 0,
     this.tickCount = 0,
-    this.ticksPerFrame = 8,
+    this.ticksPerFrame = 12,
     this.numberOfFrames = 9;
 
 }
@@ -59,4 +59,3 @@ Poison.prototype.render = function(ctx) {
         this.cy,
     );
 }
-
