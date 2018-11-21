@@ -457,7 +457,7 @@ var menuManager = {
             shotVel: 15,
             fireRangeRadius: 100,
             rateOfFire: 1000,
-            price: 100,
+            price: 80,
             damage: 1,
             type: NORMAL
         }));
@@ -467,10 +467,10 @@ var menuManager = {
             sprite: g_sprites.towers[1],
             spriteIndex: 1,
             shotVel: 15,
-            fireRangeRadius: 200,
+            fireRangeRadius: 150,
             rateOfFire: 1000,
-            price: 200,
-            damage: 1.5,
+            price: 150,
+            damage: 1,
             type: FLYING
         }));
         // Sprengjuturn
@@ -480,7 +480,7 @@ var menuManager = {
             shotVel: 15,
             fireRangeRadius: 100,
             rateOfFire: 3000,
-            price: 300,
+            price: 250,
             damage: 0.5,
             type: EXPLODE
         }));
@@ -492,7 +492,7 @@ var menuManager = {
             shotVel: 15,
             fireRangeRadius: 100,
             rateOfFire: 2000,
-            price: 200,
+            price: 150,
             damage: 0.1,
             type: POISON
         }));
@@ -504,7 +504,7 @@ var menuManager = {
             shotVel: 15,
             fireRangeRadius: 100,
             rateOfFire: 1000,
-            price: 200,
+            price: 150,
             damage: 0.5,
             type: SLOW
         }));
@@ -516,7 +516,7 @@ var menuManager = {
             shotVel: 15,
             fireRangeRadius: 100,
             rateOfFire: 1500,
-            price: 200,
+            price: 150,
             damage: 0.2,
             type: STUN
         }));
