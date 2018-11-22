@@ -181,9 +181,10 @@ var menuManager = {
         this.renderNextWaveButton(ctx);
         this.renderLives(ctx);
         this.renderMoney(ctx);
-        this.renderWaveInfo(ctx);
         this.renderFastForward(ctx);
+        this.renderWaveInfo(ctx);
         this.renderTowerInfo(ctx);
+        this.renderNextWaveInfo(ctx);
         this.renderTowerUpgradeInfo(ctx);
     },
 
@@ -226,7 +227,6 @@ var menuManager = {
         ctx.save();
         ctx.globalAlpha = 0.85;
         if (this.isMouseOnNextWaveButton()) {
-            if (g_renderNextToggle) this.renderNextWaveInfo(ctx);
             ctx.globalAlpha = 1;
             if (g_wasMouseDown) ctx.globalAlpha = 0.85;
         }
@@ -274,6 +274,7 @@ var menuManager = {
     },
 
     renderNextWaveInfo: function(ctx) {
+        if (!this.isMouseOnNextWaveButton()) return;
         ctx.save();
         ctx.drawImage(g_images.infobox, g_gameWidth + 15, 305, 170, 165);
         ctx.textBaseline = "top";
