@@ -52,6 +52,7 @@
       // From the Main Menu setup selected level
       if (g_gameState === MAIN_MENU) {
           menuManager.setupSelectedLevel(g_mouseX, g_mouseY);
+          menuManager.setupDificulty(g_mouseX, g_mouseY);
       }
 
       if (g_gameState === PAUSED || g_gameState === GAME_OVER) {

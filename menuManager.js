@@ -29,15 +29,41 @@ var menuManager = {
      */
     renderStartMenu: function(ctx) {
         util.clearCanvas(ctx);
-        ctx.fillStyle = "yellow";
-        ctx.font = "BOLD 40px Verdana";
-        ctx.fillText("TOWER DEFENSE", g_canvas.width / 2 - 200, 100);
-        ctx.font = "30px Arial";
-        ctx.fillText("Select a map to play", g_canvas.width / 2 - 140, 150);
+        ctx.textAlign = "center";
+        util.renderText(ctx, "yellow", 55, "TOWER DEFENSE", g_canvas.width / 2, 100);
+        util.renderText(ctx, "yellow", 35, "Select a map to play", g_canvas.width / 2, 150);
 
         ctx.drawImage(g_images.background1, 180, 250, 200, 150);
         ctx.drawImage(g_images.background2, 400, 250, 200, 150);
         ctx.drawImage(g_images.background3, 620, 250, 200, 150);
+
+        if (g_dificultyMultiplier==1.2) util.fillBox(ctx, g_canvas.width/2-173,
+                                                    447, 106, 46, "white");
+        if (g_dificultyMultiplier==1.3) util.fillBox(ctx, g_canvas.width/2-53,
+                                                    447, 106, 46, "white");
+        if (g_dificultyMultiplier==1.4) util.fillBox(ctx, g_canvas.width/2+67,
+                                                    447, 106, 46, "white");
+
+        ctx.fillStyle = "yellow";
+        ctx.fillRect(g_canvas.width/2-170, 450, 100, 40);
+        ctx.fillRect(g_canvas.width/2-50, 450, 100, 40);
+        ctx.fillRect(g_canvas.width/2+70, 450, 100, 40);
+
+        util.renderText(ctx, "black", 20, "EASY", g_canvas.width/2-120, 477);
+        util.renderText(ctx, "black", 20, "NORMAL", g_canvas.width/2, 477);
+        util.renderText(ctx, "black", 20, "HARD", g_canvas.width/2+120, 477);
+
+
+        /*
+        Afhverju virkar þetta ekki??!??!?!???!?!?
+        ctx.lineWidth="3";
+        ctx.strokeStyle="white";
+        if (g_dificultyMultiplier==1.2) ctx.rect(g_canvas.width/2-172, 448, 104, 44);
+        if (g_dificultyMultiplier==1.3) ctx.rect(g_canvas.width/2-52, 448, 104, 44);
+        if (g_dificultyMultiplier==1.4) ctx.rect(g_canvas.width/2+68, 448, 104, 44);
+        */
+
+        ctx.stroke();
     },
 
     /**
@@ -69,6 +95,14 @@ var menuManager = {
 
     },
 
+    setupDificulty: function(xPos, yPos) {
+        if (yPos>450 && yPos<490) {
+            if (xPos>330 && xPos<430) g_dificultyMultiplier = 1.2;
+            if (xPos>450 && xPos<550) g_dificultyMultiplier = 1.3;
+            if (xPos>580 && xPos<670) g_dificultyMultiplier = 1.4;
+            }
+    },
+
     /**
      * Figure out if a mouse was pressed inside of the
      * level "buttons", and setup the game based on the level "button" selected
@@ -95,6 +129,7 @@ var menuManager = {
         }
 
     },
+
     /**
      * "Button" handler when game is paused or over,
      * finds out what "button", and acts accordingly
@@ -117,6 +152,7 @@ var menuManager = {
         if (action) {
             if (action.what === NEW_GAME) {
                 this.resetGame();
+                if (g_soundOn) this.actionSound.play();
             }
         }
     },
@@ -243,7 +279,7 @@ var menuManager = {
         ctx.textAlign = "center";
         util.renderText(ctx, "#3D2914", 20, "Next wave", g_gameWidth + 100, 315);
 
-        var wave = g_waves[waveManager._nextWaveID-1];
+        var wave = g_waves[waveManager.nextWaveID-1];
         for (i=0; i<wave.length; i++) {
           ctx.textAlign = "start";
           util.renderText(ctx, "#3D2914", 16, "" + wave[i].type, g_gameWidth + 35, 340+i*20);
@@ -478,7 +514,7 @@ var menuManager = {
             shotVel: 15,
             fireRangeRadius: 100,
             rateOfFire: 1000,
-            price: 80,
+            price: 100,
             damage: 1,
             type: NORMAL
         }));
@@ -587,7 +623,7 @@ var menuManager = {
                 top: 400,
                 bottom: 450
             }
-        })
+        });
     },
 
     // called in TOWERDEFENSE to initalise.

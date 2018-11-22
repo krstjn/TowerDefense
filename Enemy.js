@@ -71,7 +71,13 @@ Enemy.prototype.update = function(du) {
         }
     }
 
-    if (this._isDeadNow) return entityManager.KILL_ME_NOW;
+    if (this._isDeadNow) {
+        if (entityManager.enemies.length == 1) {
+            g_money += (waveManager.nextWaveID-1) * 50;
+            if (g_soundOn) menuManager.sellSound.play();
+        }
+        return entityManager.KILL_ME_NOW;
+    }
 
     this.checkStatus(du); // Uppfærir slow/stun/poison
 
@@ -129,7 +135,6 @@ Enemy.prototype.takeBulletHit = function(damage, type) {
     }
     this.hp = this.hp - damage;
     if (this.hp <= 0) {
-        console.log("Deyr í take bullet hit");
         this.die();
     }
 };

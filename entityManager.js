@@ -27,7 +27,7 @@ var entityManager = {
 
     // "PRIVATE" DATA
     _bullets: [],
-    _enemies: [],
+    enemies: [],
     _towers: [],
     _animations: [],
 
@@ -81,7 +81,7 @@ var entityManager = {
     // i.e. thing which need `this` to be defined.
     //
     deferredSetup: function() {
-        this._categories = [this._bullets, this._enemies, this._towers, this._animations];
+        this._categories = [this._bullets, this.enemies, this._towers, this._animations];
     },
 
     init: function() {
@@ -102,7 +102,7 @@ var entityManager = {
 
         // Clean up entityManager, reset arrays
         this._bullets = [];
-        this._enemies = [];
+        this.enemies = [];
         this._towers = [];
 
         this.deferredSetup();
@@ -124,7 +124,7 @@ var entityManager = {
     },
 
     generateEnemy: function(descr) {
-        this._enemies.push(new Enemy(descr));
+        this.enemies.push(new Enemy(descr));
     },
 
     sendNextWave: function() {
@@ -193,12 +193,12 @@ var entityManager = {
         }));
     },
     getEnemiesByDist: function() {
-        return this._enemies.sort((a, b) => {
+        return this.enemies.sort((a, b) => {
             return b.distTravelled - a.distTravelled;
         });
     },
     getEnemyById: function(id) {
-        return this._enemies.find(el => {
+        return this.enemies.find(el => {
             return el.ID === id;
         });
     },
@@ -219,7 +219,6 @@ var entityManager = {
             var status = null;
 
             while (i < aCategory.length) {
-
                 if (aCategory[i].delay <= 0 || aCategory[i].delay === undefined) {
                     status = aCategory[i].update(du);
                 } else {
@@ -255,7 +254,7 @@ var entityManager = {
             }
             debugY += 10;
         }
-        this._enemies.forEach(el => {
+        this.enemies.forEach(el => {
             el.renderHealthBar(ctx);
         });
     }

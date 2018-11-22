@@ -37,9 +37,9 @@ var g_waves = [
     ]
 ];
 
-var _multip = 1.4;
+var _multip = g_dificultyMultiplier;
 for (var i=2; i<=50; i++) {
-    _multip *= 1.4;
+    _multip *= g_dificultyMultiplier;
     g_waves.push(
         [
             {type: ROBOTMAN, amount: 10, initialDelay: 0, bounty: 10*i, hp: 2*i*_multip},
