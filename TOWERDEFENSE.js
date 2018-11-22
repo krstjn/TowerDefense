@@ -73,7 +73,6 @@ function processDiagnostics() {
 
     if (eatKey(KEY_RIGHT_ARROW)) {
         g_speed += 0.25;
-        console.log(g_speed);
     }
     if (eatKey(KEY_LEFT_ARROW)) {
         if (g_speed > 0.25) { g_speed -= 0.25; }

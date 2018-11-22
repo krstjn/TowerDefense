@@ -80,7 +80,7 @@ Bullet.prototype.update = function(du) {
           if (this.type === EXPLODE) entityManager.createExplosion(this.target.cx, this.target.cy, this.damage);
           if (this.type === POISON) entityManager.createPoison(this.target);
           if (this.type === STUN) entityManager.createStun(this.target.cx, this.target.cy);
-          if (g_soundOn) this.hitSound.play();
+          //if (g_soundOn) this.hitSound.play();
           return entityManager.KILL_ME_NOW;
     }
 

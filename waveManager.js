@@ -20,15 +20,15 @@ var waveManager = {
 
     // "PRIVATE" DATA
 
-    _enemies: [
+    enemies: [
          { type: ROBOTMAN, hp:  2, delay: 50, vel: 1.0 },
          { type: MOOSE, hp:  6, delay: 50, vel: 1.5 },
          { type: DOG, hp:  3, delay: 50, vel: 2.0 },
-         { type: KID, hp: 10, delay: 50, vel: 1.2 },
+         { type: SUPERMAN, hp: 10, delay: 50, vel: 1.2 },
          { type: BIRD, hp:  3, delay: 50, vel: 1.5}
     ],
 
-    _nextWaveID: 1, // make all valid IDs non-falsey (i.e. don't start at 0)
+    nextWaveID: 1, // make all valid IDs non-falsey (i.e. don't start at 0)
 
     _WAVE_TIME: 1, // A constant that tells the time between waves if no button is pressed
     _timeLeft: 0, // Time left before next wave comes.
@@ -42,7 +42,7 @@ var waveManager = {
     },
 
     getNextWaveID: function() {
-        return this._nextWaveID;
+        return this.nextWaveID;
     },
 
     isNextWaveReadyToGo: function(du) {
@@ -54,26 +54,28 @@ var waveManager = {
     },
 
     getNextWave: function () {
-        if (this._nextWaveID >= g_waves.length) {
+        if (this.nextWaveID >= g_waves.length) {
             return [];
         }
-        var wave = g_waves[this._nextWaveID-1];
-        this._nextWaveID++;
+        var wave = g_waves[this.nextWaveID-1];
+        this.nextWaveID++;
         this._timeLeft = this._WAVE_TIME;
 
         return wave;
     },
+
     getEnemyStats: function (type) {
         var index = -1;
-        var enemy = this._enemies.find((e, i) => {
+        var enemy = this.enemies.find((e, i) => {
             index = i;
             return e.type === type;
         });
 
         return { enemy, index };
     },
+
     reset: function() {
-        this._nextWaveID = 1;
+        this.nextWaveID = 1;
         this._timeLeft = 0;
     }
 }

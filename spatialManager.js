@@ -23,7 +23,7 @@ var spatialManager = {
 _nextSpatialID : 1, // make all valid IDs non-falsey (i.e. don't start at 0)
 
 _entities : [],
-_enemies : [],
+enemies : [],
 
 // "PRIVATE" METHODS
 //
@@ -62,7 +62,7 @@ registerEnemy: function(entity) {
     var pos = entity.getPos();
     var rad = entity.getRadius();
     var spatialID = entity.getSpatialID();
-    this._enemies[spatialID] = {
+    this.enemies[spatialID] = {
         entity,
         posX: pos.posX,
         posY: pos.posY,
@@ -129,7 +129,7 @@ findEnemyInRange: function(posX, posY, radius, towerType) {
 
 // Finnur alla óvini innan radíus
 findAllEnemiesInRange: function(posX, posY, radius){
-    var enemies = entityManager._enemies;
+    var enemies = entityManager.enemies;
     var hitEnemies = [];
 
     for (var i=0; i<enemies.length; i++){
