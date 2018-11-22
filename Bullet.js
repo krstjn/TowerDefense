@@ -73,14 +73,13 @@ Bullet.prototype.update = function(du) {
 
     if (this.xDistTravelled >= this.xLength ||
         this.yDistTravelled >= this.yLength) {
-          console.log(this.target);
           if (!this.target) {
             return entityManager.KILL_ME_NOW;
           }
           this.target.takeBulletHit(this.damage, this.type);
-          if (this.type === EXPLODE) entityManager.createExplosion(e.cx, e.cy, this.damage);
-          if (this.type === POISON) entityManager.createPoison(e);
-          if (this.type === STUN) entityManager.createStun(e.cx, e.cy);
+          if (this.type === EXPLODE) entityManager.createExplosion(this.target.cx, this.target.cy, this.damage);
+          if (this.type === POISON) entityManager.createPoison(this.target);
+          if (this.type === STUN) entityManager.createStun(this.target.cx, this.target.cy);
           if (g_soundOn) this.hitSound.play();
           return entityManager.KILL_ME_NOW;
     }
