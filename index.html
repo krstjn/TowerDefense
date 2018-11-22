@@ -5,14 +5,26 @@
     <title>TOWER DEFENSE!</title>
   </head>
   <body style="background-image: url(images/pageBackground.png); background-size:cover;">
-    <div style="margin: 30px auto; max-width: 1000px;">
-      <canvas id="myCanvas" width="1000" height="600" style="border: 1px solid black;">
-	      Sorry, but your browser does not support the HTML5 canvas tag.
-	    </canvas>
+    <div class="container">
+      <div class="spacer"></div>
+        <div class="info">
+        <h1>Hotkeys:</h1>
+        <p>P   = Pause</p>
+        <p>M   = Mute</p>
+        <p>→   = Speed up</p>
+        <p>←   = Slow down</p>
+        <p>N   = Next wave</p>
+        <p>1-6 = Towers</p>
+      </div>
+      <div class="canvas-div">
+        <canvas id="myCanvas" width="1000" height="600" style="border: 1px solid black;">
+          Sorry, but your browser does not support the HTML5 canvas tag.
+        </canvas>
+      </div>
+      <div class="spacer"></div>
     </div>
 
-
-    <div id="output"></div>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
 
     <script src="globals.js"></script>
     <script src="consts.js"></script>

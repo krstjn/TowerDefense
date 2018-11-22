@@ -59,10 +59,10 @@ for (var i = 0; i < 10; i++) {
 var KEY_RIGHT_ARROW = '39';
 var KEY_LEFT_ARROW = '37';
 var KEY_SPATIAL = keyCode('X');
-var KEY_NEXT_WAVE = keyCode('Y');
+var KEY_NEXT_WAVE = keyCode('N');
 var KEY_MUTE = keyCode('M');
-var KEY_TOGGLE_NW_INFO = keyCode('N');
-var KEY_TOGGLE_CHEAT = keyCode('C');
+var KEY_TOGGLE_NW_INFO = keyCode('Y');
+var KEY_TOGGLE_CHEAT = keyCode('C');  
 
 function processDiagnostics() {
 
