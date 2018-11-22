@@ -51,7 +51,6 @@ Tower.prototype.update = function(du) {
         // we check whether enough time has passed between shots.
         if (this.inRangeTime == null) {
             this.inRangeTime = 0;
-            console.log("inrangeTime" + this.inRangeTime);
             this.shoot(entityInRange);
         } else if (this.shouldShoot(du)) {
             this.shoot(entityInRange);
@@ -72,8 +71,8 @@ Tower.prototype.upgrade = function() {
     if (this.lvl == 8) this.spriteIndex += 6;
     if (this.lvl == 10) this.spriteIndex += 6;
     this.sprite = g_sprites.towers[this.spriteIndex];
-    this.price = Math.round(this.price * 2.5 / 50) * 50;
-    this.damage *= 1.5;
+    this.price = Math.round(this.price * 2.5 / 10) * 10;
+    this.damage *= 2;
     this.fireRangeRadius *= 1.1;
     this.rateOfFire *= 0.9;
     g_money -= this.price;

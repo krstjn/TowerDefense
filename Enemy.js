@@ -35,11 +35,11 @@ function Enemy(descr) {
     this.slowTimer = 0;
     this.stunTimer = 0;
     this.grunt = this.grunt || new Audio("sounds/maleGrunt.ogg");
-    if (this.type == KID) this.grunt = new Audio("sounds/femaleGrunt.ogg");
+    if (this.type == SUPERMAN) this.grunt = new Audio("sounds/femaleGrunt.ogg");
     if (this.type == BIRD) this.grunt = new Audio("sounds/birdGrunt.ogg");
     this.grunt.volume = 0.5;
 
-    this.scale = 0.6 + Math.floor(this.maxHP/10)*0.2;
+    this.scale = 0.6 + Math.floor(this.maxHP/50)*0.1;
     if (this.scale>2.5) this.scale = 2.5;
 };
 
@@ -120,17 +120,26 @@ Enemy.prototype.getRadius = function() {
 };
 
 Enemy.prototype.takeBulletHit = function(damage, type) {
-    this.hp = this.hp - damage;
     if (type === SLOW) this.slowTimer = 60;
-    if (type === POISON) this.poisonTimer = 120;
     if (type === STUN) this.stunTimer = 30;
+    if (type === POISON) {
+      this.poisonTimer = 240;
+      this.poisonDamage = damage/240;
+      return;
+    }
+    this.hp = this.hp - damage;
     if (this.hp <= 0) {
-        if (g_soundOn) this.grunt.play();
-        entityManager.createDeath(this.cx, this.cy);
-        this.kill();
-        g_money += this.bounty;
+        console.log("Deyr í take bullet hit");
+        this.die();
     }
 };
+
+Enemy.prototype.die = function () {
+  if (g_soundOn) this.grunt.play();
+  entityManager.createDeath(this.cx, this.cy);
+  this.kill();
+  g_money += this.bounty;
+}
 
 Enemy.prototype.render = function(ctx) {
     var origScale = this.sprite.scale;
@@ -177,8 +186,11 @@ Enemy.prototype.checkStatus = function(du) {
     }
 
     if (this.poisonTimer > 0) {
-        this.hp -= 0.016;
+        this.hp -= this.poisonDamage;
         this.poisonTimer -= du;
-        if (this.hp < 0) this.kill();
+        if (this.hp <= 0) {
+          console.log("Deyr í potion");
+          this.die();
+        }
     }
 }

@@ -95,7 +95,6 @@ var entityManager = {
             // Clean up the spatialManager, by unregistering entities
             while (i < aCategory.length) {
                 var entity = aCategory[i];
-                console.log(entity);
                 spatialManager.unregister(entity);
                 i++;
             }

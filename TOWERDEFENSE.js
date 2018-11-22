@@ -61,6 +61,7 @@ var KEY_SPATIAL = keyCode('X');
 var KEY_NEXT_WAVE = keyCode('Y');
 var KEY_MUTE = keyCode('M');
 var KEY_TOGGLE_NW_INFO = keyCode('N');
+var KEY_GET_CASH = keyCode('Z');
 
 function processDiagnostics() {
 
@@ -68,7 +69,7 @@ function processDiagnostics() {
     if (eatKey(KEY_NEXT_WAVE)) entityManager.sendNextWave();
     if (eatKey(KEY_MUTE)) g_soundOn = !g_soundOn;
     if (eatKey(KEY_TOGGLE_NW_INFO)) g_renderNextToggle = !g_renderNextToggle;
-
+    if (eatKey(KEY_GET_CASH)) g_money += 10000;
     if (keys[KEY_RIGHT_ARROW]) {
         g_speed = 2;
     }

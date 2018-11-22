@@ -9,7 +9,7 @@ var consts = {
 
     FULL_CIRCLE: Math.PI * 2,
     RADIANS_PER_DEGREE: Math.PI / 180.0
-    
+
 };
 
 const MAIN_MENU = 'MainMenu';
@@ -19,7 +19,7 @@ const PAUSED = 'Paused';
 const NEW_GAME = 'NewGame'
 
 const MOOSE = 'MOOSE';
-const KID = 'KID';
+const SUPERMAN = 'SUPERMAN';
 const BIRD = 'BIRD';
 const DOG = 'DOG';
 const ROBOTMAN = 'ROBOTMAN';

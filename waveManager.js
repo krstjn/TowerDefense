@@ -24,7 +24,7 @@ var waveManager = {
          { type: ROBOTMAN, hp:  2, delay: 50, vel: 1.0 },
          { type: MOOSE, hp:  6, delay: 50, vel: 1.5 },
          { type: DOG, hp:  3, delay: 50, vel: 2.0 },
-         { type: KID, hp: 10, delay: 50, vel: 1.2 },
+         { type: SUPERMAN, hp: 10, delay: 50, vel: 1.2 },
          { type: BIRD, hp:  3, delay: 50, vel: 1.5}
     ],
 
