@@ -89,10 +89,10 @@ Enemy.prototype.update = function(du) {
 
     // Athugar hvar næsti punktur er og færir enemy í átt að honum.
     // Ef enemy er á næsta punkt þá breytum við næsta punkt.
-    if (Math.abs(pathNode.cx - this.cx) < this.vel) this.cx = pathNode.cx;
-    if (Math.abs(pathNode.cy - this.cy) < this.vel) this.cy = pathNode.cy;
-
     let velocity = this.vel * du;
+
+    if (Math.abs(pathNode.cx - this.cx) < velocity) this.cx = pathNode.cx;
+    if (Math.abs(pathNode.cy - this.cy) < velocity) this.cy = pathNode.cy;
 
     if (pathNode.cx > this.cx) {
         this.cx += velocity ;

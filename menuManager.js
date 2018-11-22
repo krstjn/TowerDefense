@@ -146,6 +146,7 @@ var menuManager = {
         this.renderLives(ctx);
         this.renderMoney(ctx);
         this.renderWaveInfo(ctx);
+        this.renderFastForward(ctx);
         this.renderTowerInfo(ctx);
         this.renderTowerUpgradeInfo(ctx);
     },
@@ -379,6 +380,14 @@ var menuManager = {
         ctx.fillText("♥ " + g_lives, g_gameWidth + 170, 493);
         ctx.fillStyle = "#3D2914";
         ctx.strokeText("♥ " + g_lives, g_gameWidth + 170, 493);
+        ctx.restore();
+    },
+
+    renderFastForward: function (ctx) {
+        ctx.save();
+        var text = "Speed: x" + g_speed;
+        ctx.textAlign = "center";
+        util.renderText(ctx, "#3D2914", 22, text, g_gameWidth + 100, 450);
         ctx.restore();
     },
 
