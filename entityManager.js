@@ -85,7 +85,7 @@ var entityManager = {
     },
 
     init: function() {
-        this._generateEnemies();
+        //this._generateEnemies();
     },
     reset: function() {
         for (var c = 0; c < this._categories.length; ++c) {

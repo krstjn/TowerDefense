@@ -396,6 +396,7 @@ var menuManager = {
     },
 
     renderWaveInfo: function(ctx) {
+        if (waveManager.getNextWaveID() == 1) return;
         ctx.save();
         var text = "Wave " + (waveManager.getNextWaveID() - 1) + " of " + (g_waves.length);
         ctx.textAlign = "center";
