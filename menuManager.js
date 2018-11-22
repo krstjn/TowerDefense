@@ -189,6 +189,7 @@ var menuManager = {
         ctx.save();
         ctx.globalAlpha = 0.85;
         if (this.isMouseOnNextWaveButton()) {
+            if (g_renderNextToggle) this.renderNextWaveInfo(ctx);
             ctx.globalAlpha = 1;
             if (g_wasMouseDown) ctx.globalAlpha = 0.85;
         }
@@ -233,6 +234,24 @@ var menuManager = {
                 return true;
             }
         }
+    },
+
+    renderNextWaveInfo: function(ctx) {
+        ctx.save();
+        ctx.drawImage(g_images.infobox, g_gameWidth + 15, 305, 170, 165);
+        ctx.textBaseline = "top";
+        ctx.textAlign = "center";
+        util.renderText(ctx, "#3D2914", 20, "Next wave", g_gameWidth + 100, 315);
+
+        var wave = g_waves[waveManager._nextWaveID-1];
+        for (i=0; i<wave.length; i++) {
+          ctx.textAlign = "start";
+          util.renderText(ctx, "#3D2914", 16, "" + wave[i].type, g_gameWidth + 35, 340+i*20);
+          ctx.textAlign = "end";
+          util.renderText(ctx, "#3D2914", 18, "x" + wave[i].amount, g_gameWidth + 165, 340+i*20);
+        };
+
+        ctx.restore();
     },
 
     renderTowerInfo: function(ctx) {
@@ -364,6 +383,9 @@ var menuManager = {
     },
 
     renderWaveInfo: function(ctx) {
+        // Don't render waveInfo is we've not started yet.
+        if (waveManager.getNextWaveID() == 1) return;
+
         ctx.save();
         var text = "Wave " + (waveManager.getNextWaveID() - 1) + " of " + (g_waves.length);
         ctx.textAlign = "center";
@@ -470,9 +492,10 @@ var menuManager = {
             fireRangeRadius: 150,
             rateOfFire: 1000,
             price: 150,
-            damage: 1,
+            damage: 3,
             type: FLYING
         }));
+
         // Sprengjuturn
         this._towerTypes.push(new Tower({
             sprite: g_sprites.towers[2],
