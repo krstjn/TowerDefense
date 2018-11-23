@@ -63,6 +63,7 @@ var KEY_NEXT_WAVE = keyCode('N');
 var KEY_MUTE = keyCode('M');
 var KEY_TOGGLE_NW_INFO = keyCode('Y');
 var KEY_TOGGLE_CHEAT = keyCode('C');
+var KEY_UPGRADE = keyCode('U');
 
 function processDiagnostics() {
 
@@ -70,6 +71,7 @@ function processDiagnostics() {
     if (eatKey(KEY_NEXT_WAVE)) entityManager.sendNextWave();
     if (eatKey(KEY_MUTE)) g_soundOn = !g_soundOn;
     if (eatKey(KEY_TOGGLE_NW_INFO)) g_renderNextToggle = !g_renderNextToggle;
+    if (eatKey(KEY_UPGRADE)) menuManager.clickedExistingTower.upgrade();;
 
     // Updates speed of the game, how fast enemies, bullets and towers move
     if (eatKey(KEY_RIGHT_ARROW)) {

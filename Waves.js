@@ -78,11 +78,11 @@ for (var i=2; i<=50; i++) {
             {type: SUPERMAN, amount: 20, initDelay: 1500, bounty: 30*i, hp: 10*i*_multip}
         ],
         [
-            {type: ROBOTMAN, amount: 3, initDelay: 25, bounty: 10*5*i, hp: 2*10*i*_multip},
-            {type: MOOSE, amount: 3, initDelay: 500, bounty: 20*5*i, hp: 6*10*i*_multip},
-            {type: DOG, amount: 3, initDelay: 1000, bounty: 20*5*i, hp: 3*10*i*_multip},
-            {type: BIRD, amount: 3, initDelay: 1200, flying: true, bounty: 20*5*i, hp: 6*10*i*_multip},
-            {type: SUPERMAN, amount: 3, initDelay: 1500, bounty: 30*5*i, hp: 10*10*i*_multip}
+            {type: ROBOTMAN, amount: 3, initDelay: 25, bounty: 10*5*i, hp: 2*8*i*_multip},
+            {type: MOOSE, amount: 3, initDelay: 500, bounty: 20*5*i, hp: 6*8*i*_multip},
+            {type: DOG, amount: 3, initDelay: 1000, bounty: 20*5*i, hp: 3*8*i*_multip},
+            {type: BIRD, amount: 3, initDelay: 1200, flying: true, bounty: 20*5*i, hp: 6*8*i*_multip},
+            {type: SUPERMAN, amount: 3, initDelay: 1500, bounty: 30*5*i, hp: 10*8*i*_multip}
         ]
     );
 };
