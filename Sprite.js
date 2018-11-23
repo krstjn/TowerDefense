@@ -11,9 +11,7 @@
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
 
-
 // Construct a "sprite" from the given `image`,
-//
 function Sprite(image, numberOfFrames = 1) {
     this.image = image;
 

@@ -48,7 +48,7 @@ var entityManager = {
             var {
                 type,
                 amount,
-                initialDelay,
+                initDelay,
                 flying,
                 bounty,
                 hp
@@ -64,7 +64,7 @@ var entityManager = {
                     ID: this._ENEMY_ID++,
                     type: type,
                     hp: hp,
-                    delay: (initialDelay + enemy.delay * j),
+                    delay: (initDelay + enemy.delay * j),
                     vel: enemy.vel,
                     sprite: g_sprites.enemies[index],
                     numberOfFrames: 4,

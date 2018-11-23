@@ -1,3 +1,8 @@
+// ====
+// util
+// ====
+
+
 // util.js
 //
 // A module of utility functions, with no private elements to hide.
@@ -5,6 +10,12 @@
 
 "use strict";
 
+/* jshint browser: true, devel: true, globalstrict: true */
+
+/*
+0        1         2         3         4         5         6         7         8
+12345678901234567890123456789012345678901234567890123456789012345678901234567890
+*/
 
 var util = {
 
@@ -96,7 +107,7 @@ var util = {
         g_sprites.levels[g_level].drawAt(ctx, 0, 0, g_gameWidth, g_gameHeight);
     },
 
-    // Draws text at the given (x, y) 
+    // Draws text at the given (x, y) with Berlin sans FB font
     renderText: function (ctx, color, size, text, x, y) {
         ctx.save();
         ctx.fillStyle = color;

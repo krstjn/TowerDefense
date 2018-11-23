@@ -1,19 +1,19 @@
-// =========
+// ============
 // TOWERDEFENSE
-// =========
+// ============
 
 
 "use strict";
 
 /* jshint browser: true, devel: true, globalstrict: true */
 
-var g_canvas = document.getElementById("myCanvas");
-var g_ctx = g_canvas.getContext("2d");
-
 /*
 0        1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
+
+var g_canvas = document.getElementById("myCanvas");
+var g_ctx = g_canvas.getContext("2d");
 
 
 // =============
@@ -62,7 +62,7 @@ var KEY_SPATIAL = keyCode('X');
 var KEY_NEXT_WAVE = keyCode('N');
 var KEY_MUTE = keyCode('M');
 var KEY_TOGGLE_NW_INFO = keyCode('Y');
-var KEY_TOGGLE_CHEAT = keyCode('C');  
+var KEY_TOGGLE_CHEAT = keyCode('C');
 
 function processDiagnostics() {
 

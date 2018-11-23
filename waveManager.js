@@ -1,11 +1,6 @@
-/*
-
-spatialManager.js
-
-A module which handles spatial lookup, as required for...
-e.g. general collision detection.
-
-*/
+// ============
+// WAVE MANAGER
+// ============
 
 "use strict";
 
@@ -48,7 +43,7 @@ var waveManager = {
     /**
      * Sends the next wave based on time
      * OLD DESGIN: not used
-     * @param {} du 
+     * @param {} du
      */
     isNextWaveReadyToGo: function(du) {
         if (this._timeLeft<0) {
@@ -74,7 +69,7 @@ var waveManager = {
     /**
      * Gets the stats for the enemy type
      * The types are {ROBOTMAN, MOOSE, DOG,BIRD, SUPERMAN }
-     * @param {String} type 
+     * @param {String} type
      */
     getEnemyStats: function (type) {
         var index = -1;

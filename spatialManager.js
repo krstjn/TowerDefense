@@ -1,10 +1,12 @@
-/*
+// ===============
+// SPATIAL MANAGER
+// ===============
 
+/*
 spatialManager.js
 
 A module which handles spatial lookup, as required for...
 e.g. general collision detection.
-
 */
 
 "use strict";
@@ -93,7 +95,7 @@ var spatialManager = {
 
             if (distSq < hitDistSq) {
                 if (maxDistTravelled < e.distTravelled) {
-                    // Decides what type of enemy the tower is able to find                
+                    // Decides what type of enemy the tower is able to find
                     if (towerType == FLYING && e.flying ||
                         towerType == NORMAL && e.flying ||
                         towerType != FLYING && !e.flying) {
