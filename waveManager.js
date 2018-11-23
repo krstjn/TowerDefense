@@ -54,7 +54,7 @@ var waveManager = {
     },
 
     getNextWave: function () {
-        if (this.nextWaveID >= g_waves.length) {
+        if (this.nextWaveID > g_waves.length) {
             return [];
         }
         var wave = g_waves[this.nextWaveID-1];
