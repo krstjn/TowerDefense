@@ -21,6 +21,7 @@ function Bullet(descr) {
     this.xDistTravelled = 0;
     this.yDistTravelled = 0;
 
+    // Bullet has different sounds if it's a bomb.
     if (this.type === EXPLODE) {
         this.fireSound = new Audio("sounds/shot1.ogg");
         this.hitSound = new Audio("sounds/explosion.ogg");
@@ -28,18 +29,9 @@ function Bullet(descr) {
     }
     // Make a noise when I am created (i.e. fired)
     if (g_soundOn) this.fireSound.play();
-
-    /*
-        // Diagnostics to check inheritance stuff
-        this._bulletProperty = true;
-        console.dir(this);
-    */
-
 }
 
 Bullet.prototype = new Entity();
-
-
 
 // Initial, inheritable, default values
 Bullet.prototype.xDistTravelled = 0;
@@ -67,21 +59,31 @@ Bullet.prototype.update = function(du) {
     this.xDistTravelled += Math.abs(this.velX) * du;
     this.yDistTravelled += Math.abs(this.velY) * du;
 
-    //
-    // Handle collisions
-    //
-
+    /**
+     * Handles the bullet-enemy collision by tracking the distance the bullet
+     * has traveled instead of actually checking every enemy with every bullet
+     * every update. This way the bullet will always hit the enemy the tower
+     * fired at.
+     */
     if (this.xDistTravelled >= this.xLength ||
         this.yDistTravelled >= this.yLength) {
-          if (!this.target) {
+        if (!this.target) {
             return entityManager.KILL_ME_NOW;
-          }
-          this.target.takeBulletHit(this.damage, this.type);
-          if (this.type === EXPLODE) entityManager.createExplosion(this.target.cx, this.target.cy, this.damage);
-          if (this.type === POISON) entityManager.createPoison(this.target);
-          if (this.type === STUN) entityManager.createStun(this.target.cx, this.target.cy);
-          //if (g_soundOn) this.hitSound.play();
-          return entityManager.KILL_ME_NOW;
+        }
+        this.target.takeBulletHit(this.damage, this.type);
+        // Check for the special towerTypes
+        if (this.type === EXPLODE) entityManager.createExplosion(
+            this.target.cx,
+            this.target.cy,
+            this.damage);
+        if (this.type === POISON) entityManager.createPoison(
+            this.target);
+        if (this.type === STUN) entityManager.createStun(
+            this.target.cx,
+            this.target.cy);
+        // Play a sound when the bullet hits an enemy.
+        if (g_soundOn) this.hitSound.play();
+        return entityManager.KILL_ME_NOW;
     }
 
 };
@@ -90,21 +92,13 @@ Bullet.prototype.getRadius = function() {
     return 4;
 };
 
+// "Kill" the bullet if it hits something.
 Bullet.prototype.takeBulletHit = function() {
     this.kill();
 };
 
 Bullet.prototype.render = function(ctx) {
-
-    var fadeThresh = Bullet.prototype.lifeSpan / 3;
-
-    if (this.lifeSpan < fadeThresh) {
-        ctx.globalAlpha = this.lifeSpan / fadeThresh;
-    }
-
     g_sprites.bullet.drawCentredAt(
         ctx, this.cx, this.cy, this.rotation
     );
-
-    ctx.globalAlpha = 1;
 };
