@@ -111,7 +111,7 @@ var spatialManager = {
 
 
     findAllEnemiesInRange: function (posX, posY, radius) {
-        var enemies = entityManager.enemies;
+        var enemies = entityManager.getEnemies();
         var hitEnemies = [];
 
         for (var i = 0; i < enemies.length; i++) {
