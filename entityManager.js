@@ -1,10 +1,10 @@
+// =============
+// ENTITYMANAGER
+// =============
+
 /*
 
-entityManager.js
-
-A module which handles arbitrary entity-management for "Asteroids"
-
-
+A module which handles arbitrary entity-management.
 We create this module as a single global object, and initialise it
 with suitable 'data' and 'methods'.
 
@@ -12,22 +12,20 @@ with suitable 'data' and 'methods'.
 
 */
 
-
 "use strict";
 
+/* jshint browser: true, devel: true, globalstrict: true */
 
-// Tell jslint not to complain about my use of underscore prefixes (nomen),
-// my flattening of some indentation (white), or my use of incr/decr ops
-// (plusplus).
-//
-/*jslint nomen: true, white: true, plusplus: true*/
-
+/*
+0        1         2         3         4         5         6         7         8
+12345678901234567890123456789012345678901234567890123456789012345678901234567890
+*/
 
 var entityManager = {
 
     // "PRIVATE" DATA
     _bullets: [],
-    enemies: [],
+    _enemies: [],
     _towers: [],
     _animations: [],
 
@@ -36,9 +34,16 @@ var entityManager = {
 
     // "PRIVATE" METHODS
 
+    // This function sends the next wave when called.
     _generateEnemies: function() {
+
+        // this object contains all wave info
         var wave = waveManager.getNextWave();
 
+        /**
+         * Runs through each type of enemy we're sending and then
+         * creates the given amount of each one with an appropriate delay.
+         */
         for (var i = 0; i < wave.length; i++) {
             var {
                 type,
@@ -77,16 +82,17 @@ var entityManager = {
     //
     KILL_ME_NOW: -1,
 
-    // Some things must be deferred until after initial construction
-    // i.e. thing which need `this` to be defined.
-    //
+
     deferredSetup: function() {
-        this._categories = [this._bullets, this.enemies, this._towers, this._animations];
+        this._categories = [this._bullets, this._enemies, this._towers, this._animations];
     },
 
     init: function() {
-        //this._generateEnemies();
+        // uncomment below if the first wave should come automaticly
+        // this._generateEnemies();
     },
+
+    // Called to reset the game, removes all created entities.
     reset: function() {
         for (var c = 0; c < this._categories.length; ++c) {
 
@@ -102,12 +108,13 @@ var entityManager = {
 
         // Clean up entityManager, reset arrays
         this._bullets = [];
-        this.enemies = [];
+        this._enemies = [];
         this._towers = [];
 
         this.deferredSetup();
     },
 
+    // Called to create a bullet
     fireBullet: function(cx, cy, velX, velY, xLength, yLength, rotation, damage, type, target) {
         this._bullets.push(new Bullet({
             cx: cx,
@@ -123,44 +130,66 @@ var entityManager = {
         }));
     },
 
+    // Called to create an enemy
     generateEnemy: function(descr) {
-        this.enemies.push(new Enemy(descr));
+        this._enemies.push(new Enemy(descr));
     },
 
+    // Called to send the next wave
     sendNextWave: function() {
         this._generateEnemies();
     },
 
+    /**
+     * Creates a tower if we have a tower type selected, we can afford it
+     * and the cooridnates are pointing on the map and the location is
+     * available.
+     * clickedNewTower contains the type of tower we wish to create if any.
+     */
     createNewTower: function(xPos, yPos) {
-        if (menuManager.clickedNewTower === null) return;
+        var tower = menuManager.clickedNewTower;
+
+        if (tower === null) return;
         if (xPos >= g_gameWidth) return;
-        var towerCost = menuManager._towerTypes[menuManager.clickedNewTower].price;
+
+        var towerCost = menuManager.towerTypes[tower].price;
         if (g_money < towerCost) return;
 
+        // Finds where on the grid the given cooridnates are.
         var xGridNum = Math.floor(xPos / 40);
         var yGridNum = Math.floor(yPos / 40);
         var arrayIndex = 20 * yGridNum + xGridNum;
 
+        /**
+         * Checks the map grid to see if position is available.
+         * If so we feed the tower constructor the grid location and all the
+         * attributes of the tower of the type we're creating.
+         */
         if (g_mapGrids[g_level][arrayIndex]) {
             this._towers.push(new Tower({
                 cx: xGridNum * 40 + 20,
                 cy: yGridNum * 40 + 20,
-                sprite: menuManager._towerTypes[menuManager.clickedNewTower].sprite,
-                spriteIndex: menuManager._towerTypes[menuManager.clickedNewTower].spriteIndex,
-                shotVel: menuManager._towerTypes[menuManager.clickedNewTower].shotVel,
-                fireRangeRadius: menuManager._towerTypes[menuManager.clickedNewTower].fireRangeRadius,
-                rateOfFire: menuManager._towerTypes[menuManager.clickedNewTower].rateOfFire,
-                price: menuManager._towerTypes[menuManager.clickedNewTower].price,
-                damage: menuManager._towerTypes[menuManager.clickedNewTower].damage,
-                type: menuManager._towerTypes[menuManager.clickedNewTower].type,
+                sprite: menuManager.towerTypes[tower].sprite,
+                spriteIndex: menuManager.towerTypes[tower].spriteIndex,
+                shotVel: menuManager.towerTypes[tower].shotVel,
+                fireRangeRadius: menuManager.towerTypes[tower].fireRangeRadius,
+                rateOfFire: menuManager.towerTypes[tower].rateOfFire,
+                price: menuManager.towerTypes[tower].price,
+                damage: menuManager.towerTypes[tower].damage,
+                type: menuManager.towerTypes[tower].type,
                 index: arrayIndex
             }));
 
+            // Deduct the cost of the tower of our savings
             g_money -= towerCost;
         }
+        // Make the mapgrid location unavailable after we create a tower there
         g_mapGrids[g_level][arrayIndex] = 0;
+
+        // play a sound when a tower is created
         if (g_soundOn) menuManager.actionSound.play();
     },
+
     createExplosion: function(cx, cy, damage) {
         this._animations.push(new Explosion({
             cx,
@@ -170,12 +199,14 @@ var entityManager = {
             numberOfFrames: 9
         }));
     },
+
     createPoison: function(entity) {
         this._animations.push(new Poison({
             entity,
             sprite: g_sprites.poison,
         }));
     },
+
     createStun: function(cx, cy, damage) {
         this._animations.push(new Stun({
             cx,
@@ -184,7 +215,8 @@ var entityManager = {
             damage,
         }));
     },
-    createDeath: function(cx, cy){
+
+    createDeath: function(cx, cy) {
         this._animations.push(new Death({
             cx,
             cy,
@@ -192,25 +224,50 @@ var entityManager = {
             numberOfFrames: 7
         }));
     },
+
+    getEnemies: function() {
+        return this._enemies;
+    },
+
+    getTowers: function() {
+        return this._towers;
+    },
+
+    /**
+     * Returns an array of the enemies sorted by how far they've travelled.
+     * This is used to make the tower shoot the first enemy and not the one
+     * that's oldest.
+     */
     getEnemiesByDist: function() {
-        return this.enemies.sort((a, b) => {
+        return this._enemies.sort((a, b) => {
             return b.distTravelled - a.distTravelled;
         });
     },
+
+    // Returns a specific enemy
     getEnemyById: function(id) {
-        return this.enemies.find(el => {
+        return this._enemies.find(el => {
             return el.ID === id;
         });
     },
 
+
+    /**
+     * Runs through all the arrays of entities and updates each entity. If the
+     * entity has a delay and its under zero, then we don't update it, we just
+     * decremnt it's delay and make sure it's status is null so it doesn't get
+     * killed before it's spawned.
+     */
     update: function(du) {
 
-        // Kalla á wave tengt tíma EKKI I NOTAD NUNA
+        // part of a old design that sent waves with a counter
         /*
         if (waveManager.isNextWaveReadyToGo(du)) {
           this._generateEnemies();
         }
         */
+
+        // Multiply the du with our game speed multiplier to speed things up.
         du *= g_speed;
         for (var c = 0; c < this._categories.length; ++c) {
 
@@ -237,26 +294,18 @@ var entityManager = {
         }
     },
 
+    /**
+     * Runs through all the arrays of entities and renders each entity. If the
+     * entity has a delay and its under zero, then we don't render it.
+     */
     render: function(ctx) {
-
-        var debugX = 10,
-            debugY = 100;
-
         for (var c = 0; c < this._categories.length; ++c) {
-
             var aCategory = this._categories[c];
-
             for (var i = 0; i < aCategory.length; ++i) {
                 if (aCategory[i].delay <= 0 || aCategory[i].delay == undefined)
                     aCategory[i].render(ctx);
-                //debug.text(".", debugX + i * 10, debugY);
-
             }
-            debugY += 10;
         }
-        this.enemies.forEach(el => {
-            el.renderHealthBar(ctx);
-        });
     }
 
 }

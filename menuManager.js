@@ -9,9 +9,9 @@ var menuManager = {
 
     // towerTypes stores each of the different towers as tower objects.
     // clickedNewTower knows if and then what tower on the menu we clicked last.
-    _towerTypes: [],
     _levels: [],
     _action: [],
+    towerTypes: [],
     clickedNewTower: null,
     clickedExistingTower: null,
     mouseOverMenuTower: null,
@@ -52,16 +52,6 @@ var menuManager = {
         util.renderText(ctx, "black", 20, "EASY", g_canvas.width/2-120, 477);
         util.renderText(ctx, "black", 20, "NORMAL", g_canvas.width/2, 477);
         util.renderText(ctx, "black", 20, "HARD", g_canvas.width/2+120, 477);
-
-
-        /*
-        Afhverju virkar þetta ekki??!??!?!???!?!?
-        ctx.lineWidth="3";
-        ctx.strokeStyle="white";
-        if (g_dificultyMultiplier==1.2) ctx.rect(g_canvas.width/2-172, 448, 104, 44);
-        if (g_dificultyMultiplier==1.3) ctx.rect(g_canvas.width/2-52, 448, 104, 44);
-        if (g_dificultyMultiplier==1.4) ctx.rect(g_canvas.width/2+68, 448, 104, 44);
-        */
 
         ctx.stroke();
     },
@@ -191,35 +181,35 @@ var menuManager = {
     // draws the tower icons on the menu. If player can not afford the tower
     // then it will be drawn with a low opacity.
     renderTowerIcons: function(ctx) {
-        if (g_money >= this._towerTypes[0].price) {
-            this._towerTypes[0].sprite.drawCentredAt(ctx, 862, 100, 0, 1);
+        if (g_money >= this.towerTypes[0].price) {
+            this.towerTypes[0].sprite.drawCentredAt(ctx, 862, 100, 0, 1);
         } else {
-            this._towerTypes[0].sprite.drawCentredAt(ctx, 862, 100, 0, 0.3);
+            this.towerTypes[0].sprite.drawCentredAt(ctx, 862, 100, 0, 0.3);
         }
-        if (g_money >= this._towerTypes[1].price) {
-            this._towerTypes[1].sprite.drawCentredAt(ctx, 938, 100, 0, 1);
+        if (g_money >= this.towerTypes[1].price) {
+            this.towerTypes[1].sprite.drawCentredAt(ctx, 938, 100, 0, 1);
         } else {
-            this._towerTypes[1].sprite.drawCentredAt(ctx, 938, 100, 0, 0.3);
+            this.towerTypes[1].sprite.drawCentredAt(ctx, 938, 100, 0, 0.3);
         }
-        if (g_money >= this._towerTypes[2].price) {
-            this._towerTypes[2].sprite.drawCentredAt(ctx, 862, 176, 0, 1);
+        if (g_money >= this.towerTypes[2].price) {
+            this.towerTypes[2].sprite.drawCentredAt(ctx, 862, 176, 0, 1);
         } else {
-            this._towerTypes[2].sprite.drawCentredAt(ctx, 862, 176, 0, 0.3);
+            this.towerTypes[2].sprite.drawCentredAt(ctx, 862, 176, 0, 0.3);
         }
-        if (g_money >= this._towerTypes[3].price) {
-            this._towerTypes[3].sprite.drawCentredAt(ctx, 938, 176, 0, 1);
+        if (g_money >= this.towerTypes[3].price) {
+            this.towerTypes[3].sprite.drawCentredAt(ctx, 938, 176, 0, 1);
         } else {
-            this._towerTypes[3].sprite.drawCentredAt(ctx, 938, 176, 0, 0.3);
+            this.towerTypes[3].sprite.drawCentredAt(ctx, 938, 176, 0, 0.3);
         }
-        if (g_money >= this._towerTypes[4].price) {
-            this._towerTypes[4].sprite.drawCentredAt(ctx, 862, 252, 0, 1);
+        if (g_money >= this.towerTypes[4].price) {
+            this.towerTypes[4].sprite.drawCentredAt(ctx, 862, 252, 0, 1);
         } else {
-            this._towerTypes[4].sprite.drawCentredAt(ctx, 862, 252, 0, 0.3);
+            this.towerTypes[4].sprite.drawCentredAt(ctx, 862, 252, 0, 0.3);
         }
-        if (g_money >= this._towerTypes[5].price) {
-            this._towerTypes[5].sprite.drawCentredAt(ctx, 938, 252, 0, 1);
+        if (g_money >= this.towerTypes[5].price) {
+            this.towerTypes[5].sprite.drawCentredAt(ctx, 938, 252, 0, 1);
         } else {
-            this._towerTypes[5].sprite.drawCentredAt(ctx, 938, 252, 0, 0.3);
+            this.towerTypes[5].sprite.drawCentredAt(ctx, 938, 252, 0, 0.3);
         }
     },
 
@@ -293,7 +283,7 @@ var menuManager = {
     },
 
     renderTowerInfo: function(ctx) {
-        var tower = this._towerTypes[this.mouseOverMenuTower]
+        var tower = this.towerTypes[this.mouseOverMenuTower]
         if (!tower) {
             tower = this.mouseOverExistingTower;
         }
@@ -389,10 +379,10 @@ var menuManager = {
                     ctx,
                     g_mouseX,
                     g_mouseY,
-                    this._towerTypes[this.clickedNewTower].fireRangeRadius,
+                    this.towerTypes[this.clickedNewTower].fireRangeRadius,
                     0.25);
             }
-            this._towerTypes[this.clickedNewTower].sprite.drawCentredAt(
+            this.towerTypes[this.clickedNewTower].sprite.drawCentredAt(
                 ctx, g_mouseX, g_mouseY, 0, 0.3);
         }
         ctx.restore();
@@ -468,7 +458,7 @@ var menuManager = {
             this.clickedNewTower = this.mouseOverMenuTower;
             // Don't select the tower if we can't afford it.
             if (g_soundOn) this.selectSound.play();
-            if (this._towerTypes[this.clickedNewTower].price > g_money) {
+            if (this.towerTypes[this.clickedNewTower].price > g_money) {
                 this.clickedNewTower = null;
             }
         }
@@ -497,7 +487,7 @@ var menuManager = {
             }
         }
         if (this.mouseOverMenuTower != null) return;
-        entityManager._towers.forEach(el => {
+        entityManager.getTowers().forEach(el => {
             if (Math.abs(g_mouseX - el.cx) < 20 &&
                 Math.abs(g_mouseY - el.cy) < 20) {
                 this.mouseOverExistingTower = el;
@@ -518,7 +508,7 @@ var menuManager = {
 
     // This function initialises our tower types.
     generateTowerTypes: function() {
-        this._towerTypes.push(new Tower({
+        this.towerTypes.push(new Tower({
             sprite: g_sprites.towers[0],
             spriteIndex: 0,
             shotVel: 15,
@@ -530,7 +520,7 @@ var menuManager = {
         }));
 
         // Turn sem skýtur bara flying óvini
-        this._towerTypes.push(new Tower({
+        this.towerTypes.push(new Tower({
             sprite: g_sprites.towers[1],
             spriteIndex: 1,
             shotVel: 15,
@@ -542,7 +532,7 @@ var menuManager = {
         }));
 
         // Sprengjuturn
-        this._towerTypes.push(new Tower({
+        this.towerTypes.push(new Tower({
             sprite: g_sprites.towers[2],
             spriteIndex: 2,
             shotVel: 15,
@@ -554,7 +544,7 @@ var menuManager = {
         }));
 
         // Poison turn
-        this._towerTypes.push(new Tower({
+        this.towerTypes.push(new Tower({
             sprite: g_sprites.towers[3],
             spriteIndex: 3,
             shotVel: 15,
@@ -566,7 +556,7 @@ var menuManager = {
         }));
 
         // Slow turn
-        this._towerTypes.push(new Tower({
+        this.towerTypes.push(new Tower({
             sprite: g_sprites.towers[4],
             spriteIndex: 4,
             shotVel: 15,
@@ -578,7 +568,7 @@ var menuManager = {
         }));
 
         // Stun turn
-        this._towerTypes.push(new Tower({
+        this.towerTypes.push(new Tower({
             sprite: g_sprites.towers[5],
             spriteIndex: 5,
             shotVel: 15,

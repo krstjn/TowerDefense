@@ -43,8 +43,8 @@ function Enemy(descr) {
     this.grunt.volume = 0.5;
 
     // make the enemies bigger the higher their max HP is.
-    this.scale = 0.6 + Math.floor(this.maxHP/50)*0.1;
-    if (this.scale>2.5) this.scale = 2.5; // but cap it at scale 2.5.
+    this.scale = 0.6 + Math.floor(this.maxHP / 50) * 0.1;
+    if (this.scale > 2.5) this.scale = 2.5; // but cap it at scale 2.5.
 };
 
 Enemy.prototype = new Entity();
@@ -63,8 +63,8 @@ Enemy.prototype.update = function(du) {
     // We start by checking if the enemy has died.
     if (this._isDeadNow) {
         // Give some money after each wave when the last enemy is killed.
-        if (entityManager.enemies.length == 1) {
-            g_money += (waveManager.nextWaveID-1) * 50;
+        if (entityManager.getEnemies().length == 1) {
+            g_money += (waveManager.nextWaveID - 1) * 50;
             // play a coindrop sound when you get the money.
             if (g_soundOn) menuManager.sellSound.play();
         }
@@ -85,11 +85,11 @@ Enemy.prototype.update = function(du) {
     }
 
     /**
-    * Now since the enemy is not dead we move it forward and update the
-    * animation. We start by getting the nextNode and have the enemy move
-    * towards it. If The enemy is past the nextNode we increment the
-    * nextNodeIndex.
-    */
+     * Now since the enemy is not dead we move it forward and update the
+     * animation. We start by getting the nextNode and have the enemy move
+     * towards it. If The enemy is past the nextNode we increment the
+     * nextNodeIndex.
+     */
     var pathNode = g_paths[g_level][this.nextNodeIndex];
 
     // Athugar hvar næsti punktur er og færir enemy í átt að honum.
@@ -100,7 +100,7 @@ Enemy.prototype.update = function(du) {
     if (Math.abs(pathNode.cy - this.cy) < velocity) this.cy = pathNode.cy;
 
     if (pathNode.cx > this.cx) {
-        this.cx += velocity ;
+        this.cx += velocity;
         this.rotation = Math.PI / 2;
     } else if (pathNode.cx < this.cx) {
         this.cx -= velocity;
@@ -143,9 +143,9 @@ Enemy.prototype.takeBulletHit = function(damage, type) {
     if (type === SLOW) this.slowTimer = 60;
     if (type === STUN) this.stunTimer = 30;
     if (type === POISON) {
-      this.poisonTimer = 240;
-      this.poisonDamage = damage/240;
-      return;
+        this.poisonTimer = 240;
+        this.poisonDamage = damage / 240;
+        return;
     }
     this.hp = this.hp - damage;
     if (this.hp <= 0) {
@@ -154,11 +154,11 @@ Enemy.prototype.takeBulletHit = function(damage, type) {
 };
 
 // Kills the enemy, plays a death grunt and gives you bounty for it.
-Enemy.prototype.die = function () {
-  if (g_soundOn) this.grunt.play();
-  entityManager.createDeath(this.cx, this.cy);
-  g_money += this.bounty;
-  this._isDeadNow = true;
+Enemy.prototype.die = function() {
+    if (g_soundOn) this.grunt.play();
+    entityManager.createDeath(this.cx, this.cy);
+    g_money += this.bounty;
+    this._isDeadNow = true;
 }
 
 Enemy.prototype.render = function(ctx) {
@@ -173,6 +173,7 @@ Enemy.prototype.render = function(ctx) {
         this.cy,
         this.rotation
     );
+    this.renderHealthBar(ctx);
 };
 
 // Render the helthbar above the enemy.
@@ -210,7 +211,7 @@ Enemy.prototype.checkStatus = function(du) {
         this.hp -= this.poisonDamage;
         this.poisonTimer -= du;
         if (this.hp <= 0) {
-          this.die();
+            this.die();
         }
     }
 }

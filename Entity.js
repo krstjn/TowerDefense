@@ -24,15 +24,9 @@ functions... shared data properties are potentially quite confusing.
 
 function Entity() {
 
-/*
-    // Diagnostics to check inheritance stuff
-    this._entityProperty = true;
-    console.dir(this);
-*/
-
 };
 
-Entity.prototype.setup = function (descr) {
+Entity.prototype.setup = function(descr) {
 
     // Apply all setup properies from the (optional) descriptor
     for (var property in descr) {
@@ -46,35 +40,38 @@ Entity.prototype.setup = function (descr) {
     this._isDeadNow = false;
 };
 
-Entity.prototype.setPos = function (cx, cy) {
+Entity.prototype.setPos = function(cx, cy) {
     this.cx = cx;
     this.cy = cy;
 };
 
-Entity.prototype.getPos = function () {
-    return {posX : this.cx, posY : this.cy};
+Entity.prototype.getPos = function() {
+    return {
+        posX: this.cx,
+        posY: this.cy
+    };
 };
 
-Entity.prototype.getRadius = function () {
+Entity.prototype.getRadius = function() {
     return this.radius;
 };
 
-Entity.prototype.getSpatialID = function () {
+Entity.prototype.getSpatialID = function() {
     return this._spatialID;
 };
 
-Entity.prototype.kill = function () {
+Entity.prototype.kill = function() {
     this._isDeadNow = true;
 };
 
-Entity.prototype.findHitEntity = function () {
+Entity.prototype.findHitEntity = function() {
     var pos = this.getPos();
     return spatialManager.findEntityInRange(
         pos.posX, pos.posY, this.getRadius()
     );
 };
 
-Entity.prototype.findHitEnemy = function (towerType) {
+Entity.prototype.findHitEnemy = function(towerType) {
     var pos = this.getPos();
     return spatialManager.findEnemyInRange(
         pos.posX, pos.posY, this.fireRangeRadius, towerType
@@ -82,11 +79,11 @@ Entity.prototype.findHitEnemy = function (towerType) {
 };
 
 // This is just little "convenience wrapper"
-Entity.prototype.isColliding = function () {
+Entity.prototype.isColliding = function() {
     return this.findHitEntity();
 };
 
-Entity.prototype.wrapPosition = function () {
+Entity.prototype.wrapPosition = function() {
     this.cx = util.wrapRange(this.cx, 0, g_gameWidth);
     this.cy = util.wrapRange(this.cy, 0, g_canvas.height);
 };
