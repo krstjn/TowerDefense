@@ -188,7 +188,6 @@ function requestPreloads() {
         bullet1: "images/tower1_bullet.png",
         explosion: "images/explosion.png",
         death: "images/death.png",
-        slow: "images/freeze.png",
         stun: "images/stun2.png",
         poison: "images/poison.png"
     };
