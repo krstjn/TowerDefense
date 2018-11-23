@@ -55,7 +55,7 @@ var entityManager = {
             } = waveManager.getEnemyStats(type);
             for (var j = 0; j < amount; j++) {
 
-                this.generateEnemy({
+                this._generateEnemy({
                     ID: this._ENEMY_ID++,
                     type: type,
                     hp: hp,
@@ -68,6 +68,10 @@ var entityManager = {
                 });
             }
         }
+    },
+
+    _generateEnemy: function(descr) {
+        this._enemies.push(new Enemy(descr));
     },
 
     // PUBLIC METHODS
@@ -125,10 +129,6 @@ var entityManager = {
             type: type,
             target: target
         }));
-    },
-
-    generateEnemy: function(descr) {
-        this._enemies.push(new Enemy(descr));
     },
 
     sendNextWave: function() {

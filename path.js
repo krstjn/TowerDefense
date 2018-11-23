@@ -14,18 +14,14 @@
 // Array with multiple paths, one for each lvl.
 var g_paths = [generatePath1(), generatePath2(), generatePath3()];
 
-// Bætir punkt inn í path-ið
-function insertNode (x, y) {
-  this.push(new Node(x,y));
-};
 
-// Smíðir fyrir punkt í path
+// Constructor
 function Node(x,y) {
   this.cx = x;
   this.cy = y;
 }
 
-// Búa til path fyrir lvl 1
+// Path for level 1
 function generatePath1() {
   var p = [];
   p.push(new Node(120, 0));
@@ -38,7 +34,7 @@ function generatePath1() {
   return p;
 }
 
-// Búa til path fyrir lvl 2
+// Path for level 2
 function generatePath2() {
   var p = [];
   p.push(new Node(360, 0));
@@ -55,7 +51,7 @@ function generatePath2() {
   return p;
 }
 
-// Búa til path fyrir lvl 3
+// Path for level 3
 function generatePath3() {
   var p = [];
   p.push(new Node(120, 0));

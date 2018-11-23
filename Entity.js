@@ -24,11 +24,11 @@ functions... shared data properties are potentially quite confusing.
 
 function Entity() {
 
-/*
-    // Diagnostics to check inheritance stuff
-    this._entityProperty = true;
-    console.dir(this);
-*/
+    /*
+        // Diagnostics to check inheritance stuff
+        this._entityProperty = true;
+        console.dir(this);
+    */
 
 };
 
@@ -52,7 +52,10 @@ Entity.prototype.setPos = function (cx, cy) {
 };
 
 Entity.prototype.getPos = function () {
-    return {posX : this.cx, posY : this.cy};
+    return {
+        posX: this.cx,
+        posY: this.cy
+    };
 };
 
 Entity.prototype.getRadius = function () {
@@ -67,23 +70,12 @@ Entity.prototype.kill = function () {
     this._isDeadNow = true;
 };
 
-Entity.prototype.findHitEntity = function () {
-    var pos = this.getPos();
-    return spatialManager.findEntityInRange(
-        pos.posX, pos.posY, this.getRadius()
-    );
-};
 
 Entity.prototype.findHitEnemy = function (towerType) {
     var pos = this.getPos();
     return spatialManager.findEnemyInRange(
         pos.posX, pos.posY, this.fireRangeRadius, towerType
     );
-};
-
-// This is just little "convenience wrapper"
-Entity.prototype.isColliding = function () {
-    return this.findHitEntity();
 };
 
 Entity.prototype.wrapPosition = function () {
