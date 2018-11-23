@@ -116,6 +116,20 @@ var util = {
         ctx.restore();
     },
 
+    // Draws text in the menu with corresponding (x, y) cooredinates,
+    // text position, font, fill and stroke color
+    renderText2: function (ctx, textPosition, font, color1,
+        color2, text, xPosOnMenu, yPosOnMenu) {
+        ctx.save();
+        ctx.textAlign = textPosition;
+        ctx.font = font;
+        ctx.fillStyle = color1;
+        ctx.fillText(text, (xPosOnMenu + g_gameWidth), yPosOnMenu);
+        ctx.fillStyle = color2;
+        ctx.strokeText(text, (xPosOnMenu + g_gameWidth), yPosOnMenu);
+        ctx.restore();
+    },
+
     clearCanvas: function (ctx) {
         var prevfillStyle = ctx.fillStyle;
         ctx.fillStyle = "black";

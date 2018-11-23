@@ -23,6 +23,7 @@ var menuManager = {
     clickedExistingTower: null,
     mouseOverMenuTower: null,
     mouseOverExistingTower: null,
+    menuFont : "450 24px Berlin sans FB",
 
     selectSound: new Audio("sounds/select.ogg"),
     actionSound: new Audio("sounds/action.ogg"),
@@ -186,36 +187,19 @@ var menuManager = {
 
     // Render the tower icons on the menu. If player can not afford the tower
     // then it will be drawn with a low opacity.
-    renderTowerIcons: function(ctx) {
-        if (g_money >= this.towerTypes[0].price) {
-            this.towerTypes[0].sprite.drawCentredAt(ctx, 862, 100, 0, 1);
-        } else {
-            this.towerTypes[0].sprite.drawCentredAt(ctx, 862, 100, 0, 0.3);
-        }
-        if (g_money >= this.towerTypes[1].price) {
-            this.towerTypes[1].sprite.drawCentredAt(ctx, 938, 100, 0, 1);
-        } else {
-            this.towerTypes[1].sprite.drawCentredAt(ctx, 938, 100, 0, 0.3);
-        }
-        if (g_money >= this.towerTypes[2].price) {
-            this.towerTypes[2].sprite.drawCentredAt(ctx, 862, 176, 0, 1);
-        } else {
-            this.towerTypes[2].sprite.drawCentredAt(ctx, 862, 176, 0, 0.3);
-        }
-        if (g_money >= this.towerTypes[3].price) {
-            this.towerTypes[3].sprite.drawCentredAt(ctx, 938, 176, 0, 1);
-        } else {
-            this.towerTypes[3].sprite.drawCentredAt(ctx, 938, 176, 0, 0.3);
-        }
-        if (g_money >= this.towerTypes[4].price) {
-            this.towerTypes[4].sprite.drawCentredAt(ctx, 862, 252, 0, 1);
-        } else {
-            this.towerTypes[4].sprite.drawCentredAt(ctx, 862, 252, 0, 0.3);
-        }
-        if (g_money >= this.towerTypes[5].price) {
-            this.towerTypes[5].sprite.drawCentredAt(ctx, 938, 252, 0, 1);
-        } else {
-            this.towerTypes[5].sprite.drawCentredAt(ctx, 938, 252, 0, 0.3);
+    renderTowerIcons: function(ctx) {        
+        var xPos = 862;
+        var yPos = 24;
+        for (var i=0; i < this.towerTypes.length; i++) {
+            // Towers are placed left, right, left, right on menu.
+            xPos = (i%2 === 1) ? 938 : 862;
+            // After placing 2 towers we go down one line in menu.
+            if (i%2 === 0) { yPos += 76; }
+            if (g_money >= this.towerTypes[i].price) {
+                this.towerTypes[i].sprite.drawCentredAt(ctx, xPos, yPos, 0, 1);
+            } else {
+                this.towerTypes[i].sprite.drawCentredAt(ctx, xPos, yPos, 0, 0.3);            
+            }            
         }
     },
 
@@ -356,33 +340,18 @@ var menuManager = {
     },
 
     renderMoney: function(ctx) {
-        ctx.save();
-        ctx.textAlign = "start";
-        ctx.font = "450 24px Berlin sans FB";
-        ctx.fillStyle = "#FFE87C";
-        ctx.fillText("$ " + g_money, g_gameWidth + 20, 493);
-        ctx.fillStyle = "#3D2914";
-        ctx.strokeText("$ " + g_money, g_gameWidth + 20, 493);
-        ctx.restore();
+        util.renderText2(ctx,"start",this.menuFont,
+        "#FFE87C","#3D2914",("$ " + g_money), 20, 493);
     },
 
     renderLives: function(ctx) {
-        ctx.save();
-        ctx.textAlign = "end";
-        ctx.font = "450 24px Berlin sans FB";
-        ctx.fillStyle = "red";
-        ctx.fillText("♥ " + g_lives, g_gameWidth + 180, 493);
-        ctx.fillStyle = "#3D2914";
-        ctx.strokeText("♥ " + g_lives, g_gameWidth + 180, 493);
-        ctx.restore();
+        util.renderText2(ctx,"end",this.menuFont,
+        "red","#3D2914",("♥ " + g_lives), 180, 493);
     },
 
     renderFastForward: function(ctx) {
-        ctx.save();
-        var text = "Speed: x" + g_speed;
-        ctx.textAlign = "center";
-        util.renderText(ctx, "#3D2914", 22, text, g_gameWidth + 100, 450);
-        ctx.restore();
+        util.renderText2(ctx,"center",this.menuFont,
+        "#272120","#3D2914",("Speed: x" + g_speed), 100, 450);
     },
 
     renderWaveInfo: function(ctx) {
