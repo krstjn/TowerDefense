@@ -25,6 +25,7 @@ const GAME_OVER = 'GameOver';
 const PLAYING = 'Playing';
 const PAUSED = 'Paused';
 const NEW_GAME = 'NewGame'
+const WON = "Won";
 
 const MOOSE = 'MOOSE';
 const SUPERMAN = 'SUPERMAN';

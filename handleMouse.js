@@ -55,7 +55,7 @@
           menuManager.setupDificulty(g_mouseX, g_mouseY);
       }
 
-      if (g_gameState === PAUSED || g_gameState === GAME_OVER) {
+      if (g_gameState === PAUSED || g_gameState === GAME_OVER || g_gameState === WON) {
           g_isExplosion = false;
           menuManager.performAction(g_mouseX, g_mouseY);
       }

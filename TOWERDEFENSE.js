@@ -71,6 +71,7 @@ function processDiagnostics() {
     if (eatKey(KEY_MUTE)) g_soundOn = !g_soundOn;
     if (eatKey(KEY_TOGGLE_NW_INFO)) g_renderNextToggle = !g_renderNextToggle;
 
+    // Updates speed of the game, how fast enemies, bullets and towers move
     if (eatKey(KEY_RIGHT_ARROW)) {
         g_speed += 0.25;
     }
@@ -115,6 +116,7 @@ function processDiagnostics() {
  * GameOver *
  * Playing  *
  * Paused   *
+ * Won      *
  ************/
 var g_gameState = MAIN_MENU;
 var g_level = 0;
@@ -122,6 +124,7 @@ var g_level = 0;
 // GAME-SPECIFIC RENDERING
 function renderSimulation(ctx) {
     ctx.save();
+    // Render start menu screen others ways render the game
     if (g_gameState === MAIN_MENU) {
         menuManager.renderStartMenu(ctx);
     } else {
@@ -136,9 +139,10 @@ function renderSimulation(ctx) {
         ctx.restore();
     }
     ctx.restore();
-    if (g_gameState === PAUSED) menuManager.renderPausedOrGameOver(ctx, "GAME PAUSED");
-
-    if (g_gameState === GAME_OVER) menuManager.renderPausedOrGameOver(ctx, "GAME OVER");
+    // Render messages based on state
+    if (g_gameState === PAUSED) menuManager.renderGameOverlay(ctx, "GAME PAUSED");
+    if (g_gameState === WON) menuManager.renderGameOverlay(ctx, "YOU WON, congrats");
+    if (g_gameState === GAME_OVER) menuManager.renderGameOverlay(ctx, "GAME OVER");
 
 
     if (g_renderSpatialDebug) spatialManager.render(ctx);
@@ -256,7 +260,6 @@ function preloadDone() {
         g_sprites.towers[i+30].scale = 1.1;
     }
 
-    //entityManager.init();
     menuManager.init();
 
     main.init();

@@ -72,7 +72,7 @@ var menuManager = {
      * @param {context} ctx
      * @param {string} message
      */
-    renderPausedOrGameOver: function(ctx, message) {
+    renderGameOverlay: function(ctx, message) {
         var prevfillStyle = ctx.fillStyle;
         var oldAlpha = ctx.globalAlpha;
         ctx.fillStyle = "white";

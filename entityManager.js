@@ -27,12 +27,12 @@ var entityManager = {
 
     // "PRIVATE" DATA
     _bullets: [],
-    enemies: [],
+    _enemies: [],
     _towers: [],
     _animations: [],
 
     _CURRENT_WAVE: 1,
-    _ENEMY_ID: 1,
+    _ENEMY_ID: 1, // Used so bullets can identify their enemy
 
     // "PRIVATE" METHODS
 
@@ -81,7 +81,7 @@ var entityManager = {
     // i.e. thing which need `this` to be defined.
     //
     deferredSetup: function() {
-        this._categories = [this._bullets, this.enemies, this._towers, this._animations];
+        this._categories = [this._bullets, this._enemies, this._towers, this._animations];
     },
 
     init: function() {
@@ -102,10 +102,14 @@ var entityManager = {
 
         // Clean up entityManager, reset arrays
         this._bullets = [];
-        this.enemies = [];
+        this._enemies = [];
         this._towers = [];
 
         this.deferredSetup();
+    },
+
+    isLastEnemy: function (){
+        return this._enemies.length === 1;
     },
 
     fireBullet: function(cx, cy, velX, velY, xLength, yLength, rotation, damage, type, target) {
@@ -124,7 +128,7 @@ var entityManager = {
     },
 
     generateEnemy: function(descr) {
-        this.enemies.push(new Enemy(descr));
+        this._enemies.push(new Enemy(descr));
     },
 
     sendNextWave: function() {
@@ -193,24 +197,25 @@ var entityManager = {
         }));
     },
     getEnemiesByDist: function() {
-        return this.enemies.sort((a, b) => {
+        return this._enemies.sort((a, b) => {
             return b.distTravelled - a.distTravelled;
         });
     },
     getEnemyById: function(id) {
-        return this.enemies.find(el => {
+        return this._enemies.find(el => {
             return el.ID === id;
         });
     },
 
     update: function(du) {
 
-        // Kalla á wave tengt tíma EKKI I NOTAD NUNA
+        // OLD DESIGN: Not used anymore
         /*
         if (waveManager.isNextWaveReadyToGo(du)) {
           this._generateEnemies();
         }
         */
+
         du *= g_speed;
         for (var c = 0; c < this._categories.length; ++c) {
 
@@ -235,6 +240,11 @@ var entityManager = {
                 }
             }
         }
+
+        // Set game state to WON if waves are finished and all enemies are dead
+        if(waveManager.getNextWaveID() > g_waves.length && this._enemies.length === 0){
+            g_gameState = WON;
+        }
     },
 
     render: function(ctx) {
@@ -254,7 +264,7 @@ var entityManager = {
             }
             debugY += 10;
         }
-        this.enemies.forEach(el => {
+        this._enemies.forEach(el => {
             el.renderHealthBar(ctx);
         });
     }
