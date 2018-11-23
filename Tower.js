@@ -27,7 +27,7 @@ function Tower(descr) {
     this.damage = this.damage;
     this.inRangeTime = null;
     this.index = this.index;
-    this.lvl = 1;
+    this.lvl = 1; // Upgrade level
 };
 
 Tower.prototype = new Entity();
@@ -63,6 +63,7 @@ Tower.prototype.update = function(du) {
     spatialManager.register(this);
 };
 
+// Updates the tower stats and sprite, based on upgrade level
 Tower.prototype.upgrade = function() {
     this.lvl += 1;
     if (this.lvl == 2) this.spriteIndex += 6;
@@ -78,6 +79,7 @@ Tower.prototype.upgrade = function() {
     g_money -= this.price;
 };
 
+// Sells a tower in the grid
 Tower.prototype.sell = function() {
     g_money += Math.floor(this.price*0.75 / 10) * 10;
     g_mapGrids[g_level][this.index] = 1;

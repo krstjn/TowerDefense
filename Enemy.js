@@ -63,8 +63,8 @@ Enemy.prototype.update = function(du) {
     // We start by checking if the enemy has died.
     if (this._isDeadNow) {
         // Give some money after each wave when the last enemy is killed.
-        if (entityManager.getEnemies().length == 1) {
-            g_money += (waveManager.nextWaveID - 1) * 50;
+        if (entityManager.isLastEnemy()) {
+            g_money += (waveManager.nextWaveID-1) * 50;
             // play a coindrop sound when you get the money.
             if (g_soundOn) menuManager.sellSound.play();
         }

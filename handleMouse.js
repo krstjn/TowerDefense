@@ -73,8 +73,9 @@
           menuManager.setupSelectedLevel(g_mouseX, g_mouseY);
           menuManager.setupDificulty(g_mouseX, g_mouseY);
       }
-      if (g_gameState === PAUSED || g_gameState === GAME_OVER) {
-          g_isExplosion = false; // Make sure screenshake is off.
+
+      if (g_gameState === PAUSED || g_gameState === GAME_OVER || g_gameState === WON) {
+          g_isExplosion = false; // Make sure the screenshake is turned off.
           menuManager.performAction(g_mouseX, g_mouseY);
       }
   };

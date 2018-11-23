@@ -56,7 +56,8 @@ var KEY_STEP  = 'O'.charCodeAt(0);
 var g_isUpdatePaused = false;
 
 function shouldSkipUpdate() {
-    if(g_gameState === MAIN_MENU || g_gameState == GAME_OVER) return true;
+    // Should always skip the update if g_gameState isn't PLAYING
+    if(g_gameState === MAIN_MENU || g_gameState == GAME_OVER || g_gameState === WON) return true;
 
     if (eatKey(KEY_PAUSE)) {
         g_isUpdatePaused = !g_isUpdatePaused;
@@ -66,5 +67,6 @@ function shouldSkipUpdate() {
         g_gameState = PAUSED;
     else
         g_gameState = PLAYING;
+        
     return (g_isUpdatePaused && !eatKey(KEY_STEP)) || g_gameState !== PLAYING;    
 }

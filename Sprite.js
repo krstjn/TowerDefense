@@ -63,11 +63,8 @@ Sprite.prototype.drawCentredAtAnimated = function (ctx, frameIndex, cx, cy, rota
     ctx.translate(cx, cy);
     ctx.rotate(rotation);
     ctx.scale(this.scale, this.scale);
-
-    // drawImage expects "top-left" coords, so we offset our destination
-    // coords accordingly, to draw our sprite centred at the origin
-
-
+    // Draw the correct image from the sprite sheet, frameIndex decides on the y coords
+    // where on the sprite sheet the correct image is
     ctx.drawImage(this.image,
                    0,
                    frameIndex * h,

@@ -30,7 +30,7 @@ var entityManager = {
     _animations: [],
 
     _CURRENT_WAVE: 1,
-    _ENEMY_ID: 1,
+    _ENEMY_ID: 1, // Used so bullets can identify their enemy
 
     // "PRIVATE" METHODS
 
@@ -60,7 +60,7 @@ var entityManager = {
             } = waveManager.getEnemyStats(type);
             for (var j = 0; j < amount; j++) {
 
-                this.generateEnemy({
+                this._generateEnemy({
                     ID: this._ENEMY_ID++,
                     type: type,
                     hp: hp,
@@ -73,6 +73,10 @@ var entityManager = {
                 });
             }
         }
+    },
+
+    _generateEnemy: function(descr) {
+        this._enemies.push(new Enemy(descr));
     },
 
     // PUBLIC METHODS
@@ -114,6 +118,10 @@ var entityManager = {
         this.deferredSetup();
     },
 
+    isLastEnemy: function (){
+        return this._enemies.length === 1;
+    },
+
     // Called to create a bullet
     fireBullet: function(cx, cy, velX, velY, xLength, yLength, rotation, damage, type, target) {
         this._bullets.push(new Bullet({
@@ -130,12 +138,6 @@ var entityManager = {
         }));
     },
 
-    // Called to create an enemy
-    generateEnemy: function(descr) {
-        this._enemies.push(new Enemy(descr));
-    },
-
-    // Called to send the next wave
     sendNextWave: function() {
         this._generateEnemies();
     },
@@ -260,7 +262,7 @@ var entityManager = {
      */
     update: function(du) {
 
-        // part of a old design that sent waves with a counter
+        // OLD DESIGN: Not used anymore
         /*
         if (waveManager.isNextWaveReadyToGo(du)) {
           this._generateEnemies();
@@ -291,6 +293,11 @@ var entityManager = {
                     ++i;
                 }
             }
+        }
+
+        // Set game state to WON if waves are finished and all enemies are dead
+        if(waveManager.getNextWaveID() > g_waves.length && this._enemies.length === 0){
+            g_gameState = WON;
         }
     },
 

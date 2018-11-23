@@ -6,6 +6,7 @@
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
 */
 
+// Setup up waves 1-6 
 var g_waves = [
     [
         {type: ROBOTMAN, amount: 5, initialDelay: 0, bounty: 10, hp: 2}
@@ -37,6 +38,11 @@ var g_waves = [
     ]
 ];
 
+
+/**
+ * Setup the rest of waves 7-300, the same 6 waves are used 
+ * but hp and bounty are increased on each iteration
+ */
 var _multip = g_dificultyMultiplier;
 for (var i=2; i<=50; i++) {
     _multip *= g_dificultyMultiplier;

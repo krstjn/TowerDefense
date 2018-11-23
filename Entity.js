@@ -64,12 +64,6 @@ Entity.prototype.kill = function() {
     this._isDeadNow = true;
 };
 
-Entity.prototype.findHitEntity = function() {
-    var pos = this.getPos();
-    return spatialManager.findEntityInRange(
-        pos.posX, pos.posY, this.getRadius()
-    );
-};
 
 Entity.prototype.findHitEnemy = function(towerType) {
     var pos = this.getPos();
@@ -78,12 +72,7 @@ Entity.prototype.findHitEnemy = function(towerType) {
     );
 };
 
-// This is just little "convenience wrapper"
-Entity.prototype.isColliding = function() {
-    return this.findHitEntity();
-};
-
-Entity.prototype.wrapPosition = function() {
+Entity.prototype.wrapPosition = function () {
     this.cx = util.wrapRange(this.cx, 0, g_gameWidth);
     this.cy = util.wrapRange(this.cy, 0, g_canvas.height);
 };

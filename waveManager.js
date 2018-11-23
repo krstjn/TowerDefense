@@ -20,7 +20,7 @@ var waveManager = {
 
     // "PRIVATE" DATA
 
-    enemies: [
+    _enemies: [
          { type: ROBOTMAN, hp:  2, delay: 50, vel: 1.0 },
          { type: MOOSE, hp:  6, delay: 50, vel: 1.5 },
          { type: DOG, hp:  3, delay: 50, vel: 2.0 },
@@ -45,6 +45,11 @@ var waveManager = {
         return this.nextWaveID;
     },
 
+    /**
+     * Sends the next wave based on time
+     * OLD DESGIN: not used
+     * @param {} du 
+     */
     isNextWaveReadyToGo: function(du) {
         if (this._timeLeft<0) {
             return true;
@@ -52,7 +57,9 @@ var waveManager = {
         this._timeLeft -= du;
         return false;
     },
-
+    /**
+     * Gets the next wave from the waves array
+     */
     getNextWave: function () {
         if (this.nextWaveID > g_waves.length) {
             return [];
@@ -64,9 +71,14 @@ var waveManager = {
         return wave;
     },
 
+    /**
+     * Gets the stats for the enemy type
+     * The types are {ROBOTMAN, MOOSE, DOG,BIRD, SUPERMAN }
+     * @param {String} type 
+     */
     getEnemyStats: function (type) {
         var index = -1;
-        var enemy = this.enemies.find((e, i) => {
+        var enemy = this._enemies.find((e, i) => {
             index = i;
             return e.type === type;
         });
